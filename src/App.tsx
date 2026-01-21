@@ -1,4 +1,3 @@
-
 import { useQuery } from '@apollo/client/react';
 import { AuthForm } from './components/AuthForm';
 import { GET_ME } from './graphql/auth';
@@ -19,8 +18,12 @@ function App() {
       {data?.me ? (
         <div className="dashboard">
           <header>
-            <span>Вы вошли как: <strong>{data.me.name}</strong></span>
-            <button onClick={handleLogout} className="btn-logout">Выйти</button>
+            <span>
+              Вы вошли как: <strong>{data.me.name}</strong>
+            </span>
+            <button onClick={handleLogout} className="btn-logout">
+              Выйти
+            </button>
           </header>
           <main>
             <h1>База данных аминокислот</h1>

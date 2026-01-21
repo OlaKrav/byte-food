@@ -4,25 +4,32 @@ import { LoginArgs, MyContext, User } from './types';
 
 export const resolvers = {
   Query: {
-    me: (_parent: unknown, _args: {}, context: MyContext): User | null => {
+    me: (_parent: unknown, _args: unknown, context: MyContext): User | null => {
       return context.user;
     },
   },
   Mutation: {
     login: async (_: unknown, { email, password }: LoginArgs) => {
-      const user = { id: '1', email: 'test@test.com', name: 'Scientist', passwordHash: '' };
-      
+      const user = {
+        id: '1',
+        email: 'test@test.com',
+        name: 'Scientist',
+        passwordHash: '',
+      };
+
       const isValid = email === 'test@test.com' && password === '123456';
 
       if (!isValid) {
         throw new Error('Invalid credentials');
       }
 
-      const token = jwt.sign({ userId: user.id }, SECRET_KEY, { expiresIn: '1h' });
+      const token = jwt.sign({ userId: user.id }, SECRET_KEY, {
+        expiresIn: '1h',
+      });
 
       return {
         token,
-        user
+        user,
       };
     },
   },
