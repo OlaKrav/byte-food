@@ -11,41 +11,41 @@ function App() {
     client.resetStore();
   };
 
-  if (loading) return <div className="loader">Загрузка ByteFood...</div>;
+  if (loading) {
+    return <div className="loader">Loading ByteFood...</div>;
+  }
 
   return (
     <div className="app-container">
       {data?.me ? (
         <div className="dashboard">
-          <header style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-            <div className="user-info" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <header>
+            <div className="user-info">
               {data.me.avatar ? (
                 <img 
                   src={data.me.avatar} 
                   alt={data.me.name ?? 'user_image'} 
-                  style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover' }} 
+                  className="user-avatar"
                 />
               ) : (
-                <div style={{ 
-                  width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#007bff', 
-                  color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' 
-                }}>
-                  {data.me.name?.charAt(0).toUpperCase()}
+                <div className="user-avatar-fallback">
+                  {data.me.name?.charAt(0).toUpperCase() ?? 'U'}
                 </div>
               )}
-              <span>
-                Вы вошли как: <strong>{data.me.name}</strong>
-              </span>
+              <div className="user-info-text">
+                <span className="user-info-label">Signed in as:</span>
+                <span className="user-info-name">{data.me.name}</span>
+              </div>
             </div>
             
             <button onClick={handleLogout} className="btn-logout">
-              Выйти
+              Sign Out
             </button>
           </header>
           
           <main>
-            <h1>База данных аминокислот</h1>
-            <p>Добро пожаловать в ByteFood. Здесь будет список молекул.</p>
+            <h1>Amino Acid Database</h1>
+            <p>Welcome to ByteFood. Your molecular database will appear here.</p>
           </main>
         </div>
       ) : (

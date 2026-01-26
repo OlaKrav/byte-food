@@ -17,18 +17,18 @@ export function LoginWithGoogle() {
         window.location.reload(); 
       }
     } catch (err) {
-      console.error('Ошибка при авторизации через Google:', err);
+      console.error('Error authenticating with Google:', err);
     }
   };
 
   return (
-    <div>
-      <h3>Войти через Google</h3>
+    <div className="google-login-container">
+      <h3>Sign in with Google</h3>
       <GoogleLogin 
         onSuccess={handleSuccess} 
-        onError={() => console.log('Login Failed')} 
+        onError={() => console.log('Login Failed')}
       />
-      {loading && <p>Загрузка...</p>}
+      {loading && <p className="google-loading">Loading...</p>}
     </div>
   );
 }

@@ -11,7 +11,6 @@ export const AuthForm = () => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
 
-
   const [login, { loading: loginLoading, error: loginError }] = useMutation<
     LoginResponse,
     LoginVariables
@@ -52,53 +51,66 @@ export const AuthForm = () => {
     }
   };
 
+  const error = isRegister ? regError : loginError;
+  const isLoading = loginLoading || regLoading;
+
   return (
     <div className="auth-container">
-      <h2>{isRegister ? 'Create Account' : 'ByteFood Login'}</h2>
+      <div>
+        <h2>{isRegister ? 'Create Account' : 'Welcome to ByteFood'}</h2>
 
-      {(isRegister ? regError : loginError) && (
-        <p className="error">
-          {isRegister ? regError?.message : loginError?.message}
-        </p>
-      )}
-
-      <form onSubmit={isRegister ? handleRegister : handleEmailLogin} className="email-form">
-        {isRegister && (
-          <input
-            type="text"
-            placeholder="Full Name"
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+        {error && (
+          <p className="error">
+            {error.message}
+          </p>
         )}
-        <input
-          type="email"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
 
-        <button type="submit" disabled={loginLoading || regLoading} className="btn-primary">
-          {loginLoading || regLoading ? 'Processing...' : (isRegister ? 'Sign Up' : 'Sign In')}
-        </button>
-      </form>
+        <form onSubmit={isRegister ? handleRegister : handleEmailLogin} className="email-form">
+          {isRegister && (
+            <input
+              type="text"
+              placeholder="Full Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              disabled={isLoading}
+            />
+          )}
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            disabled={isLoading}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            disabled={isLoading}
+          />
 
-      <p className="toggle-auth">
-        {isRegister ? 'Already have an account?' : "Don't have an account?"}
-        <button onClick={() => setIsRegister(!isRegister)} className="btn-link">
-          {isRegister ? ' Login here' : ' Register here'}
-        </button>
-      </p>
+          <button type="submit" disabled={isLoading} className="btn-primary">
+            {isLoading ? 'Processing...' : (isRegister ? 'Sign Up' : 'Sign In')}
+          </button>
+        </form>
 
-      <div className="divider"><span>OR</span></div>
+        <p className="toggle-auth">
+          {isRegister ? 'Already have an account? ' : "Don't have an account? "}
+          <button onClick={() => setIsRegister(!isRegister)} className="btn-link" type="button">
+            {isRegister ? 'Sign in' : 'Sign up'}
+          </button>
+        </p>
 
-      <LoginWithGoogle />
+        <div className="divider">
+          <span>OR</span>
+        </div>
+
+        <LoginWithGoogle />
+      </div>
     </div>
   );
 };
