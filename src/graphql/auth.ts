@@ -13,10 +13,25 @@ export const LOGIN_MUTATION = gql`
   }
 `;
 
+export const REGISTER_MUTATION = gql`
+  mutation Register($email: String!, $password: String!, $name: String) {
+    register(email: $email, password: $password, name: $name) {
+      token
+      user {
+        id
+        email
+        name
+      }
+    }
+  }
+`;
+
 export const GET_ME = gql`
   query GetMe {
     me {
+      id
       name
+      avatar
     }
   }
 `;

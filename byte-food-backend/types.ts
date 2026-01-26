@@ -1,16 +1,21 @@
-export interface User {
+export interface IUser {
   id: string;
   email: string;
-  name: string;
+  name?: string | null;
+  avatar?: string | null;
 }
 
 export interface MyContext {
-  user: User | null;
+  user: IUser | null;
 }
 
 export interface LoginArgs {
   email: string;
   password: string;
+}
+
+export interface RegisterArgs extends LoginArgs {
+  name?: string;
 }
 
 export interface GoogleLoginArgs {

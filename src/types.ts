@@ -1,7 +1,8 @@
 export interface User {
   id: string;
   email: string;
-  name: string;
+  name?: string | null;
+  avatar?: string | null;
 }
 
 export interface GetMeData {
@@ -17,9 +18,19 @@ export interface LoginResponse {
   login: LoginPayload;
 }
 
+export interface RegisterResponse {
+  register: LoginPayload;
+}
+
 export interface LoginVariables {
   email: string;
-  password?: string;
+  password: string;
+}
+
+export interface RegisterVariables {
+  email: string;
+  password: string;
+  name?: string
 }
 
 export interface GoogleAuthResponse {

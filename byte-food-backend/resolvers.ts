@@ -1,38 +1,76 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 import { OAuth2Client } from 'google-auth-library';
 import { SECRET_KEY } from './server';
-import { LoginArgs, MyContext, User } from './types';
+import { LoginArgs, MyContext, IUser, RegisterArgs } from './types';
+import { User } from './models/User';
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export const resolvers = {
   Query: {
-    me: (_parent: unknown, _args: unknown, context: MyContext): User | null => {
+    me: (_parent: unknown, _args: unknown, context: MyContext): IUser | null => {
       return context.user;
     },
   },
   Mutation: {
-    login: async (_: unknown, { email, password }: LoginArgs) => {
-      const user = {
-        id: '1',
-        email: 'test@test.com',
-        name: 'Scientist',
-        passwordHash: '',
-      };
+    register: async (_: unknown, { email, password, name }: RegisterArgs) => {
 
-      const isValid = email === 'test@test.com' && password === '123456';
-
-      if (!isValid) {
-        throw new Error('Invalid credentials');
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        throw new Error('User with this email already exists');
       }
 
-      const token = jwt.sign({ userId: user.id }, SECRET_KEY, {
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const user = await User.create({
+        email,
+        passwordHash: hashedPassword,
+        name: name || email.split('@')[0],
+      });
+
+      const token = jwt.sign({ userId: user._id }, SECRET_KEY, {
+        expiresIn: '7d',
+      });
+
+      return {
+        token,
+        user: {
+          id: user._id.toString(),
+          email: user.email,
+          name: user.name,
+        },
+      };
+    },
+    login: async (_: unknown, { email, password }: LoginArgs) => {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw new Error('Invalid email or password');
+      }
+
+      if (!user.passwordHash) {
+        throw new Error('This account uses Google Login. Please sign in with Google.');
+      }
+
+      const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+
+      if (!isPasswordValid) {
+        throw new Error('Invalid email or password');
+      }
+
+      const token = jwt.sign({ userId: user._id }, SECRET_KEY, {
         expiresIn: '1h',
       });
 
       return {
         token,
-        user,
+        user: {
+          id: user._id.toString(),
+          email: user.email,
+          name: user.name,
+          avatar: user.avatar,
+        },
       };
     },
 
@@ -48,12 +86,19 @@ export const resolvers = {
           throw new Error('Google authentication failed');
         }
 
-        const user = {
-          id: payload.sub,
-          email: payload.email || '',
-          name: payload.name || 'Google User',
-          passwordHash: '',
-        };
+        const { email, name, picture, sub } = payload;
+
+        let user = await User.findOne({ email });
+
+        if (!user) {
+          user = await User.create({
+            email,
+            name,
+            avatar: picture,
+            googleId: sub
+          });
+          console.log('🆕 Новый пользователь создан!');
+        }
 
         const token = jwt.sign({ userId: user.id }, SECRET_KEY, {
           expiresIn: '1h',
