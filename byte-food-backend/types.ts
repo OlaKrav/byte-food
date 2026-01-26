@@ -13,6 +13,10 @@ export interface LoginArgs {
   password: string;
 }
 
+export interface GoogleLoginArgs {
+  idToken: string;
+}
+
 export interface JwtPayload {
   userId: string;
 }

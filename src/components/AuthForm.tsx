@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client/react';
 import { LOGIN_MUTATION } from '../graphql/auth';
 import type { LoginResponse, LoginVariables } from '../types';
+import { LoginWithGoogle } from './GoogleLogin';
 
 export const AuthForm = () => {
   const [email, setEmail] = useState('');
@@ -47,6 +48,8 @@ export const AuthForm = () => {
           {loading ? 'Connecting...' : 'Sign In'}
         </button>
       </form>
+
+      <LoginWithGoogle />
     </div>
   );
 };

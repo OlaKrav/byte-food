@@ -16,5 +16,6 @@ export const typeDefs = `#graphql
 
   type Mutation {
     login(email: String!, password: String!): AuthPayload!
+    authWithGoogle(idToken: String!): AuthPayload!
   }
 `;

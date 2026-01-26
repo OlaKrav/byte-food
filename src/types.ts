@@ -21,3 +21,14 @@ export interface LoginVariables {
   email: string;
   password?: string;
 }
+
+export interface GoogleAuthResponse {
+  authWithGoogle: {
+    token: string;
+    user: {
+      id: string;
+      email: string;
+      name: string;
+    };
+  };
+}
