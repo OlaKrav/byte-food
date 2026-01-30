@@ -14,12 +14,11 @@ export const getUser = async (token: string): Promise<IUser | null> => {
         return {
           ...user,
           id: user._id.toString(),
-        }
-      };
+        };
+      }
     }
     return null;
-  } catch (error) {
-    console.error(error);
+  } catch {
     return null;
   }
 };

@@ -1,0 +1,522 @@
+[
+  {
+    "id": "f001",
+    "name": "Beef Tenderloin",
+    "category": "Meat",
+    "macronutrients": {
+      "protein": 20.1,
+      "fat_total": 3.4,
+      "carbs": 0.0,
+      "calories": 118
+    },
+    "fat_details": {
+      "saturated": 1.2,
+      "monounsaturated": 1.3,
+      "polyunsaturated": 0.2,
+      "cholesterol_mg": 70
+    },
+    "minerals_mg": {
+      "iron_fe": 2.6,
+      "magnesium": 21.0,
+      "potassium": 340.0,
+      "zinc": 6.3,
+      "calcium": 6.0
+    },
+    "vitamins": {
+      "b12_mcg": 2.6,
+      "b6_mg": 0.4,
+      "vitamin_a_iu": 0,
+      "vitamin_c": 0
+    },
+    "amino_acids_g": {
+      "alanine": 1.18,
+      "arginine": 1.28,
+      "asparagine": 1.1,
+      "aspartic_acid": 1.83,
+      "cysteine": 0.23,
+      "glutamic_acid": 2.98,
+      "glutamine": 2.4,
+      "glycine": 1.21,
+      "histidine": 0.64,
+      "isoleucine": 0.91,
+      "leucine": 1.58,
+      "lysine": 1.69,
+      "methionine": 0.52,
+      "phenylalanine": 0.78,
+      "proline": 0.94,
+      "serine": 0.79,
+      "threonine": 0.82,
+      "tryptophan": 0.23,
+      "tyrosine": 0.64,
+      "valine": 0.99
+    }
+  },
+  {
+    "id": "f002",
+    "name": "Chicken Breast (Roasted)",
+    "category": "Poultry",
+    "macronutrients": {
+      "protein": 31.0,
+      "fat_total": 3.6,
+      "carbs": 0.0,
+      "calories": 165
+    },
+    "fat_details": {
+      "saturated": 1.0,
+      "monounsaturated": 1.2,
+      "polyunsaturated": 0.8,
+      "cholesterol_mg": 85
+    },
+    "minerals_mg": {
+      "iron_fe": 1.0,
+      "magnesium": 29.0,
+      "potassium": 256.0,
+      "zinc": 1.0,
+      "calcium": 15.0
+    },
+    "vitamins": {
+      "b12_mcg": 0.3,
+      "b6_mg": 0.6,
+      "vitamin_a_iu": 21,
+      "vitamin_c": 0
+    },
+    "amino_acids_g": {
+      "alanine": 1.7,
+      "arginine": 1.88,
+      "asparagine": 1.45,
+      "aspartic_acid": 2.77,
+      "cysteine": 0.4,
+      "glutamic_acid": 4.63,
+      "glutamine": 3.8,
+      "glycine": 1.52,
+      "histidine": 0.96,
+      "isoleucine": 1.64,
+      "leucine": 2.33,
+      "lysine": 2.66,
+      "methionine": 0.85,
+      "phenylalanine": 1.24,
+      "proline": 1.28,
+      "serine": 1.26,
+      "threonine": 1.32,
+      "tryptophan": 0.36,
+      "tyrosine": 1.04,
+      "valine": 1.57
+    }
+  },
+  {
+    "id": "f003",
+    "name": "Atlantic Salmon",
+    "category": "Fish",
+    "macronutrients": {
+      "protein": 20.4,
+      "fat_total": 13.4,
+      "carbs": 0.0,
+      "calories": 208
+    },
+    "fat_details": {
+      "saturated": 3.1,
+      "monounsaturated": 3.9,
+      "polyunsaturated": 3.9,
+      "cholesterol_mg": 55
+    },
+    "minerals_mg": {
+      "iron_fe": 0.3,
+      "magnesium": 27.0,
+      "potassium": 363.0,
+      "zinc": 0.4,
+      "calcium": 9.0
+    },
+    "vitamins": {
+      "b12_mcg": 3.2,
+      "b6_mg": 0.6,
+      "vitamin_a_iu": 50,
+      "vitamin_c": 0
+    },
+    "amino_acids_g": {
+      "alanine": 1.23,
+      "arginine": 1.22,
+      "asparagine": 1.05,
+      "aspartic_acid": 2.1,
+      "cysteine": 0.22,
+      "glutamic_acid": 3.05,
+      "glutamine": 2.2,
+      "glycine": 0.98,
+      "histidine": 0.6,
+      "isoleucine": 0.94,
+      "leucine": 1.66,
+      "lysine": 1.87,
+      "methionine": 0.6,
+      "phenylalanine": 0.8,
+      "proline": 0.72,
+      "serine": 0.83,
+      "threonine": 0.9,
+      "tryptophan": 0.23,
+      "tyrosine": 0.69,
+      "valine": 1.05
+    }
+  },
+  {
+    "id": "f004",
+    "name": "Chicken Egg (Boiled)",
+    "category": "Eggs",
+    "macronutrients": {
+      "protein": 12.6,
+      "fat_total": 10.6,
+      "carbs": 1.1,
+      "calories": 155
+    },
+    "fat_details": {
+      "saturated": 3.3,
+      "monounsaturated": 4.1,
+      "polyunsaturated": 1.4,
+      "cholesterol_mg": 373
+    },
+    "minerals_mg": {
+      "iron_fe": 1.2,
+      "magnesium": 10.0,
+      "potassium": 126.0,
+      "zinc": 1.1,
+      "calcium": 50.0
+    },
+    "vitamins": {
+      "b12_mcg": 1.1,
+      "b6_mg": 0.1,
+      "vitamin_a_iu": 520,
+      "vitamin_c": 0
+    },
+    "amino_acids_g": {
+      "alanine": 0.73,
+      "arginine": 0.75,
+      "asparagine": 0.6,
+      "aspartic_acid": 1.25,
+      "cysteine": 0.29,
+      "glutamic_acid": 1.61,
+      "glutamine": 1.2,
+      "glycine": 0.42,
+      "histidine": 0.3,
+      "isoleucine": 0.68,
+      "leucine": 1.08,
+      "lysine": 0.9,
+      "methionine": 0.39,
+      "phenylalanine": 0.66,
+      "proline": 0.5,
+      "serine": 0.93,
+      "threonine": 0.6,
+      "tryptophan": 0.15,
+      "tyrosine": 0.51,
+      "valine": 0.76
+    }
+  },
+  {
+    "id": "f005",
+    "name": "Cottage Cheese (5% Fat)",
+    "category": "Dairy",
+    "macronutrients": {
+      "protein": 16.0,
+      "fat_total": 5.0,
+      "carbs": 3.0,
+      "calories": 121
+    },
+    "fat_details": {
+      "saturated": 3.1,
+      "monounsaturated": 1.4,
+      "polyunsaturated": 0.2,
+      "cholesterol_mg": 17
+    },
+    "minerals_mg": {
+      "iron_fe": 0.1,
+      "magnesium": 12.0,
+      "potassium": 104.0,
+      "zinc": 0.4,
+      "calcium": 164.0
+    },
+    "vitamins": {
+      "b12_mcg": 0.4,
+      "b6_mg": 0.1,
+      "vitamin_a_iu": 140,
+      "vitamin_c": 0
+    },
+    "amino_acids_g": {
+      "alanine": 0.48,
+      "arginine": 0.53,
+      "asparagine": 0.55,
+      "aspartic_acid": 1.06,
+      "cysteine": 0.1,
+      "glutamic_acid": 2.89,
+      "glutamine": 2.1,
+      "glycine": 0.3,
+      "histidine": 0.45,
+      "isoleucine": 0.78,
+      "leucine": 1.5,
+      "lysine": 1.28,
+      "methionine": 0.44,
+      "phenylalanine": 0.79,
+      "proline": 1.63,
+      "serine": 0.85,
+      "threonine": 0.61,
+      "tryptophan": 0.19,
+      "tyrosine": 0.78,
+      "valine": 1.05
+    }
+  },
+  {
+    "id": "f006",
+    "name": "Buckwheat (Raw)",
+    "category": "Grains",
+    "macronutrients": {
+      "protein": 13.3,
+      "fat_total": 3.4,
+      "carbs": 61.5,
+      "calories": 330
+    },
+    "fat_details": {
+      "saturated": 0.7,
+      "monounsaturated": 1.0,
+      "polyunsaturated": 1.0,
+      "cholesterol_mg": 0
+    },
+    "minerals_mg": {
+      "iron_fe": 6.7,
+      "magnesium": 231.0,
+      "potassium": 460.0,
+      "zinc": 2.4,
+      "calcium": 33.0
+    },
+    "vitamins": {
+      "b12_mcg": 0.0,
+      "b6_mg": 0.4,
+      "vitamin_a_iu": 0,
+      "vitamin_c": 0
+    },
+    "amino_acids_g": {
+      "alanine": 0.75,
+      "arginine": 0.98,
+      "asparagine": 0.45,
+      "aspartic_acid": 1.13,
+      "cysteine": 0.23,
+      "glutamic_acid": 2.05,
+      "glutamine": 1.5,
+      "glycine": 0.76,
+      "histidine": 0.31,
+      "isoleucine": 0.5,
+      "leucine": 0.83,
+      "lysine": 0.67,
+      "methionine": 0.17,
+      "phenylalanine": 0.52,
+      "proline": 0.5,
+      "serine": 0.68,
+      "threonine": 0.51,
+      "tryptophan": 0.18,
+      "tyrosine": 0.33,
+      "valine": 0.68
+    }
+  },
+  {
+    "id": "f007",
+    "name": "Red Lentils (Dry)",
+    "category": "Legumes",
+    "macronutrients": {
+      "protein": 24.6,
+      "fat_total": 1.1,
+      "carbs": 52.7,
+      "calories": 318
+    },
+    "fat_details": {
+      "saturated": 0.1,
+      "monounsaturated": 0.2,
+      "polyunsaturated": 0.5,
+      "cholesterol_mg": 0
+    },
+    "minerals_mg": {
+      "iron_fe": 7.5,
+      "magnesium": 122.0,
+      "potassium": 955.0,
+      "zinc": 4.8,
+      "calcium": 56.0
+    },
+    "vitamins": {
+      "b12_mcg": 0.0,
+      "b6_mg": 0.5,
+      "vitamin_a_iu": 39,
+      "vitamin_c": 4.5
+    },
+    "amino_acids_g": {
+      "alanine": 1.03,
+      "arginine": 1.9,
+      "asparagine": 1.1,
+      "aspartic_acid": 2.67,
+      "cysteine": 0.31,
+      "glutamic_acid": 3.75,
+      "glutamine": 2.5,
+      "glycine": 1.03,
+      "histidine": 0.65,
+      "isoleucine": 1.04,
+      "leucine": 1.76,
+      "lysine": 1.74,
+      "methionine": 0.21,
+      "phenylalanine": 1.22,
+      "proline": 1.04,
+      "serine": 1.15,
+      "threonine": 0.82,
+      "tryptophan": 0.22,
+      "tyrosine": 0.74,
+      "valine": 1.2
+    }
+  },
+  {
+    "id": "f008",
+    "name": "Almonds",
+    "category": "Nuts",
+    "macronutrients": {
+      "protein": 21.2,
+      "fat_total": 49.9,
+      "carbs": 9.1,
+      "calories": 579
+    },
+    "fat_details": {
+      "saturated": 3.8,
+      "monounsaturated": 31.5,
+      "polyunsaturated": 12.3,
+      "cholesterol_mg": 0
+    },
+    "minerals_mg": {
+      "iron_fe": 3.7,
+      "magnesium": 270.0,
+      "potassium": 733.0,
+      "zinc": 3.1,
+      "calcium": 269.0
+    },
+    "vitamins": {
+      "b12_mcg": 0.0,
+      "b6_mg": 0.1,
+      "vitamin_a_iu": 1,
+      "vitamin_c": 0
+    },
+    "amino_acids_g": {
+      "alanine": 1.02,
+      "arginine": 2.45,
+      "asparagine": 1.2,
+      "aspartic_acid": 2.65,
+      "cysteine": 0.19,
+      "glutamic_acid": 6.2,
+      "glutamine": 4.1,
+      "glycine": 1.45,
+      "histidine": 0.55,
+      "isoleucine": 0.7,
+      "leucine": 1.47,
+      "lysine": 0.57,
+      "methionine": 0.15,
+      "phenylalanine": 1.12,
+      "proline": 1.03,
+      "serine": 0.94,
+      "threonine": 0.6,
+      "tryptophan": 0.21,
+      "tyrosine": 0.45,
+      "valine": 0.81
+    }
+  },
+  {
+    "id": "f009",
+    "name": "Firm Tofu",
+    "category": "Plant-based Protein",
+    "macronutrients": {
+      "protein": 17.3,
+      "fat_total": 8.7,
+      "carbs": 2.8,
+      "calories": 144
+    },
+    "fat_details": {
+      "saturated": 1.3,
+      "monounsaturated": 1.9,
+      "polyunsaturated": 4.9,
+      "cholesterol_mg": 0
+    },
+    "minerals_mg": {
+      "iron_fe": 2.0,
+      "magnesium": 58.0,
+      "potassium": 237.0,
+      "zinc": 1.6,
+      "calcium": 683.0
+    },
+    "vitamins": {
+      "b12_mcg": 0.0,
+      "b6_mg": 0.1,
+      "vitamin_a_iu": 30,
+      "vitamin_c": 0
+    },
+    "amino_acids_g": {
+      "alanine": 0.71,
+      "arginine": 1.25,
+      "asparagine": 0.85,
+      "aspartic_acid": 1.83,
+      "cysteine": 0.24,
+      "glutamic_acid": 3.03,
+      "glutamine": 2.1,
+      "glycine": 0.71,
+      "histidine": 0.44,
+      "isoleucine": 0.81,
+      "leucine": 1.36,
+      "lysine": 1.08,
+      "methionine": 0.21,
+      "phenylalanine": 0.86,
+      "proline": 0.88,
+      "serine": 0.88,
+      "threonine": 0.67,
+      "tryptophan": 0.22,
+      "tyrosine": 0.65,
+      "valine": 0.84
+    }
+  },
+  {
+    "id": "f010",
+    "name": "Canned Tuna (In Brine)",
+    "category": "Fish",
+    "macronutrients": {
+      "protein": 25.5,
+      "fat_total": 0.8,
+      "carbs": 0.0,
+      "calories": 116
+    },
+    "fat_details": {
+      "saturated": 0.2,
+      "monounsaturated": 0.1,
+      "polyunsaturated": 0.3,
+      "cholesterol_mg": 30
+    },
+    "minerals_mg": {
+      "iron_fe": 1.5,
+      "magnesium": 33.0,
+      "potassium": 237.0,
+      "zinc": 0.8,
+      "calcium": 11.0
+    },
+    "vitamins": {
+      "b12_mcg": 2.5,
+      "b6_mg": 0.3,
+      "vitamin_a_iu": 20,
+      "vitamin_c": 0
+    },
+    "amino_acids_g": {
+      "alanine": 1.54,
+      "arginine": 1.53,
+      "asparagine": 1.35,
+      "aspartic_acid": 2.61,
+      "cysteine": 0.27,
+      "glutamic_acid": 3.81,
+      "glutamine": 2.8,
+      "glycine": 1.22,
+      "histidine": 0.75,
+      "isoleucine": 1.17,
+      "leucine": 2.07,
+      "lysine": 2.34,
+      "methionine": 0.75,
+      "phenylalanine": 1.0,
+      "proline": 0.9,
+      "serine": 1.03,
+      "threonine": 1.12,
+      "tryptophan": 0.29,
+      "tyrosine": 0.86,
+      "valine": 1.31
+    }
+  }
+]

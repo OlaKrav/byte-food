@@ -43,3 +43,41 @@ export interface GoogleAuthResponse {
     };
   };
 }
+
+export interface AminoAcids {
+  alanine: number;
+  arginine: number;
+  asparagine: number;
+  aspartic_acid: number;
+  cysteine: number;
+  glutamic_acid: number;
+  glutamine: number;
+  glycine: number;
+  histidine: number;
+  isoleucine: number;
+  leucine: number;
+  lysine: number;
+  methionine: number;
+  phenylalanine: number;
+  proline: number;
+  serine: number;
+  threonine: number;
+  tryptophan: number;
+  tyrosine: number;
+  valine: number;
+}
+
+export interface Food {
+  id: string;
+  name: string;
+  category: string;
+  amino_acids_g: AminoAcids;
+}
+
+export interface FoodData {
+  food: Food;
+}
+
+export interface FoodVariables {
+  name: string;
+}

@@ -9,16 +9,22 @@ import { getUser } from './auth';
 
 export const SECRET_KEY = process.env.JWT_SECRET || 'fallback_secret';
 const PORT = +(process.env.PORT || 5000);
-
 const MONGO_URI = process.env.MONGO_URI as string;
 
-mongoose.connect(MONGO_URI)
-  .then(() => console.log('🚀 Connected to MongoDB'))
-  .catch(err => console.error('❌ MongoDB error:', err));
+if (!MONGO_URI) {
+  throw new Error('MONGO_URI is not defined in .env');
+}
 
 async function init() {
+  try {
+    await mongoose.connect(MONGO_URI);
+  } catch {
+    throw new Error('Database connection failed');
+  }
+
   const server = new ApolloServer({ typeDefs, resolvers });
-  const { url } = await startStandaloneServer(server, {
+
+  await startStandaloneServer(server, {
     listen: { port: PORT },
     context: async ({ req }) => {
       const token = req.headers.authorization?.replace('Bearer ', '') || '';
@@ -26,7 +32,8 @@ async function init() {
       return { user };
     },
   });
-  console.log(`🚀 Server ready at: ${url}`);
 }
 
-init().catch((err) => console.error(err));
+init().catch(() => {
+  process.exit(1);
+});

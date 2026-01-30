@@ -1,21 +1,48 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { OAuth2Client } from 'google-auth-library';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 import { SECRET_KEY } from './server';
-import { LoginArgs, MyContext, IUser, RegisterArgs } from './types';
+import { LoginArgs, MyContext, IUser, RegisterArgs, Food } from './types';
 import { User } from './models/User';
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
+let foodsData: Food[] = [];
+try {
+  const foodsPath = join(__dirname, 'foods.json');
+  const foodsContent = readFileSync(foodsPath, 'utf-8');
+  foodsData = JSON.parse(foodsContent);
+} catch {
+  throw new Error('FAILED_TO_LOAD_FOODS_DATA: Check if foods.json exists');
+}
+
 export const resolvers = {
   Query: {
-    me: (_parent: unknown, _args: unknown, context: MyContext): IUser | null => {
+    me: (
+      _parent: unknown,
+      _args: unknown,
+      context: MyContext
+    ): IUser | null => {
       return context.user;
+    },
+    food: (_parent: unknown, { name }: { name: string }) => {
+      if (!name || name.trim() === '') {
+        throw new Error('Food name is required');
+      }
+
+      const food = foodsData.find((f) => f.name.includes(name));
+
+      if (!food) {
+        throw new Error(`Food "${name}" not found`);
+      }
+
+      return food;
     },
   },
   Mutation: {
     register: async (_: unknown, { email, password, name }: RegisterArgs) => {
-
       const existingUser = await User.findOne({ email });
       if (existingUser) {
         throw new Error('User with this email already exists');
@@ -50,7 +77,9 @@ export const resolvers = {
       }
 
       if (!user.passwordHash) {
-        throw new Error('This account uses Google Login. Please sign in with Google.');
+        throw new Error(
+          'This account uses Google Login. Please sign in with Google.'
+        );
       }
 
       const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
@@ -95,9 +124,8 @@ export const resolvers = {
             email,
             name,
             avatar: picture,
-            googleId: sub
+            googleId: sub,
           });
-          console.log('🆕 Новый пользователь создан!');
         }
 
         const token = jwt.sign({ userId: user.id }, SECRET_KEY, {
@@ -108,10 +136,9 @@ export const resolvers = {
           token,
           user,
         };
-      } catch (error) {
-        console.error('Google Auth Error:', error);
+      } catch {
         throw new Error('Invalid Google Token');
       }
-    }
-  }
+    },
+  },
 };
