@@ -40,6 +40,12 @@ export const resolvers = {
 
       return food;
     },
+    allFoods: () => {
+      return foodsData.map((food) => ({
+        id: food.id,
+        name: food.name,
+      }));
+    },
   },
   Mutation: {
     register: async (_: unknown, { email, password, name }: RegisterArgs) => {

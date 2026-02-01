@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client/react';
 import { AuthForm } from './components/AuthForm';
+import { FoodSelector } from './components/FoodSelector';
 import { GET_ME } from './graphql/auth';
 import type { GetMeData } from './types';
 
@@ -45,7 +46,7 @@ function App() {
           
           <main>
             <h1>Amino Acid Database</h1>
-            <p>Welcome to ByteFood. Your molecular database will appear here.</p>
+            <FoodSelector />
           </main>
         </div>
       ) : (

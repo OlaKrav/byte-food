@@ -81,3 +81,12 @@ export interface FoodData {
 export interface FoodVariables {
   name: string;
 }
+
+export interface FoodName {
+  id: string;
+  name: string;
+}
+
+export interface AllFoodsData {
+  allFoods: FoodName[];
+}

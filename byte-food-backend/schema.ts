@@ -41,9 +41,15 @@ export const typeDefs = `#graphql
     amino_acids_g: AminoAcids!
   }
 
+  type FoodName {
+    id: ID!
+    name: String!
+  }
+
   type Query {
     me: User
     food(name: String!): Food
+    allFoods: [FoodName!]!
   }
 
   type Mutation {

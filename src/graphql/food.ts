@@ -5,6 +5,7 @@ export const GET_FOOD_BY_NAME = gql`
     food(name: $name) {
       id
       name
+      category
       amino_acids_g {
         alanine
         arginine
@@ -31,3 +32,11 @@ export const GET_FOOD_BY_NAME = gql`
   }
 `;
 
+export const GET_ALL_FOODS = gql`
+  query GetAllFoods {
+    allFoods {
+      id
+      name
+    }
+  }
+`;
