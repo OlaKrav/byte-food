@@ -10,7 +10,8 @@ import { User } from './models/User';
 import { 
   emailSchema, 
   passwordSchema, 
-  nameSchema 
+  nameSchema,
+  validateFoodName
 } from './validation';
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -30,7 +31,7 @@ export const resolvers = {
       return context.user;
     },
     food: (_parent: unknown, { name }: { name: string }) => {
-      const validatedName = z.string().trim().min(1, "Food name is required").parse(name);
+      const validatedName = validateFoodName(name);
 
       const food = foodsData.find((f) =>
         f.name.toLowerCase().includes(validatedName.toLowerCase())

@@ -38,3 +38,16 @@ export function validatePassword(password: unknown): string {
 export function validateName(name: unknown): string | undefined {
   return nameSchema.parse(name);
 }
+
+export const foodNameSchema = z
+  .string()
+  .min(1, 'Food name is required')
+  .trim()
+  .min(1, 'Food name cannot be empty')
+  .max(100, 'Food name is too long (maximum 100 characters)')
+  .regex(/^[a-zA-Z0-9\s\-'.,()]+$/, 'Food name contains invalid characters')
+  .transform((val) => val.trim());
+
+export function validateFoodName(name: unknown): string {
+  return foodNameSchema.parse(name);
+}
