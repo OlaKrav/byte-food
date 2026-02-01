@@ -13,6 +13,13 @@ import {
   nameSchema,
   validateFoodName
 } from './validation';
+import {
+  UserExistsError,
+  InvalidCredentialsError,
+  NotFoundError,
+  ValidationError,
+  AppError,
+} from './errors';
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -31,14 +38,23 @@ export const resolvers = {
       return context.user;
     },
     food: (_parent: unknown, { name }: { name: string }) => {
-      const validatedName = validateFoodName(name);
+      let validatedName: string;
+      
+      try {
+        validatedName = validateFoodName(name);
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          throw new ValidationError(error.issues[0].message);
+        }
+        throw error;
+      }
 
       const food = foodsData.find((f) =>
         f.name.toLowerCase().includes(validatedName.toLowerCase())
       );
 
       if (!food) {
-        throw new Error(`Food "${validatedName}" not found`);
+        throw new NotFoundError(`Food "${validatedName}" not found`);
       }
 
       return food;
@@ -53,52 +69,87 @@ export const resolvers = {
 
   Mutation: {
     register: async (_: unknown, { email, password, name }: RegisterArgs) => {
-      const validEmail = emailSchema.parse(email);
-      const validPassword = passwordSchema.parse(password);
-      const validName = nameSchema.parse(name);
+      let validEmail: string;
+      let validPassword: string;
+      let validName: string | undefined;
+
+      try {
+        validEmail = emailSchema.parse(email);
+        validPassword = passwordSchema.parse(password);
+        validName = nameSchema.parse(name);
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          throw new ValidationError(error.issues[0].message);
+        }
+        throw error;
+      }
 
       const existingUser = await User.findOne({ email: validEmail });
       if (existingUser) {
-        throw new Error('User with this email already exists');
+        throw new UserExistsError();
       }
 
       const hashedPassword = await bcrypt.hash(validPassword, 10);
 
-      const user = await User.create({
-        email: validEmail,
-        passwordHash: hashedPassword,
-        name: validName || validEmail.split('@')[0],
-      });
+      try {
+        const user = await User.create({
+          email: validEmail,
+          passwordHash: hashedPassword,
+          name: validName || validEmail.split('@')[0],
+        });
 
-      const token = jwt.sign({ userId: user._id }, SECRET_KEY, { expiresIn: '7d' });
+        const token = jwt.sign({ userId: user._id }, SECRET_KEY, { expiresIn: '7d' });
 
-      return {
-        token,
-        user: {
-          id: user._id.toString(),
-          email: user.email,
-          name: user.name,
-        },
-      };
+        return {
+          token,
+          user: {
+            id: user._id.toString(),
+            email: user.email,
+            name: user.name,
+          },
+        };
+      } catch (error: unknown) {
+        if (error && typeof error === 'object') {
+          const mongoError = error as { code?: number; codeName?: string; message?: string };
+          if (
+            mongoError.code === 11000 ||
+            mongoError.codeName === 'DuplicateKey' ||
+            (mongoError.message && mongoError.message.includes('duplicate key'))
+          ) {
+            throw new UserExistsError();
+          }
+        }
+        throw error;
+      }
     },
 
     login: async (_: unknown, { email, password }: LoginArgs) => {
-      const validEmail = emailSchema.parse(email);
-      const validPassword = z.string().min(1, "Password is required").parse(password);
+      let validEmail: string;
+      let validPassword: string;
+
+      try {
+        validEmail = emailSchema.parse(email);
+        validPassword = z.string().min(1, "Password is required").parse(password);
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          throw new ValidationError(error.issues[0].message);
+        }
+        throw error;
+      }
 
       const user = await User.findOne({ email: validEmail });
 
       if (!user) {
-        throw new Error('Invalid email or password');
+        throw new InvalidCredentialsError();
       }
 
       if (!user.passwordHash) {
-        throw new Error('This account uses Google Login. Please sign in with Google.');
+        throw new InvalidCredentialsError('This account uses Google Login. Please sign in with Google.');
       }
 
       const isPasswordValid = await bcrypt.compare(validPassword, user.passwordHash);
       if (!isPasswordValid) {
-        throw new Error('Invalid email or password');
+        throw new InvalidCredentialsError();
       }
 
       const token = jwt.sign({ userId: user._id }, SECRET_KEY, { expiresIn: '1h' });
@@ -115,7 +166,16 @@ export const resolvers = {
     },
 
     authWithGoogle: async (_: unknown, { idToken }: { idToken: string }) => {
-      const validIdToken = z.string().trim().min(1, "Google ID token is required").parse(idToken);
+      let validIdToken: string;
+
+      try {
+        validIdToken = z.string().trim().min(1, "Google ID token is required").parse(idToken);
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          throw new ValidationError(error.issues[0].message);
+        }
+        throw error;
+      }
 
       try {
         const ticket = await client.verifyIdToken({
@@ -125,11 +185,21 @@ export const resolvers = {
 
         const payload = ticket.getPayload();
         if (!payload || !payload.email) {
-          throw new Error('Google authentication failed');
+          throw new InvalidCredentialsError('Google authentication failed');
         }
 
-        const sanitizedEmail = emailSchema.parse(payload.email);
-        const validatedName = payload.name ? nameSchema.parse(payload.name) : undefined;
+        let sanitizedEmail: string;
+        let validatedName: string | undefined;
+
+        try {
+          sanitizedEmail = emailSchema.parse(payload.email);
+          validatedName = payload.name ? nameSchema.parse(payload.name) : undefined;
+        } catch (error) {
+          if (error instanceof z.ZodError) {
+            throw new ValidationError(error.issues[0].message);
+          }
+          throw error;
+        }
 
         let user = await User.findOne({ email: sanitizedEmail });
 
@@ -146,10 +216,10 @@ export const resolvers = {
 
         return { token, user };
       } catch (error) {
-        if (error instanceof z.ZodError) {
-          throw new Error(error.issues[0].message);
+        if (error instanceof AppError) {
+          throw error;
         }
-        throw error instanceof Error ? error : new Error('Invalid Google Token');
+        throw new InvalidCredentialsError('Invalid Google Token');
       }
     },
   },

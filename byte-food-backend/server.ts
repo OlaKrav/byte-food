@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import { typeDefs } from './schema';
 import { resolvers } from './resolvers';
 import { getUser } from './auth';
+import { formatError } from './errors';
 
 export const SECRET_KEY = process.env.JWT_SECRET || 'fallback_secret';
 const PORT = +(process.env.PORT || 5000);
@@ -22,7 +23,11 @@ async function init() {
     throw new Error('Database connection failed');
   }
 
-  const server = new ApolloServer({ typeDefs, resolvers });
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    formatError,
+  });
 
   await startStandaloneServer(server, {
     listen: { port: PORT },
