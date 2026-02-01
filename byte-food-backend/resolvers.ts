@@ -3,9 +3,15 @@ import bcrypt from 'bcrypt';
 import { OAuth2Client } from 'google-auth-library';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { z } from 'zod';
 import { SECRET_KEY } from './server';
 import { LoginArgs, MyContext, IUser, RegisterArgs, Food } from './types';
 import { User } from './models/User';
+import { 
+  emailSchema, 
+  passwordSchema, 
+  nameSchema 
+} from './validation';
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -20,22 +26,18 @@ try {
 
 export const resolvers = {
   Query: {
-    me: (
-      _parent: unknown,
-      _args: unknown,
-      context: MyContext
-    ): IUser | null => {
+    me: (_parent: unknown, _args: unknown, context: MyContext): IUser | null => {
       return context.user;
     },
     food: (_parent: unknown, { name }: { name: string }) => {
-      if (!name || name.trim() === '') {
-        throw new Error('Food name is required');
-      }
+      const validatedName = z.string().trim().min(1, "Food name is required").parse(name);
 
-      const food = foodsData.find((f) => f.name.includes(name));
+      const food = foodsData.find((f) =>
+        f.name.toLowerCase().includes(validatedName.toLowerCase())
+      );
 
       if (!food) {
-        throw new Error(`Food "${name}" not found`);
+        throw new Error(`Food "${validatedName}" not found`);
       }
 
       return food;
@@ -47,24 +49,27 @@ export const resolvers = {
       }));
     },
   },
+
   Mutation: {
     register: async (_: unknown, { email, password, name }: RegisterArgs) => {
-      const existingUser = await User.findOne({ email });
+      const validEmail = emailSchema.parse(email);
+      const validPassword = passwordSchema.parse(password);
+      const validName = nameSchema.parse(name);
+
+      const existingUser = await User.findOne({ email: validEmail });
       if (existingUser) {
         throw new Error('User with this email already exists');
       }
 
-      const hashedPassword = await bcrypt.hash(password, 10);
+      const hashedPassword = await bcrypt.hash(validPassword, 10);
 
       const user = await User.create({
-        email,
+        email: validEmail,
         passwordHash: hashedPassword,
-        name: name || email.split('@')[0],
+        name: validName || validEmail.split('@')[0],
       });
 
-      const token = jwt.sign({ userId: user._id }, SECRET_KEY, {
-        expiresIn: '7d',
-      });
+      const token = jwt.sign({ userId: user._id }, SECRET_KEY, { expiresIn: '7d' });
 
       return {
         token,
@@ -75,28 +80,27 @@ export const resolvers = {
         },
       };
     },
+
     login: async (_: unknown, { email, password }: LoginArgs) => {
-      const user = await User.findOne({ email });
+      const validEmail = emailSchema.parse(email);
+      const validPassword = z.string().min(1, "Password is required").parse(password);
+
+      const user = await User.findOne({ email: validEmail });
 
       if (!user) {
         throw new Error('Invalid email or password');
       }
 
       if (!user.passwordHash) {
-        throw new Error(
-          'This account uses Google Login. Please sign in with Google.'
-        );
+        throw new Error('This account uses Google Login. Please sign in with Google.');
       }
 
-      const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
-
+      const isPasswordValid = await bcrypt.compare(validPassword, user.passwordHash);
       if (!isPasswordValid) {
         throw new Error('Invalid email or password');
       }
 
-      const token = jwt.sign({ userId: user._id }, SECRET_KEY, {
-        expiresIn: '1h',
-      });
+      const token = jwt.sign({ userId: user._id }, SECRET_KEY, { expiresIn: '1h' });
 
       return {
         token,
@@ -110,40 +114,41 @@ export const resolvers = {
     },
 
     authWithGoogle: async (_: unknown, { idToken }: { idToken: string }) => {
+      const validIdToken = z.string().trim().min(1, "Google ID token is required").parse(idToken);
+
       try {
         const ticket = await client.verifyIdToken({
-          idToken,
+          idToken: validIdToken,
           audience: process.env.GOOGLE_CLIENT_ID,
         });
 
         const payload = ticket.getPayload();
-        if (!payload) {
+        if (!payload || !payload.email) {
           throw new Error('Google authentication failed');
         }
 
-        const { email, name, picture, sub } = payload;
+        const sanitizedEmail = emailSchema.parse(payload.email);
+        const validatedName = payload.name ? nameSchema.parse(payload.name) : undefined;
 
-        let user = await User.findOne({ email });
+        let user = await User.findOne({ email: sanitizedEmail });
 
         if (!user) {
           user = await User.create({
-            email,
-            name,
-            avatar: picture,
-            googleId: sub,
+            email: sanitizedEmail,
+            name: validatedName || sanitizedEmail.split('@')[0],
+            avatar: payload.picture,
+            googleId: payload.sub,
           });
         }
 
-        const token = jwt.sign({ userId: user.id }, SECRET_KEY, {
-          expiresIn: '1h',
-        });
+        const token = jwt.sign({ userId: user.id }, SECRET_KEY, { expiresIn: '1h' });
 
-        return {
-          token,
-          user,
-        };
-      } catch {
-        throw new Error('Invalid Google Token');
+        return { token, user };
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          throw new Error(error.issues[0].message);
+        }
+        throw error instanceof Error ? error : new Error('Invalid Google Token');
       }
     },
   },
