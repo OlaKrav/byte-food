@@ -1,33 +1,54 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@apollo/client/react';
 import { LOGIN_MUTATION, REGISTER_MUTATION } from '../graphql/auth';
-import type { LoginResponse, LoginVariables, RegisterResponse, RegisterVariables } from '../types';
+import type { LoginResponse, RegisterResponse } from '../types';
 import { LoginWithGoogle } from './GoogleLogin';
+import { loginSchema, registerSchema, type LoginFormData, type RegisterFormData } from '../lib/validation';
 
 export const AuthForm = () => {
   const [isRegister, setIsRegister] = useState(false);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const {
+    register: registerLogin,
+    handleSubmit: handleSubmitLogin,
+    formState: { 
+      errors: loginErrors, 
+      isValid: isLoginValid, 
+      isSubmitted: isLoginSubmitted 
+    },
+    reset: resetLogin,
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
+  });
 
-  const [login, { loading: loginLoading, error: loginError }] = useMutation<
-    LoginResponse,
-    LoginVariables
-  >(LOGIN_MUTATION);
+  const {
+    register: registerRegister,
+    handleSubmit: handleSubmitRegister,
+    formState: { 
+      errors: registerErrors, 
+      isValid: isRegisterValid, 
+      isSubmitted: isRegisterSubmitted 
+    },
+    reset: resetRegister,
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
+  });
 
-  const [registerMutation, { loading: regLoading, error: regError }] = useMutation<
-    RegisterResponse,
-    RegisterVariables
-  >(REGISTER_MUTATION);
+  const [login, { loading: loginLoading, error: loginError }] = useMutation<LoginResponse>(LOGIN_MUTATION);
+  const [registerMutation, { loading: regLoading, error: regError }] = useMutation<RegisterResponse>(REGISTER_MUTATION);
 
-  const handleEmailLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onLogin = async (data: LoginFormData) => {
     try {
-      const { data } = await login({ variables: { email, password } });
+      const { data: response } = await login({ variables: data });
 
-      if (data?.login.token) {
-        localStorage.setItem('token', data.login.token);
+      if (response?.login.token) {
+        localStorage.setItem('token', response.login.token);
         window.location.href = '/';
       }
     } catch (err) {
@@ -35,72 +56,106 @@ export const AuthForm = () => {
     }
   };
 
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onRegister = async (data: RegisterFormData) => {
     try {
-      const { data } = await registerMutation({
-        variables: { email, password, name }
+      const { data: response } = await registerMutation({
+        variables: {
+          email: data.email,
+          password: data.password,
+          name: data.name?.trim() || undefined,
+        },
       });
-      
-      if (data?.register.token) {
-        localStorage.setItem('token', data.register.token);
+
+      if (response?.register.token) {
+        localStorage.setItem('token', response.register.token);
         window.location.href = '/';
       }
     } catch (err) {
-      console.error("Registration error:", err);
+      console.error('Registration error:', err);
     }
   };
 
-  const error = isRegister ? regError : loginError;
+  const handleToggleMode = () => {
+    setIsRegister(!isRegister);
+    resetLogin();
+    resetRegister();
+  };
+
+  const currentErrors = isRegister ? registerErrors : loginErrors;
+  const apiError = isRegister ? regError : loginError;
   const isLoading = loginLoading || regLoading;
+  
+  const isInvalid = isRegister 
+    ? (isRegisterSubmitted && !isRegisterValid) 
+    : (isLoginSubmitted && !isLoginValid);
+
+  const onSubmit = isRegister ? handleSubmitRegister(onRegister) : handleSubmitLogin(onLogin);
 
   return (
     <div className="auth-container">
       <div>
         <h2>{isRegister ? 'Create Account' : 'Welcome to ByteFood'}</h2>
 
-        {error && (
+        {apiError && (
           <p className="error">
-            {error.message}
+            {apiError.message}
           </p>
         )}
 
-        <form onSubmit={isRegister ? handleRegister : handleEmailLogin} className="email-form">
+        <form onSubmit={onSubmit} className="email-form">
           {isRegister && (
-            <input
-              type="text"
-              placeholder="Full Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              disabled={isLoading}
-            />
+            <div className="form-field">
+              <input
+                type="text"
+                placeholder="Full Name"
+                {...registerRegister('name')}
+                disabled={isLoading}
+                className={registerErrors.name ? 'input-error' : ''}
+              />
+              <span className="field-error">
+                {registerErrors.name?.message || ''}
+              </span>
+            </div>
           )}
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            disabled={isLoading}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            disabled={isLoading}
-          />
 
-          <button type="submit" disabled={isLoading} className="btn-primary">
+          <div className="form-field">
+            <input
+              type="email"
+              placeholder="Email"
+              {...(isRegister ? registerRegister('email') : registerLogin('email'))}
+              disabled={isLoading}
+              className={currentErrors.email ? 'input-error' : ''}
+            />
+            <span className="field-error">
+              {currentErrors.email?.message || ''}
+            </span>
+          </div>
+
+          <div className="form-field">
+            <input
+              type="password"
+              placeholder="Password"
+              {...(isRegister ? registerRegister('password') : registerLogin('password'))}
+              disabled={isLoading}
+              className={currentErrors.password ? 'input-error' : ''}
+            />
+            <span className="field-error">
+              {currentErrors.password?.message || ''}
+            </span>
+          </div>
+
+          <button 
+            type="submit" 
+            disabled={isLoading || isInvalid} 
+            className={`btn-primary ${isInvalid ? 'btn-disabled' : ''}`}
+          >
             {isLoading ? 'Processing...' : (isRegister ? 'Sign Up' : 'Sign In')}
           </button>
         </form>
 
         <p className="toggle-auth">
           {isRegister ? 'Already have an account? ' : "Don't have an account? "}
-          <button onClick={() => setIsRegister(!isRegister)} className="btn-link" type="button">
+          <button onClick={handleToggleMode} className="btn-link" type="button">
             {isRegister ? 'Sign in' : 'Sign up'}
           </button>
         </p>

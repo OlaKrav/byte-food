@@ -29,8 +29,8 @@ const AMINO_ACIDS = [
 export const FoodSelector = () => {
   const [selectedFood, setSelectedFood] = useState<string>('');
 
-  const { data: foodsData, loading: foodsLoading } = useQuery<AllFoodsData>(GET_ALL_FOODS);
-  const { data: foodData, loading: foodLoading } = useQuery<FoodData, FoodVariables>(
+  const { data: foodsData, loading: foodsLoading, error: foodsError } = useQuery<AllFoodsData>(GET_ALL_FOODS);
+  const { data: foodData, loading: foodLoading, error: foodError } = useQuery<FoodData, FoodVariables>(
     GET_FOOD_BY_NAME,
     {
       variables: { name: selectedFood },
@@ -44,6 +44,14 @@ export const FoodSelector = () => {
 
   if (foodsLoading) {
     return <div className="food-selector-loading">Loading foods...</div>;
+  }
+
+  if (foodsError) {
+    return (
+      <div className="food-selector-error">
+        <p className="error">Failed to load foods: {foodsError.message}</p>
+      </div>
+    );
   }
 
   return (
@@ -67,6 +75,12 @@ export const FoodSelector = () => {
 
       {foodLoading && selectedFood && (
         <div className="food-selector-loading">Loading amino acids...</div>
+      )}
+
+      {foodError && selectedFood && (
+        <div className="food-selector-error">
+          <p className="error">Failed to load food data: {foodError.message}</p>
+        </div>
       )}
 
       {foodData?.food && (

@@ -280,6 +280,12 @@ button {
   margin-bottom: var(--spacing-lg);
 }
 
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
 .email-form input {
   width: 100%;
   padding: var(--spacing-md);
@@ -299,6 +305,29 @@ button {
 
 .email-form input::placeholder {
   color: var(--text-muted);
+}
+
+.email-form input.input-error {
+  border-color: var(--error);
+}
+
+.email-form input.input-error:focus {
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.field-error {
+  font-size: 0.875rem;
+  color: var(--error);
+  min-height: 1.25rem;
+  line-height: 1.25rem;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.field-error:not(:empty) {
+  opacity: 1;
 }
 
 /* Error Message */
@@ -441,6 +470,10 @@ button {
   color: var(--text-secondary);
   padding: var(--spacing-md);
   font-size: 0.875rem;
+}
+
+.food-selector-error {
+  margin-top: var(--spacing-md);
 }
 
 /* Food Details */
