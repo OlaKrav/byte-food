@@ -44,6 +44,10 @@ export interface GoogleAuthResponse {
   };
 }
 
+export interface RefreshTokenResponse {
+  refreshToken: LoginPayload;
+}
+
 export interface AminoAcids {
   alanine: number;
   arginine: number;

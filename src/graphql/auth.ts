@@ -48,3 +48,17 @@ export const GOOGLE_AUTH_MUTATION = gql`
     }
   }
 `;
+
+export const REFRESH_TOKEN_MUTATION = gql`
+  mutation RefreshToken {
+    refreshToken {
+      token
+      user {
+        id
+        email
+        name
+        avatar
+      }
+    }
+  }
+`;
