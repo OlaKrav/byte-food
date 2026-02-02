@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@apollo/client/react';
+import { useNavigate } from '@tanstack/react-router';
 import { LOGIN_MUTATION, REGISTER_MUTATION } from '../graphql/auth';
 import type { LoginResponse, RegisterResponse } from '../types';
 import { LoginWithGoogle } from './GoogleLogin';
 import { loginSchema, registerSchema, type LoginFormData, type RegisterFormData } from '../lib/validation';
 
 export const AuthForm = () => {
+  const navigate = useNavigate();
   const [isRegister, setIsRegister] = useState(false);
 
   const {
@@ -49,7 +51,7 @@ export const AuthForm = () => {
 
       if (response?.login.token) {
         localStorage.setItem('token', response.login.token);
-        window.location.href = '/';
+        navigate({ to: '/' });
       }
     } catch (err) {
       console.error('Login failed', err);
@@ -68,7 +70,7 @@ export const AuthForm = () => {
 
       if (response?.register.token) {
         localStorage.setItem('token', response.register.token);
-        window.location.href = '/';
+        navigate({ to: '/' });
       }
     } catch (err) {
       console.error('Registration error:', err);

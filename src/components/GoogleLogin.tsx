@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client/react';
+import { useNavigate } from '@tanstack/react-router';
 import { GoogleLogin } from '@react-oauth/google';
 import { GOOGLE_AUTH_MUTATION } from '../graphql/auth';
 import type { GoogleAuthResponse } from '../types';
 
 export function LoginWithGoogle() {
+  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [authWithGoogle, { loading, error }] = useMutation<GoogleAuthResponse>(GOOGLE_AUTH_MUTATION);
 
@@ -18,12 +20,12 @@ export function LoginWithGoogle() {
     setErrorMessage('');
     try {
       const { data } = await authWithGoogle({
-        variables: { idToken: response.credential + 'op' }
+        variables: { idToken: response.credential }
       });
 
       if (data?.authWithGoogle?.token) {
         localStorage.setItem('token', data.authWithGoogle.token);
-        window.location.reload(); 
+        navigate({ to: '/' });
       }
     } catch (err: unknown) {
       let message = 'Failed to authenticate with Google. Please try again.';
