@@ -1,12 +1,20 @@
-import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { OAuth2Client } from 'google-auth-library';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { z } from 'zod';
-import { SECRET_KEY } from './server';
-import { LoginArgs, MyContext, IUser, RegisterArgs, Food } from './types';
+import { LoginArgs, UserContext, IUser, RegisterArgs, Food } from './types';
 import { User } from './models/User';
+import {
+  generateAccessToken,
+  generateRefreshToken,
+  createRefreshToken,
+  verifyRefreshToken,
+  deleteRefreshToken,
+  setRefreshTokenCookie,
+  createAuthTokens,
+  formatUser,
+} from './auth';
 import { 
   emailSchema, 
   passwordSchema, 
@@ -34,7 +42,7 @@ try {
 
 export const resolvers = {
   Query: {
-    me: (_parent: unknown, _args: unknown, context: MyContext): IUser | null => {
+    me: (_parent: unknown, _args: unknown, context: UserContext): IUser | null => {
       return context.user;
     },
     food: (_parent: unknown, { name }: { name: string }) => {
@@ -64,11 +72,11 @@ export const resolvers = {
         id: food.id,
         name: food.name,
       }));
-    },
+    }
   },
 
   Mutation: {
-    register: async (_: unknown, { email, password, name }: RegisterArgs) => {
+    register: async (_: unknown, { email, password, name }: RegisterArgs, context: UserContext) => {
       let validEmail: string;
       let validPassword: string;
       let validName: string | undefined;
@@ -98,15 +106,11 @@ export const resolvers = {
           name: validName || validEmail.split('@')[0],
         });
 
-        const token = jwt.sign({ userId: user._id }, SECRET_KEY, { expiresIn: '7d' });
+        const { accessToken } = await createAuthTokens(user._id.toString(), context);
 
         return {
-          token,
-          user: {
-            id: user._id.toString(),
-            email: user.email,
-            name: user.name,
-          },
+          token: accessToken,
+          user: formatUser(user),
         };
       } catch (error: unknown) {
         if (error && typeof error === 'object') {
@@ -123,7 +127,7 @@ export const resolvers = {
       }
     },
 
-    login: async (_: unknown, { email, password }: LoginArgs) => {
+    login: async (_: unknown, { email, password }: LoginArgs, context: UserContext) => {
       let validEmail: string;
       let validPassword: string;
 
@@ -152,20 +156,15 @@ export const resolvers = {
         throw new InvalidCredentialsError();
       }
 
-      const token = jwt.sign({ userId: user._id }, SECRET_KEY, { expiresIn: '1h' });
+      const { accessToken } = await createAuthTokens(user._id.toString(), context, true);
 
       return {
-        token,
-        user: {
-          id: user._id.toString(),
-          email: user.email,
-          name: user.name,
-          avatar: user.avatar,
-        },
+        token: accessToken,
+        user: formatUser(user),
       };
     },
 
-    authWithGoogle: async (_: unknown, { idToken }: { idToken: string }) => {
+    authWithGoogle: async (_: unknown, { idToken }: { idToken: string }, context: UserContext) => {
       let validIdToken: string;
 
       try {
@@ -212,15 +211,45 @@ export const resolvers = {
           });
         }
 
-        const token = jwt.sign({ userId: user.id }, SECRET_KEY, { expiresIn: '1h' });
+        const { accessToken } = await createAuthTokens(user._id.toString(), context, true);
 
-        return { token, user };
+        return {
+          token: accessToken,
+          user: formatUser(user),
+        };
       } catch (error) {
         if (error instanceof AppError) {
           throw error;
         }
         throw new InvalidCredentialsError('Invalid Google Token');
       }
+    },
+
+    refreshToken: async (_: unknown, _args: unknown, context: UserContext) => {
+      const refreshToken = context.req.cookies?.refreshToken;
+
+      if (!refreshToken) {
+        throw new InvalidCredentialsError('Refresh token not found');
+      }
+
+      const user = await verifyRefreshToken(refreshToken);
+
+      if (!user) {
+        context.res.clearCookie('refreshToken');
+        throw new InvalidCredentialsError('Invalid or expired refresh token');
+      }
+
+      const accessToken = generateAccessToken(user.id);
+      const newRefreshToken = generateRefreshToken();
+      
+      await deleteRefreshToken(refreshToken);
+      await createRefreshToken(user.id, newRefreshToken);
+      setRefreshTokenCookie(context.res, newRefreshToken);
+
+      return {
+        token: accessToken,
+        user,
+      };
     },
   },
 };

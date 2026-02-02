@@ -1,3 +1,5 @@
+import { Request, Response } from 'express';
+
 export interface IUser {
   id: string;
   email: string;
@@ -5,8 +7,10 @@ export interface IUser {
   avatar?: string | null;
 }
 
-export interface MyContext {
+export interface UserContext {
   user: IUser | null;
+  req: Request;
+  res: Response;
 }
 
 export interface LoginArgs {

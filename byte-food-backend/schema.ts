@@ -56,5 +56,6 @@ export const typeDefs = `#graphql
     login(email: String!, password: String!): AuthPayload!
     register(email: String!, password: String!, name: String): AuthPayload!
     authWithGoogle(idToken: String!): AuthPayload!
+    refreshToken: AuthPayload!
   }
 `;
