@@ -4,11 +4,13 @@ import { useNavigate } from '@tanstack/react-router';
 import { GoogleLogin } from '@react-oauth/google';
 import { GOOGLE_AUTH_MUTATION } from '../graphql/auth';
 import type { GoogleAuthResponse } from '../types';
+import { useAuthStore } from '../store/authStore';
 
 export function LoginWithGoogle() {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [authWithGoogle, { loading, error }] = useMutation<GoogleAuthResponse>(GOOGLE_AUTH_MUTATION);
+  const setAuth = useAuthStore((state) => state.setAuth);
 
   useEffect(() => {
     if (error) {
@@ -23,8 +25,12 @@ export function LoginWithGoogle() {
         variables: { idToken: response.credential }
       });
 
-      if (data?.authWithGoogle?.token) {
-        localStorage.setItem('token', data.authWithGoogle.token);
+      if (data?.authWithGoogle?.token && data?.authWithGoogle?.user) {
+        const user = {
+          ...data.authWithGoogle.user,
+          avatar: null,
+        };
+        setAuth(user, data.authWithGoogle.token);
         navigate({ to: '/' });
       }
     } catch (err: unknown) {

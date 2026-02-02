@@ -2,13 +2,14 @@ import { redirect } from '@tanstack/react-router';
 import { client } from '../apolloClient';
 import { GET_ME } from '../graphql/auth';
 import type { GetMeData, User } from '../types';
+import { useAuthStore } from '../store/authStore';
 
 export function hasToken(): boolean {
-  return !!localStorage.getItem('token');
+  return !!useAuthStore.getState().accessToken;
 }
 
 export async function requireAuth(): Promise<{ me: User }> {
-  const token = localStorage.getItem('token');
+  const token = useAuthStore.getState().accessToken;
   if (!token) {
     throw redirect({ to: '/auth' });
   }
@@ -34,7 +35,7 @@ export async function requireAuth(): Promise<{ me: User }> {
 }
 
 export async function redirectIfAuthenticated(): Promise<void> {
-  const token = localStorage.getItem('token');
+  const token = useAuthStore.getState().accessToken;
   if (!token) {
     return;
   }

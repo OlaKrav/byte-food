@@ -7,10 +7,12 @@ import { LOGIN_MUTATION, REGISTER_MUTATION } from '../graphql/auth';
 import type { LoginResponse, RegisterResponse } from '../types';
 import { LoginWithGoogle } from './GoogleLogin';
 import { loginSchema, registerSchema, type LoginFormData, type RegisterFormData } from '../lib/validation';
+import { useAuthStore } from '../store/authStore';
 
 export const AuthForm = () => {
   const navigate = useNavigate();
   const [isRegister, setIsRegister] = useState(false);
+  const setAuth = useAuthStore((state) => state.setAuth);
 
   const {
     register: registerLogin,
@@ -49,8 +51,8 @@ export const AuthForm = () => {
     try {
       const { data: response } = await login({ variables: data });
 
-      if (response?.login.token) {
-        localStorage.setItem('token', response.login.token);
+      if (response?.login.token && response?.login.user) {
+        setAuth(response.login.user, response.login.token);
         navigate({ to: '/' });
       }
     } catch (err) {
@@ -68,8 +70,8 @@ export const AuthForm = () => {
         },
       });
 
-      if (response?.register.token) {
-        localStorage.setItem('token', response.register.token);
+      if (response?.register.token && response?.register.user) {
+        setAuth(response.register.user, response.register.token);
         navigate({ to: '/' });
       }
     } catch (err) {

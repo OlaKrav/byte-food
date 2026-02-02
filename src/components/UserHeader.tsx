@@ -1,6 +1,7 @@
 import { useNavigate } from '@tanstack/react-router';
 import { useApolloClient } from '@apollo/client/react';
 import type { GetMeData } from '../types';
+import { useAuthStore } from '../store/authStore';
 
 interface UserHeaderProps {
   user: NonNullable<GetMeData['me']>;
@@ -9,9 +10,10 @@ interface UserHeaderProps {
 export function UserHeader({ user }: UserHeaderProps) {
   const navigate = useNavigate();
   const client = useApolloClient();
+  const logout = useAuthStore((state) => state.logout);
 
   const handleLogout = async () => {
-    localStorage.removeItem('token');
+    logout();
     await client.resetStore();
     navigate({ to: '/auth' });
   };
