@@ -1,16 +1,17 @@
 import { GraphQLError, GraphQLFormattedError } from 'graphql';
+import { z } from 'zod';
 
 export enum ErrorCode {
   UNAUTHORIZED = 'UNAUTHORIZED',
   INVALID_CREDENTIALS = 'INVALID_CREDENTIALS',
   USER_EXISTS = 'USER_EXISTS',
   GOOGLE_AUTH_FAILED = 'GOOGLE_AUTH_FAILED',
-  
+
   VALIDATION_ERROR = 'VALIDATION_ERROR',
   INVALID_INPUT = 'INVALID_INPUT',
-  
+
   NOT_FOUND = 'NOT_FOUND',
-  
+
   INTERNAL_ERROR = 'INTERNAL_ERROR',
   DATABASE_ERROR = 'DATABASE_ERROR',
 }
@@ -66,33 +67,37 @@ export class InvalidCredentialsError extends AppError {
 }
 
 export function formatError(
-  formattedError: GraphQLFormattedError, 
+  formattedError: GraphQLFormattedError,
   error: unknown
 ): GraphQLFormattedError {
-  
-  const gqlError = error as GraphQLError;
+  if (!(error instanceof GraphQLError)) {
+    return formattedError;
+  }
+
   const isDevelopment = process.env.NODE_ENV !== 'production';
-  const originalError = gqlError.originalError;
+  const { originalError } = error;
 
   if (isDevelopment) {
     console.error('GraphQL Error:', {
-      message: gqlError.message,
-      path: gqlError.path,
-      originalError: originalError?.message,
+      message: error.message,
+      path: error.path,
+      originalMessage: originalError instanceof Error ? originalError.message : 'No original error',
     });
   }
 
-  if (originalError && typeof originalError === 'object' && 'issues' in originalError) {
-    const zodError = originalError as { issues: Array<{ message: string; path: (string | number)[] }> };
-    const firstIssue = zodError.issues[0];
-    
+  if (originalError instanceof z.ZodError) {
+    const firstIssue = originalError.issues[0];
+    const message = firstIssue?.message || 'Validation failed';
+    const fieldPath = firstIssue?.path.join('.') || 'unknown';
+
     return {
       ...formattedError,
-      message: firstIssue.message,
+      message,
       extensions: {
+        ...formattedError.extensions,
         code: 'VALIDATION_ERROR',
-        field: firstIssue.path.join('.'),
-        ...(isDevelopment && { details: zodError.issues }),
+        field: fieldPath,
+        ...(isDevelopment && { details: originalError.issues }),
       },
     };
   }
@@ -102,18 +107,22 @@ export function formatError(
       ...formattedError,
       message: originalError.message,
       extensions: {
+        ...formattedError.extensions,
         code: originalError.code,
         statusCode: originalError.statusCode,
-        ...(isDevelopment && { stack: gqlError.stack }),
+        ...(isDevelopment && { stack: error.stack }),
       },
     };
   }
 
+  const isNotFoundError = error.message.toLowerCase().includes('not found');
+
   return {
     ...formattedError,
-    message: isDevelopment || gqlError.message.includes('not found') 
-      ? gqlError.message 
-      : 'An unexpected error occurred. Please try again later.',
+    message:
+      isDevelopment || isNotFoundError
+        ? error.message
+        : 'An unexpected error occurred. Please try again later.',
     extensions: {
       ...formattedError.extensions,
       code: formattedError.extensions?.code || 'INTERNAL_SERVER_ERROR',

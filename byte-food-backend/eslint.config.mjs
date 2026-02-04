@@ -1,24 +1,39 @@
-import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+import prettierConfig from 'eslint-config-prettier';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+export default tseslint.config(
+  { ignores: ['dist', 'node_modules', 'build'] },
 
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-});
-
-export default [
-  { ignores: ['node_modules/**'] },
-
-  ...compat.extends('./.eslintrc.json'),
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
 
   {
-    files: ['**/*.ts', '**/*.tsx'],
-    rules: {},
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      parser: tseslint.parser,
+      ecmaVersion: 2021,
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+        ...globals.es2021,
+      },
+    },
+    rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_' },
+      ],
+      "@typescript-eslint/consistent-type-assertions": [
+        "error",
+        {
+          "assertionStyle": "never",
+        }
+      ],
+      '@typescript-eslint/no-explicit-any': 'error',
+      'no-console': ['warn', { allow: ['error', 'warn', 'info'] }],
+    },
   },
-];
+  prettierConfig
+);

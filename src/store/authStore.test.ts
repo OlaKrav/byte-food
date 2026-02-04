@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { useAuthStore } from './authStore';
+import type { User } from '../types';
 
 describe('Auth Store (Zustand)', () => {
   beforeEach(() => {
@@ -13,7 +14,12 @@ describe('Auth Store (Zustand)', () => {
   });
 
   it('should update user and accessToken when setAuth is called', () => {
-    const mockUser = { id: '123', email: 'test@example.com' };
+    const mockUser: User = {
+      id: '123',
+      email: 'test@example.com',
+      name: null,
+      avatar: null,
+    };
     const mockToken = 'access-token-xyz';
 
     useAuthStore.getState().setAuth(mockUser, mockToken);
@@ -24,8 +30,14 @@ describe('Auth Store (Zustand)', () => {
   });
 
   it('should clear all data when logout is called', () => {
-    useAuthStore.getState().setAuth({ id: '1', email: 'a@a.com' } as any, 'token');
-    
+    const mockUser: User = {
+      id: '1',
+      email: 'a@a.com',
+      name: null,
+      avatar: null,
+    };
+    useAuthStore.getState().setAuth(mockUser, 'token');
+
     useAuthStore.getState().logout();
 
     const state = useAuthStore.getState();

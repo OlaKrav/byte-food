@@ -6,7 +6,12 @@ import { useNavigate } from '@tanstack/react-router';
 import { LOGIN_MUTATION, REGISTER_MUTATION } from '../graphql/auth';
 import type { LoginResponse, RegisterResponse } from '../types';
 import { LoginWithGoogle } from './GoogleLogin';
-import { loginSchema, registerSchema, type LoginFormData, type RegisterFormData } from '../lib/validation';
+import {
+  loginSchema,
+  registerSchema,
+  type LoginFormData,
+  type RegisterFormData,
+} from '../lib/validation';
 import { useAuthStore } from '../store/authStore';
 
 export const AuthForm = () => {
@@ -17,10 +22,10 @@ export const AuthForm = () => {
   const {
     register: registerLogin,
     handleSubmit: handleSubmitLogin,
-    formState: { 
-      errors: loginErrors, 
-      isValid: isLoginValid, 
-      isSubmitted: isLoginSubmitted 
+    formState: {
+      errors: loginErrors,
+      isValid: isLoginValid,
+      isSubmitted: isLoginSubmitted,
     },
     reset: resetLogin,
   } = useForm<LoginFormData>({
@@ -32,10 +37,10 @@ export const AuthForm = () => {
   const {
     register: registerRegister,
     handleSubmit: handleSubmitRegister,
-    formState: { 
-      errors: registerErrors, 
-      isValid: isRegisterValid, 
-      isSubmitted: isRegisterSubmitted 
+    formState: {
+      errors: registerErrors,
+      isValid: isRegisterValid,
+      isSubmitted: isRegisterSubmitted,
     },
     reset: resetRegister,
   } = useForm<RegisterFormData>({
@@ -44,8 +49,10 @@ export const AuthForm = () => {
     reValidateMode: 'onChange',
   });
 
-  const [login, { loading: loginLoading, error: loginError }] = useMutation<LoginResponse>(LOGIN_MUTATION);
-  const [registerMutation, { loading: regLoading, error: regError }] = useMutation<RegisterResponse>(REGISTER_MUTATION);
+  const [login, { loading: loginLoading, error: loginError }] =
+    useMutation<LoginResponse>(LOGIN_MUTATION);
+  const [registerMutation, { loading: regLoading, error: regError }] =
+    useMutation<RegisterResponse>(REGISTER_MUTATION);
 
   const onLogin = async (data: LoginFormData) => {
     try {
@@ -88,23 +95,21 @@ export const AuthForm = () => {
   const currentErrors = isRegister ? registerErrors : loginErrors;
   const apiError = isRegister ? regError : loginError;
   const isLoading = loginLoading || regLoading;
-  
-  const isInvalid = isRegister 
-    ? (isRegisterSubmitted && !isRegisterValid) 
-    : (isLoginSubmitted && !isLoginValid);
 
-  const onSubmit = isRegister ? handleSubmitRegister(onRegister) : handleSubmitLogin(onLogin);
+  const isInvalid = isRegister
+    ? isRegisterSubmitted && !isRegisterValid
+    : isLoginSubmitted && !isLoginValid;
+
+  const onSubmit = isRegister
+    ? handleSubmitRegister(onRegister)
+    : handleSubmitLogin(onLogin);
 
   return (
     <div className="auth-container">
       <div>
         <h2>{isRegister ? 'Create Account' : 'Welcome to ByteFood'}</h2>
 
-        {apiError && (
-          <p className="error">
-            {apiError.message}
-          </p>
-        )}
+        {apiError && <p className="error">{apiError.message}</p>}
 
         <form onSubmit={onSubmit} className="email-form">
           {isRegister && (
@@ -126,7 +131,9 @@ export const AuthForm = () => {
             <input
               type="email"
               placeholder="Email"
-              {...(isRegister ? registerRegister('email') : registerLogin('email'))}
+              {...(isRegister
+                ? registerRegister('email')
+                : registerLogin('email'))}
               disabled={isLoading}
               className={currentErrors.email ? 'input-error' : ''}
             />
@@ -139,7 +146,9 @@ export const AuthForm = () => {
             <input
               type="password"
               placeholder="Password"
-              {...(isRegister ? registerRegister('password') : registerLogin('password'))}
+              {...(isRegister
+                ? registerRegister('password')
+                : registerLogin('password'))}
               disabled={isLoading}
               className={currentErrors.password ? 'input-error' : ''}
             />
@@ -148,12 +157,12 @@ export const AuthForm = () => {
             </span>
           </div>
 
-          <button 
-            type="submit" 
-            disabled={isLoading || isInvalid} 
+          <button
+            type="submit"
+            disabled={isLoading || isInvalid}
             className={`btn-primary ${isInvalid ? 'btn-disabled' : ''}`}
           >
-            {isLoading ? 'Processing...' : (isRegister ? 'Sign Up' : 'Sign In')}
+            {isLoading ? 'Processing...' : isRegister ? 'Sign Up' : 'Sign In'}
           </button>
         </form>
 

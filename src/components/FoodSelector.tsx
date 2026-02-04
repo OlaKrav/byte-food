@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { useQuery } from '@apollo/client/react';
 import { GET_ALL_FOODS, GET_FOOD_BY_NAME } from '../graphql/food';
-import type { AllFoodsData, FoodData, FoodVariables, AminoAcids } from '../types';
+import type {
+  AllFoodsData,
+  FoodData,
+  FoodVariables,
+} from '../types';
 
 const AMINO_ACIDS = [
   { key: 'alanine', label: 'Alanine' },
@@ -29,14 +33,19 @@ const AMINO_ACIDS = [
 export const FoodSelector = () => {
   const [selectedFood, setSelectedFood] = useState<string>('');
 
-  const { data: foodsData, loading: foodsLoading, error: foodsError } = useQuery<AllFoodsData>(GET_ALL_FOODS);
-  const { data: foodData, loading: foodLoading, error: foodError } = useQuery<FoodData, FoodVariables>(
-    GET_FOOD_BY_NAME,
-    {
-      variables: { name: selectedFood },
-      skip: !selectedFood,
-    }
-  );
+  const {
+    data: foodsData,
+    loading: foodsLoading,
+    error: foodsError,
+  } = useQuery<AllFoodsData>(GET_ALL_FOODS);
+  const {
+    data: foodData,
+    loading: foodLoading,
+    error: foodError,
+  } = useQuery<FoodData, FoodVariables>(GET_FOOD_BY_NAME, {
+    variables: { name: selectedFood },
+    skip: !selectedFood,
+  });
 
   const handleFoodChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedFood(e.target.value);
@@ -86,8 +95,10 @@ export const FoodSelector = () => {
       {foodData?.food && (
         <div className="food-details">
           <h3 className="food-details-title">{foodData.food.name}</h3>
-          <div className="food-details-category">Category: {foodData.food.category}</div>
-          
+          <div className="food-details-category">
+            Category: {foodData.food.category}
+          </div>
+
           <div className="amino-acids-grid">
             <h4 className="amino-acids-title">Amino Acids (g per 100g):</h4>
             <div className="amino-acids-list">
@@ -95,7 +106,11 @@ export const FoodSelector = () => {
                 <div key={aminoAcid.key} className="amino-acid-item">
                   <span className="amino-acid-name">{aminoAcid.label}:</span>
                   <span className="amino-acid-value">
-                    {foodData.food.amino_acids_g[aminoAcid.key as keyof AminoAcids]}
+                    {
+                      foodData.food.amino_acids_g[
+                        aminoAcid.key
+                      ]
+                    }
                   </span>
                 </div>
               ))}
@@ -106,4 +121,3 @@ export const FoodSelector = () => {
     </div>
   );
 };
-

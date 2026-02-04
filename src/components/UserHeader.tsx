@@ -22,9 +22,9 @@ export function UserHeader({ user }: UserHeaderProps) {
     <header>
       <div className="user-info">
         {user.avatar ? (
-          <img 
-            src={user.avatar} 
-            alt={user.name ?? 'user'} 
+          <img
+            src={user.avatar}
+            alt={user.name ?? 'user'}
             className="user-avatar"
           />
         ) : (
@@ -37,11 +37,10 @@ export function UserHeader({ user }: UserHeaderProps) {
           <span className="user-info-name">{user.name}</span>
         </div>
       </div>
-      
+
       <button onClick={handleLogout} className="btn-logout">
         Sign Out
       </button>
     </header>
   );
 }
-

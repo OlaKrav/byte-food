@@ -16,7 +16,7 @@ function Home() {
     <div className="app-container">
       <div className="dashboard">
         <UserHeader user={user} />
-        
+
         <main>
           <div className="welcome-section">
             <h1>Amino Acid Database</h1>

@@ -3,7 +3,7 @@ import { OAuth2Client } from 'google-auth-library';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { z } from 'zod';
-import { LoginArgs, UserContext, IUser, RegisterArgs, Food } from './types';
+import { LoginArgs, UserContext, IUser, RegisterArgs, Food, isMongoError } from './types';
 import { User } from './models/User';
 import {
   generateAccessToken,
@@ -15,11 +15,11 @@ import {
   createAuthTokens,
   formatUser,
 } from './auth';
-import { 
-  emailSchema, 
-  passwordSchema, 
+import {
+  emailSchema,
+  passwordSchema,
   nameSchema,
-  validateFoodName
+  validateFoodName,
 } from './validation';
 import {
   UserExistsError,
@@ -42,12 +42,16 @@ try {
 
 export const resolvers = {
   Query: {
-    me: (_parent: unknown, _args: unknown, context: UserContext): IUser | null => {
+    me: (
+      _parent: unknown,
+      _args: unknown,
+      context: UserContext
+    ): IUser | null => {
       return context.user;
     },
     food: (_parent: unknown, { name }: { name: string }) => {
       let validatedName: string;
-      
+
       try {
         validatedName = validateFoodName(name);
       } catch (error) {
@@ -72,11 +76,15 @@ export const resolvers = {
         id: food.id,
         name: food.name,
       }));
-    }
+    },
   },
 
   Mutation: {
-    register: async (_: unknown, { email, password, name }: RegisterArgs, context: UserContext) => {
+    register: async (
+      _: unknown,
+      { email, password, name }: RegisterArgs,
+      context: UserContext
+    ) => {
       let validEmail: string;
       let validPassword: string;
       let validName: string | undefined;
@@ -106,34 +114,42 @@ export const resolvers = {
           name: validName || validEmail.split('@')[0],
         });
 
-        const { accessToken } = await createAuthTokens(user._id.toString(), context);
+        const { accessToken } = await createAuthTokens(
+          user._id.toString(),
+          context
+        );
 
         return {
           token: accessToken,
           user: formatUser(user),
         };
       } catch (error: unknown) {
-        if (error && typeof error === 'object') {
-          const mongoError = error as { code?: number; codeName?: string; message?: string };
-          if (
-            mongoError.code === 11000 ||
-            mongoError.codeName === 'DuplicateKey' ||
-            (mongoError.message && mongoError.message.includes('duplicate key'))
-          ) {
-            throw new UserExistsError();
-          }
-        }
+        if (isMongoError(error)) {
+          const isDuplicate = 
+            error.code === 11000 || 
+            error.codeName === 'DuplicateKey' || 
+            error.message?.includes('duplicate key');
+
+          if (isDuplicate) throw new UserExistsError();
+        } 
         throw error;
       }
     },
 
-    login: async (_: unknown, { email, password }: LoginArgs, context: UserContext) => {
+    login: async (
+      _: unknown,
+      { email, password }: LoginArgs,
+      context: UserContext
+    ) => {
       let validEmail: string;
       let validPassword: string;
 
       try {
         validEmail = emailSchema.parse(email);
-        validPassword = z.string().min(1, "Password is required").parse(password);
+        validPassword = z
+          .string()
+          .min(1, 'Password is required')
+          .parse(password);
       } catch (error) {
         if (error instanceof z.ZodError) {
           throw new ValidationError(error.issues[0].message);
@@ -148,15 +164,24 @@ export const resolvers = {
       }
 
       if (!user.passwordHash) {
-        throw new InvalidCredentialsError('This account uses Google Login. Please sign in with Google.');
+        throw new InvalidCredentialsError(
+          'This account uses Google Login. Please sign in with Google.'
+        );
       }
 
-      const isPasswordValid = await bcrypt.compare(validPassword, user.passwordHash);
+      const isPasswordValid = await bcrypt.compare(
+        validPassword,
+        user.passwordHash
+      );
       if (!isPasswordValid) {
         throw new InvalidCredentialsError();
       }
 
-      const { accessToken } = await createAuthTokens(user._id.toString(), context, true);
+      const { accessToken } = await createAuthTokens(
+        user._id.toString(),
+        context,
+        true
+      );
 
       return {
         token: accessToken,
@@ -164,11 +189,19 @@ export const resolvers = {
       };
     },
 
-    authWithGoogle: async (_: unknown, { idToken }: { idToken: string }, context: UserContext) => {
+    authWithGoogle: async (
+      _: unknown,
+      { idToken }: { idToken: string },
+      context: UserContext
+    ) => {
       let validIdToken: string;
 
       try {
-        validIdToken = z.string().trim().min(1, "Google ID token is required").parse(idToken);
+        validIdToken = z
+          .string()
+          .trim()
+          .min(1, 'Google ID token is required')
+          .parse(idToken);
       } catch (error) {
         if (error instanceof z.ZodError) {
           throw new ValidationError(error.issues[0].message);
@@ -192,7 +225,9 @@ export const resolvers = {
 
         try {
           sanitizedEmail = emailSchema.parse(payload.email);
-          validatedName = payload.name ? nameSchema.parse(payload.name) : undefined;
+          validatedName = payload.name
+            ? nameSchema.parse(payload.name)
+            : undefined;
         } catch (error) {
           if (error instanceof z.ZodError) {
             throw new ValidationError(error.issues[0].message);
@@ -211,7 +246,11 @@ export const resolvers = {
           });
         }
 
-        const { accessToken } = await createAuthTokens(user._id.toString(), context, true);
+        const { accessToken } = await createAuthTokens(
+          user._id.toString(),
+          context,
+          true
+        );
 
         return {
           token: accessToken,
@@ -241,7 +280,7 @@ export const resolvers = {
 
       const accessToken = generateAccessToken(user.id);
       const newRefreshToken = generateRefreshToken();
-      
+
       await deleteRefreshToken(refreshToken);
       await createRefreshToken(user.id, newRefreshToken);
       setRefreshTokenCookie(context.res, newRefreshToken);

@@ -22,10 +22,13 @@ export const nameSchema = z
   .string()
   .trim()
   .max(100, 'Name is too long (maximum 100 characters)')
-  .regex(/^[a-zA-Z\s'-]+$/, 'Name can only contain letters, spaces, hyphens, and apostrophes')
+  .regex(
+    /^[a-zA-Z\s'-]+$/,
+    'Name can only contain letters, spaces, hyphens, and apostrophes'
+  )
   .optional()
   .or(z.literal(''))
-  .transform(val => (val === '' ? undefined : val));
+  .transform((val) => (val === '' ? undefined : val));
 
 export function validateEmail(email: unknown): string {
   return emailSchema.parse(email);

@@ -52,7 +52,7 @@ export const verifyRefreshToken = async (
 ): Promise<IUser | null> => {
   try {
     const refreshTokenDoc = await RefreshToken.findOne({ token });
-    
+
     if (!refreshTokenDoc) {
       return null;
     }
@@ -79,11 +79,16 @@ export const deleteRefreshToken = async (token: string): Promise<void> => {
   await RefreshToken.deleteOne({ token });
 };
 
-export const deleteAllUserRefreshTokens = async (userId: string): Promise<void> => {
+export const deleteAllUserRefreshTokens = async (
+  userId: string
+): Promise<void> => {
   await RefreshToken.deleteMany({ userId });
 };
 
-export const setRefreshTokenCookie = (res: UserContext['res'], token: string): void => {
+export const setRefreshTokenCookie = (
+  res: UserContext['res'],
+  token: string
+): void => {
   res.cookie('refreshToken', token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
@@ -109,7 +114,12 @@ export const createAuthTokens = async (
   return { accessToken, refreshToken };
 };
 
-export const formatUser = (user: { _id: { toString: () => string }; email: string; name?: string | null; avatar?: string | null }): IUser => {
+export const formatUser = (user: {
+  _id: { toString: () => string };
+  email: string;
+  name?: string | null;
+  avatar?: string | null;
+}): IUser => {
   return {
     id: user._id.toString(),
     email: user.email,

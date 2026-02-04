@@ -32,10 +32,8 @@ export interface JwtPayload {
 
 export function isJwtPayload(payload: unknown): payload is JwtPayload {
   return (
-    typeof payload === 'object' &&
-    payload !== null &&
-    'userId' in payload &&
-    typeof (payload as Record<string, unknown>).userId === 'string'
+    isObject(payload) &&
+    typeof payload.userId === 'string'
   );
 }
 
@@ -67,4 +65,22 @@ export interface Food {
   name: string;
   category: string;
   amino_acids_g: AminoAcids;
+}
+
+interface MongoError {
+  code?: number;
+  codeName?: string;
+  message?: string;
+}
+
+export function isMongoError(error: unknown): error is MongoError {
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    ('code' in error || 'codeName' in error || 'message' in error)
+  );
+}
+
+function isObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null;
 }

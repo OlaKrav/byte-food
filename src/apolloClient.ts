@@ -1,7 +1,13 @@
-import { ApolloClient, InMemoryCache, createHttpLink, from } from '@apollo/client';
+import {
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+  from,
+} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 import { CombinedGraphQLErrors } from '@apollo/client/errors';
+import type { FetchResult } from '@apollo/client';
 import { Observable } from '@apollo/client/utilities';
 import { useAuthStore } from './store/authStore';
 import { REFRESH_TOKEN_MUTATION } from './graphql/auth';
@@ -60,7 +66,7 @@ export const refreshClient = new ApolloClient({
 });
 
 const errorLink = onError(({ error, operation, forward }) => {
-  const handleRefresh = (): Observable<any> => {
+  const handleRefresh = (): Observable<FetchResult> => {
     if (isRefreshing) {
       return new Observable((observer) => {
         failedQueue.push({
@@ -92,18 +98,18 @@ const errorLink = onError(({ error, operation, forward }) => {
         })
         .then((response) => {
           const { token, user } = response.data?.refreshToken || {};
-          
+
           if (token && user) {
             useAuthStore.getState().setAuth(user, token);
             processQueue(null, token);
-            
+
             operation.setContext({
               headers: {
                 ...operation.getContext().headers,
                 authorization: `Bearer ${token}`,
               },
             });
-            
+
             forward(operation).subscribe(observer);
           } else {
             throw new Error('Failed to refresh token');
@@ -122,13 +128,21 @@ const errorLink = onError(({ error, operation, forward }) => {
 
   if (CombinedGraphQLErrors.is(error)) {
     for (const err of error.errors) {
-      if (err.extensions?.code === 'UNAUTHENTICATED' || err.message.includes('Unauthorized')) {
+      if (
+        err.extensions?.code === 'UNAUTHENTICATED' ||
+        err.message.includes('Unauthorized')
+      ) {
         return handleRefresh();
       }
     }
   }
 
-  if (error && typeof error === 'object' && 'statusCode' in error && error.statusCode === 401) {
+  if (
+    error &&
+    typeof error === 'object' &&
+    'statusCode' in error &&
+    error.statusCode === 401
+  ) {
     return handleRefresh();
   }
 });

@@ -22,7 +22,10 @@ export const nameSchema = z
   .string()
   .trim()
   .max(100, 'Name is too long (maximum 100 characters)')
-  .regex(/^[a-zA-Z\s'-]+$/, 'Name can only contain letters, spaces, hyphens, and apostrophes')
+  .regex(
+    /^[a-zA-Z\s'-]+$/,
+    'Name can only contain letters, spaces, hyphens, and apostrophes'
+  )
   .optional()
   .or(z.literal('').transform(() => undefined));
 
@@ -36,7 +39,10 @@ export const registerSchema = z.object({
     .string()
     .trim()
     .max(100, 'Name is too long (maximum 100 characters)')
-    .regex(/^[a-zA-Z\s'-]*$/, 'Name can only contain letters, spaces, hyphens, and apostrophes')
+    .regex(
+      /^[a-zA-Z\s'-]*$/,
+      'Name can only contain letters, spaces, hyphens, and apostrophes'
+    )
     .optional()
     .or(z.literal('')),
   email: emailSchema,
@@ -45,4 +51,3 @@ export const registerSchema = z.object({
 
 export type LoginFormData = z.infer<typeof loginSchema>;
 export type RegisterFormData = z.infer<typeof registerSchema>;
-
