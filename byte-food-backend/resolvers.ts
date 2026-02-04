@@ -290,5 +290,21 @@ export const resolvers = {
         user,
       };
     },
+
+    logout: async (_: unknown, _args: unknown, context: UserContext) => {
+      const refreshToken = context.req.cookies?.refreshToken;
+
+      if (refreshToken) {
+        await deleteRefreshToken(refreshToken);
+      }
+
+      context.res.clearCookie('refreshToken', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+      });
+
+      return true;
+    },
   },
 };

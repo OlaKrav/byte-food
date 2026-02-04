@@ -48,6 +48,10 @@ export interface RefreshTokenResponse {
   refreshToken: LoginPayload;
 }
 
+export interface LogoutResponse {
+  logout: boolean;
+}
+
 export interface AminoAcids {
   alanine: number;
   arginine: number;

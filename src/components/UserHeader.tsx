@@ -1,7 +1,8 @@
 import { useNavigate } from '@tanstack/react-router';
-import { useApolloClient } from '@apollo/client/react';
-import type { GetMeData } from '../types';
+import { useApolloClient, useMutation } from '@apollo/client/react';
+import type { GetMeData, LogoutResponse } from '../types';
 import { useAuthStore } from '../store/authStore';
+import { LOGOUT_MUTATION } from '../graphql/auth';
 
 interface UserHeaderProps {
   user: NonNullable<GetMeData['me']>;
@@ -11,11 +12,18 @@ export function UserHeader({ user }: UserHeaderProps) {
   const navigate = useNavigate();
   const client = useApolloClient();
   const logout = useAuthStore((state) => state.logout);
+  const [logoutMutation] = useMutation<LogoutResponse>(LOGOUT_MUTATION);
 
   const handleLogout = async () => {
-    logout();
-    await client.resetStore();
-    navigate({ to: '/auth' });
+    try {
+      await logoutMutation();
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      logout();
+      await client.resetStore();
+      navigate({ to: '/auth' });
+    }
   };
 
   return (
