@@ -31,13 +31,19 @@ const processQueue = (error: Error | null, token: string | null = null) => {
   failedQueue = [];
 };
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+if (!API_URL) {
+  console.error("VITE_API_URL is not defined! Check your .env file.");
+}
+
 const httpLink = createHttpLink({
-  uri: 'http://localhost:5000/graphql',
+  uri: API_URL,
   credentials: 'include',
 });
 
 const refreshHttpLink = createHttpLink({
-  uri: 'http://localhost:5000/graphql',
+  uri: API_URL,
   credentials: 'include',
 });
 

@@ -11,13 +11,24 @@ import { getUser } from './auth';
 import { formatError } from './errors';
 import { UserContext } from './types';
 
-export const SECRET_KEY = process.env.JWT_SECRET || 'fallback_secret';
+const SECRET_KEY = process.env.JWT_SECRET;
 const PORT = Number(process.env.PORT) || 5000;
 const MONGO_URI = process.env.MONGO_URI;
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+
+if (!SECRET_KEY) {
+  throw new Error('JWT_SECRET is not defined in .env');
+}
 
 if (!MONGO_URI) {
   throw new Error('MONGO_URI is not defined in .env');
 }
+
+if (!GOOGLE_CLIENT_ID) {
+  throw new Error('GOOGLE_CLIENT_ID is not defined in .env');
+}
+
+export { SECRET_KEY };
 
 async function init() {
   if (!MONGO_URI) {
@@ -32,18 +43,24 @@ async function init() {
     throw new Error('Database connection failed');
   }
 
+  const isDevelopment = process.env.NODE_ENV !== 'production';
+
   const app = express();
   const server = new ApolloServer<UserContext>({
     typeDefs,
     resolvers,
     formatError,
+    introspection: isDevelopment
   });
 
   await server.start();
 
   app.use(
     cors({
-      origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+      origin: [
+        process.env.FRONTEND_URL || 'http://localhost:5173',
+        // sandbox 'https://studio.apollographql.com'
+      ],
       credentials: true,
     })
   );
