@@ -25,11 +25,11 @@ export default tseslint.config(
         'warn',
         { argsIgnorePattern: '^_' },
       ],
-      "@typescript-eslint/consistent-type-assertions": [
-        "error",
+      '@typescript-eslint/consistent-type-assertions': [
+        'error',
         {
-          "assertionStyle": "never",
-        }
+          assertionStyle: 'never',
+        },
       ],
       '@typescript-eslint/no-explicit-any': 'error',
       'no-console': ['warn', { allow: ['error', 'warn', 'info'] }],

@@ -31,10 +31,7 @@ export interface JwtPayload {
 }
 
 export function isJwtPayload(payload: unknown): payload is JwtPayload {
-  return (
-    isObject(payload) &&
-    typeof payload.userId === 'string'
-  );
+  return isObject(payload) && typeof payload.userId === 'string';
 }
 
 export interface AminoAcids {

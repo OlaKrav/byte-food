@@ -81,7 +81,10 @@ export function formatError(
     console.error('GraphQL Error:', {
       message: error.message,
       path: error.path,
-      originalMessage: originalError instanceof Error ? originalError.message : 'No original error',
+      originalMessage:
+        originalError instanceof Error
+          ? originalError.message
+          : 'No original error',
     });
   }
 

@@ -3,7 +3,14 @@ import { OAuth2Client } from 'google-auth-library';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { z } from 'zod';
-import { LoginArgs, UserContext, IUser, RegisterArgs, Food, isMongoError } from './types';
+import {
+  LoginArgs,
+  UserContext,
+  IUser,
+  RegisterArgs,
+  Food,
+  isMongoError,
+} from './types';
 import { User } from './models/User';
 import {
   generateAccessToken,
@@ -125,13 +132,13 @@ export const resolvers = {
         };
       } catch (error: unknown) {
         if (isMongoError(error)) {
-          const isDuplicate = 
-            error.code === 11000 || 
-            error.codeName === 'DuplicateKey' || 
+          const isDuplicate =
+            error.code === 11000 ||
+            error.codeName === 'DuplicateKey' ||
             error.message?.includes('duplicate key');
 
           if (isDuplicate) throw new UserExistsError();
-        } 
+        }
         throw error;
       }
     },

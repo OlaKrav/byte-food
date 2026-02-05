@@ -25,14 +25,23 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
-      "@typescript-eslint/consistent-type-assertions": [
-        "error",
+      '@typescript-eslint/consistent-type-assertions': [
+        'error',
         {
-          "assertionStyle": "never",
-        }
+          assertionStyle: 'never',
+        },
       ],
-      "@typescript-eslint/no-explicit-any": "error",
-
+      '@typescript-eslint/no-explicit-any': 'error',
+    },
+  },
+  {
+    files: [
+      '**/*.test.{ts,tsx}',
+      '**/*.spec.{ts,tsx}',
+      '**/tests/**/*.{ts,tsx}',
+    ],
+    rules: {
+      '@typescript-eslint/consistent-type-assertions': 'off',
     },
   },
   prettierConfig

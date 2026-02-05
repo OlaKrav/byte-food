@@ -34,7 +34,7 @@ async function init() {
   if (!MONGO_URI) {
     throw new Error('MONGO_URI is not defined in .env');
   }
-  
+
   try {
     await mongoose.connect(MONGO_URI);
     console.info('✅ Database connected');
@@ -50,7 +50,7 @@ async function init() {
     typeDefs,
     resolvers,
     formatError,
-    introspection: isDevelopment
+    introspection: isDevelopment,
   });
 
   await server.start();
@@ -69,7 +69,7 @@ async function init() {
 
   app.use('/graphql', async (req, res) => {
     const headers = new HeaderMap();
-    
+
     Object.entries(req.headers).forEach(([key, value]) => {
       if (value !== undefined) {
         headers.set(
@@ -90,7 +90,7 @@ async function init() {
         const rawAuth = req.headers['authorization'];
         const authHeader = Array.isArray(rawAuth) ? rawAuth[0] : rawAuth;
         const token = (authHeader || '').replace('Bearer ', '');
-        
+
         const user = await getUser(token);
         return { user, req, res };
       },

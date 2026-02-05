@@ -1,11 +1,7 @@
 import { useState } from 'react';
 import { useQuery } from '@apollo/client/react';
 import { GET_ALL_FOODS, GET_FOOD_BY_NAME } from '../graphql/food';
-import type {
-  AllFoodsData,
-  FoodData,
-  FoodVariables,
-} from '../types';
+import type { AllFoodsData, FoodData, FoodVariables } from '../types';
 
 const AMINO_ACIDS = [
   { key: 'alanine', label: 'Alanine' },
@@ -106,11 +102,7 @@ export const FoodSelector = () => {
                 <div key={aminoAcid.key} className="amino-acid-item">
                   <span className="amino-acid-name">{aminoAcid.label}:</span>
                   <span className="amino-acid-value">
-                    {
-                      foodData.food.amino_acids_g[
-                        aminoAcid.key
-                      ]
-                    }
+                    {foodData.food.amino_acids_g[aminoAcid.key]}
                   </span>
                 </div>
               ))}

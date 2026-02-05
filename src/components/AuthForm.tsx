@@ -5,7 +5,7 @@ import { useMutation } from '@apollo/client/react';
 import { useNavigate } from '@tanstack/react-router';
 import { LOGIN_MUTATION, REGISTER_MUTATION } from '../graphql/auth';
 import type { LoginResponse, RegisterResponse } from '../types';
-import { LoginWithGoogle } from './GoogleLogin';
+import { LoginWithGoogle } from './LoginWithGoogle';
 import {
   loginSchema,
   registerSchema,
