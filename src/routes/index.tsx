@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 import { FoodSelector } from '../components/FoodSelector';
 import { UserHeader } from '../components/UserHeader';
+import { DailyNutrients } from '../components/DailyNutrients';
 import { requireAuth } from '../lib/auth';
 
 export const Route = createFileRoute('/')({
@@ -11,6 +13,7 @@ export const Route = createFileRoute('/')({
 function Home() {
   const loaderData = Route.useLoaderData();
   const user = loaderData.me;
+  const [selectedFood, setSelectedFood] = useState<string | null>(null);
 
   return (
     <div className="app-container">
@@ -22,7 +25,24 @@ function Home() {
             <h1>Amino Acid Database</h1>
             <p>Track and analyze food composition efficiently.</p>
           </div>
-          <FoodSelector />
+
+          {!selectedFood ? (
+            <>
+              <FoodSelector onFoodSelect={setSelectedFood} />
+              <div className="daily-nutrients-main">
+                <DailyNutrients />
+              </div>
+            </>
+          ) : (
+            <div className="food-selector-layout">
+              <div className="food-section">
+                <FoodSelector onFoodSelect={setSelectedFood} />
+              </div>
+              <aside className="food-selector-sidebar">
+                <DailyNutrients />
+              </aside>
+            </div>
+          )}
         </main>
       </div>
     </div>
