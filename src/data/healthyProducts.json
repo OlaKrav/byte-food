@@ -1,0 +1,433 @@
+[
+  {
+    "id": "hp001",
+    "name": "Quinoa Cooked",
+    "category": "Grains",
+    "essentialAminoAcids": {
+      "lysine": { "value": 239, "unit": "mg" },
+      "methionine": { "value": 159, "unit": "mg" },
+      "tryptophan": { "value": 78, "unit": "mg" },
+      "leucine": { "value": 351, "unit": "mg" },
+      "isoleucine": { "value": 219, "unit": "mg" },
+      "valine": { "value": 271, "unit": "mg" },
+      "threonine": { "value": 196, "unit": "mg" },
+      "phenylalanine": { "value": 236, "unit": "mg" },
+      "histidine": { "value": 127, "unit": "mg" }
+    },
+    "vitamins": {
+      "vitaminA": { "value": 5, "unit": "mcg" },
+      "vitaminC": { "value": 0, "unit": "mg" },
+      "vitaminD": { "value": 0, "unit": "mcg" },
+      "vitaminE": { "value": 0.63, "unit": "mg" },
+      "vitaminB1": { "value": 0.2, "unit": "mg" },
+      "vitaminB2": { "value": 0.16, "unit": "mg" },
+      "vitaminB6": { "value": 0.12, "unit": "mg" },
+      "vitaminB9": { "value": 42, "unit": "mcg" },
+      "vitaminB12": { "value": 0, "unit": "mcg" }
+    },
+    "minerals": {
+      "zinc": { "value": 1.09, "unit": "mg" },
+      "magnesium": { "value": 64, "unit": "mg" },
+      "iodine": { "value": 0, "unit": "mcg" },
+      "iron": { "value": 1.49, "unit": "mg" },
+      "calcium": { "value": 17, "unit": "mg" }
+    },
+    "macronutrients": {
+      "calories": { "min": { "value": 120, "unit": "kcal" }, "max": { "value": 120, "unit": "kcal" } },
+      "protein": { "value": 4.4, "unit": "g" },
+      "fat": { "value": 1.92, "unit": "g" },
+      "omega3ALA": { "value": 0.08, "unit": "g" },
+      "carbs": { "min": { "value": 21.3, "unit": "g" }, "max": { "value": 21.3, "unit": "g" } },
+      "fiber": { "min": { "value": 2.8, "unit": "g" }, "max": { "value": 2.8, "unit": "g" } },
+      "water": { "value": 71.6, "unit": "ml" }
+    }
+  },
+  {
+    "id": "hp002",
+    "name": "Chickpeas Cooked",
+    "category": "Legumes",
+    "essentialAminoAcids": {
+      "lysine": { "value": 486, "unit": "mg" },
+      "methionine": { "value": 116, "unit": "mg" },
+      "tryptophan": { "value": 85, "unit": "mg" },
+      "leucine": { "value": 631, "unit": "mg" },
+      "isoleucine": { "value": 380, "unit": "mg" },
+      "valine": { "value": 372, "unit": "mg" },
+      "threonine": { "value": 329, "unit": "mg" },
+      "phenylalanine": { "value": 475, "unit": "mg" },
+      "histidine": { "value": 244, "unit": "mg" }
+    },
+    "vitamins": {
+      "vitaminA": { "value": 27, "unit": "mcg" },
+      "vitaminC": { "value": 1.3, "unit": "mg" },
+      "vitaminD": { "value": 0, "unit": "mcg" },
+      "vitaminE": { "value": 0.35, "unit": "mg" },
+      "vitaminB1": { "value": 0.12, "unit": "mg" },
+      "vitaminB2": { "value": 0.06, "unit": "mg" },
+      "vitaminB6": { "value": 0.14, "unit": "mg" },
+      "vitaminB9": { "value": 172, "unit": "mcg" },
+      "vitaminB12": { "value": 0, "unit": "mcg" }
+    },
+    "minerals": {
+      "zinc": { "value": 1.53, "unit": "mg" },
+      "magnesium": { "value": 48, "unit": "mg" },
+      "iodine": { "value": 0, "unit": "mcg" },
+      "iron": { "value": 2.89, "unit": "mg" },
+      "calcium": { "value": 49, "unit": "mg" }
+    },
+    "macronutrients": {
+      "calories": { "min": { "value": 164, "unit": "kcal" }, "max": { "value": 164, "unit": "kcal" } },
+      "protein": { "value": 8.86, "unit": "g" },
+      "fat": { "value": 2.59, "unit": "g" },
+      "omega3ALA": { "value": 0.04, "unit": "g" },
+      "carbs": { "min": { "value": 27.42, "unit": "g" }, "max": { "value": 27.42, "unit": "g" } },
+      "fiber": { "min": { "value": 7.6, "unit": "g" }, "max": { "value": 7.6, "unit": "g" } },
+      "water": { "value": 60.21, "unit": "ml" }
+    }
+  },
+  {
+    "id": "hp003",
+    "name": "Spinach Raw",
+    "category": "Vegetables",
+    "essentialAminoAcids": {
+      "lysine": { "value": 174, "unit": "mg" },
+      "methionine": { "value": 53, "unit": "mg" },
+      "tryptophan": { "value": 39, "unit": "mg" },
+      "leucine": { "value": 223, "unit": "mg" },
+      "isoleucine": { "value": 147, "unit": "mg" },
+      "valine": { "value": 161, "unit": "mg" },
+      "threonine": { "value": 122, "unit": "mg" },
+      "phenylalanine": { "value": 129, "unit": "mg" },
+      "histidine": { "value": 64, "unit": "mg" }
+    },
+    "vitamins": {
+      "vitaminA": { "value": 9377, "unit": "mcg" },
+      "vitaminC": { "value": 28.1, "unit": "mg" },
+      "vitaminD": { "value": 0, "unit": "mcg" },
+      "vitaminE": { "value": 2.03, "unit": "mg" },
+      "vitaminB1": { "value": 0.078, "unit": "mg" },
+      "vitaminB2": { "value": 0.189, "unit": "mg" },
+      "vitaminB6": { "value": 0.195, "unit": "mg" },
+      "vitaminB9": { "value": 194, "unit": "mcg" },
+      "vitaminB12": { "value": 0, "unit": "mcg" }
+    },
+    "minerals": {
+      "zinc": { "value": 0.53, "unit": "mg" },
+      "magnesium": { "value": 79, "unit": "mg" },
+      "iodine": { "value": 0, "unit": "mcg" },
+      "iron": { "value": 2.71, "unit": "mg" },
+      "calcium": { "value": 99, "unit": "mg" }
+    },
+    "macronutrients": {
+      "calories": { "min": { "value": 23, "unit": "kcal" }, "max": { "value": 23, "unit": "kcal" } },
+      "protein": { "value": 2.86, "unit": "g" },
+      "fat": { "value": 0.39, "unit": "g" },
+      "omega3ALA": { "value": 0.14, "unit": "g" },
+      "carbs": { "min": { "value": 3.63, "unit": "g" }, "max": { "value": 3.63, "unit": "g" } },
+      "fiber": { "min": { "value": 2.2, "unit": "g" }, "max": { "value": 2.2, "unit": "g" } },
+      "water": { "value": 91.4, "unit": "ml" }
+    }
+  },
+  {
+    "id": "hp004",
+    "name": "Chia Seeds",
+    "category": "Seeds",
+    "essentialAminoAcids": {
+      "lysine": { "value": 970, "unit": "mg" },
+      "methionine": { "value": 588, "unit": "mg" },
+      "tryptophan": { "value": 436, "unit": "mg" },
+      "leucine": { "value": 1378, "unit": "mg" },
+      "isoleucine": { "value": 801, "unit": "mg" },
+      "valine": { "value": 950, "unit": "mg" },
+      "threonine": { "value": 709, "unit": "mg" },
+      "phenylalanine": { "value": 1137, "unit": "mg" },
+      "histidine": { "value": 531, "unit": "mg" }
+    },
+    "vitamins": {
+      "vitaminA": { "value": 54, "unit": "mcg" },
+      "vitaminC": { "value": 1.6, "unit": "mg" },
+      "vitaminD": { "value": 0, "unit": "mcg" },
+      "vitaminE": { "value": 0.5, "unit": "mg" },
+      "vitaminB1": { "value": 0.62, "unit": "mg" },
+      "vitaminB2": { "value": 0.17, "unit": "mg" },
+      "vitaminB6": { "value": 0.87, "unit": "mg" },
+      "vitaminB9": { "value": 49, "unit": "mcg" },
+      "vitaminB12": { "value": 0, "unit": "mcg" }
+    },
+    "minerals": {
+      "zinc": { "value": 4.58, "unit": "mg" },
+      "magnesium": { "value": 335, "unit": "mg" },
+      "iodine": { "value": 0, "unit": "mcg" },
+      "iron": { "value": 7.72, "unit": "mg" },
+      "calcium": { "value": 631, "unit": "mg" }
+    },
+    "macronutrients": {
+      "calories": { "min": { "value": 486, "unit": "kcal" }, "max": { "value": 486, "unit": "kcal" } },
+      "protein": { "value": 16.54, "unit": "g" },
+      "fat": { "value": 30.74, "unit": "g" },
+      "omega3ALA": { "value": 17.83, "unit": "g" },
+      "carbs": { "min": { "value": 42.12, "unit": "g" }, "max": { "value": 42.12, "unit": "g" } },
+      "fiber": { "min": { "value": 34.4, "unit": "g" }, "max": { "value": 34.4, "unit": "g" } },
+      "water": { "value": 5.8, "unit": "ml" }
+    }
+  },
+  {
+    "id": "hp005",
+    "name": "Broccoli Raw",
+    "category": "Vegetables",
+    "essentialAminoAcids": {
+      "lysine": { "value": 135, "unit": "mg" },
+      "methionine": { "value": 38, "unit": "mg" },
+      "tryptophan": { "value": 33, "unit": "mg" },
+      "leucine": { "value": 129, "unit": "mg" },
+      "isoleucine": { "value": 79, "unit": "mg" },
+      "valine": { "value": 125, "unit": "mg" },
+      "threonine": { "value": 88, "unit": "mg" },
+      "phenylalanine": { "value": 117, "unit": "mg" },
+      "histidine": { "value": 59, "unit": "mg" }
+    },
+    "vitamins": {
+      "vitaminA": { "value": 623, "unit": "mcg" },
+      "vitaminC": { "value": 89.2, "unit": "mg" },
+      "vitaminD": { "value": 0, "unit": "mcg" },
+      "vitaminE": { "value": 0.78, "unit": "mg" },
+      "vitaminB1": { "value": 0.071, "unit": "mg" },
+      "vitaminB2": { "value": 0.117, "unit": "mg" },
+      "vitaminB6": { "value": 0.175, "unit": "mg" },
+      "vitaminB9": { "value": 63, "unit": "mcg" },
+      "vitaminB12": { "value": 0, "unit": "mcg" }
+    },
+    "minerals": {
+      "zinc": { "value": 0.41, "unit": "mg" },
+      "magnesium": { "value": 21, "unit": "mg" },
+      "iodine": { "value": 0, "unit": "mcg" },
+      "iron": { "value": 0.73, "unit": "mg" },
+      "calcium": { "value": 47, "unit": "mg" }
+    },
+    "macronutrients": {
+      "calories": { "min": { "value": 34, "unit": "kcal" }, "max": { "value": 34, "unit": "kcal" } },
+      "protein": { "value": 2.82, "unit": "g" },
+      "fat": { "value": 0.37, "unit": "g" },
+      "omega3ALA": { "value": 0.02, "unit": "g" },
+      "carbs": { "min": { "value": 6.64, "unit": "g" }, "max": { "value": 6.64, "unit": "g" } },
+      "fiber": { "min": { "value": 2.6, "unit": "g" }, "max": { "value": 2.6, "unit": "g" } },
+      "water": { "value": 89.3, "unit": "ml" }
+    }
+  },
+  {
+    "id": "hp006",
+    "name": "Lentils Cooked",
+    "category": "Legumes",
+    "essentialAminoAcids": {
+      "lysine": { "value": 630, "unit": "mg" },
+      "methionine": { "value": 77, "unit": "mg" },
+      "tryptophan": { "value": 81, "unit": "mg" },
+      "leucine": { "value": 654, "unit": "mg" },
+      "isoleucine": { "value": 390, "unit": "mg" },
+      "valine": { "value": 448, "unit": "mg" },
+      "threonine": { "value": 323, "unit": "mg" },
+      "phenylalanine": { "value": 445, "unit": "mg" },
+      "histidine": { "value": 254, "unit": "mg" }
+    },
+    "vitamins": {
+      "vitaminA": { "value": 8, "unit": "mcg" },
+      "vitaminC": { "value": 1.5, "unit": "mg" },
+      "vitaminD": { "value": 0, "unit": "mcg" },
+      "vitaminE": { "value": 0.11, "unit": "mg" },
+      "vitaminB1": { "value": 0.169, "unit": "mg" },
+      "vitaminB2": { "value": 0.073, "unit": "mg" },
+      "vitaminB6": { "value": 0.178, "unit": "mg" },
+      "vitaminB9": { "value": 181, "unit": "mcg" },
+      "vitaminB12": { "value": 0, "unit": "mcg" }
+    },
+    "minerals": {
+      "zinc": { "value": 1.27, "unit": "mg" },
+      "magnesium": { "value": 36, "unit": "mg" },
+      "iodine": { "value": 0, "unit": "mcg" },
+      "iron": { "value": 3.33, "unit": "mg" },
+      "calcium": { "value": 19, "unit": "mg" }
+    },
+    "macronutrients": {
+      "calories": { "min": { "value": 116, "unit": "kcal" }, "max": { "value": 116, "unit": "kcal" } },
+      "protein": { "value": 9.02, "unit": "g" },
+      "fat": { "value": 0.38, "unit": "g" },
+      "omega3ALA": { "value": 0.01, "unit": "g" },
+      "carbs": { "min": { "value": 20.13, "unit": "g" }, "max": { "value": 20.13, "unit": "g" } },
+      "fiber": { "min": { "value": 7.9, "unit": "g" }, "max": { "value": 7.9, "unit": "g" } },
+      "water": { "value": 69.64, "unit": "ml" }
+    }
+  },
+  {
+    "id": "hp007",
+    "name": "Almonds",
+    "category": "Nuts",
+    "essentialAminoAcids": {
+      "lysine": { "value": 570, "unit": "mg" },
+      "methionine": { "value": 150, "unit": "mg" },
+      "tryptophan": { "value": 210, "unit": "mg" },
+      "leucine": { "value": 1470, "unit": "mg" },
+      "isoleucine": { "value": 700, "unit": "mg" },
+      "valine": { "value": 810, "unit": "mg" },
+      "threonine": { "value": 600, "unit": "mg" },
+      "phenylalanine": { "value": 1120, "unit": "mg" },
+      "histidine": { "value": 550, "unit": "mg" }
+    },
+    "vitamins": {
+      "vitaminA": { "value": 1, "unit": "mcg" },
+      "vitaminC": { "value": 0, "unit": "mg" },
+      "vitaminD": { "value": 0, "unit": "mcg" },
+      "vitaminE": { "value": 25.63, "unit": "mg" },
+      "vitaminB1": { "value": 0.205, "unit": "mg" },
+      "vitaminB2": { "value": 1.138, "unit": "mg" },
+      "vitaminB6": { "value": 0.137, "unit": "mg" },
+      "vitaminB9": { "value": 44, "unit": "mcg" },
+      "vitaminB12": { "value": 0, "unit": "mcg" }
+    },
+    "minerals": {
+      "zinc": { "value": 3.12, "unit": "mg" },
+      "magnesium": { "value": 270, "unit": "mg" },
+      "iodine": { "value": 0, "unit": "mcg" },
+      "iron": { "value": 3.71, "unit": "mg" },
+      "calcium": { "value": 269, "unit": "mg" }
+    },
+    "macronutrients": {
+      "calories": { "min": { "value": 579, "unit": "kcal" }, "max": { "value": 579, "unit": "kcal" } },
+      "protein": { "value": 21.15, "unit": "g" },
+      "fat": { "value": 49.93, "unit": "g" },
+      "omega3ALA": { "value": 0.003, "unit": "g" },
+      "carbs": { "min": { "value": 21.55, "unit": "g" }, "max": { "value": 21.55, "unit": "g" } },
+      "fiber": { "min": { "value": 12.5, "unit": "g" }, "max": { "value": 12.5, "unit": "g" } },
+      "water": { "value": 4.41, "unit": "ml" }
+    }
+  },
+  {
+    "id": "hp008",
+    "name": "Sweet Potato Baked",
+    "category": "Vegetables",
+    "essentialAminoAcids": {
+      "lysine": { "value": 75, "unit": "mg" },
+      "methionine": { "value": 25, "unit": "mg" },
+      "tryptophan": { "value": 35, "unit": "mg" },
+      "leucine": { "value": 102, "unit": "mg" },
+      "isoleucine": { "value": 70, "unit": "mg" },
+      "valine": { "value": 110, "unit": "mg" },
+      "threonine": { "value": 85, "unit": "mg" },
+      "phenylalanine": { "value": 114, "unit": "mg" },
+      "histidine": { "value": 30, "unit": "mg" }
+    },
+    "vitamins": {
+      "vitaminA": { "value": 19218, "unit": "mcg" },
+      "vitaminC": { "value": 19.6, "unit": "mg" },
+      "vitaminD": { "value": 0, "unit": "mcg" },
+      "vitaminE": { "value": 0.71, "unit": "mg" },
+      "vitaminB1": { "value": 0.107, "unit": "mg" },
+      "vitaminB2": { "value": 0.106, "unit": "mg" },
+      "vitaminB6": { "value": 0.286, "unit": "mg" },
+      "vitaminB9": { "value": 6, "unit": "mcg" },
+      "vitaminB12": { "value": 0, "unit": "mcg" }
+    },
+    "minerals": {
+      "zinc": { "value": 0.32, "unit": "mg" },
+      "magnesium": { "value": 27, "unit": "mg" },
+      "iodine": { "value": 0, "unit": "mcg" },
+      "iron": { "value": 0.69, "unit": "mg" },
+      "calcium": { "value": 38, "unit": "mg" }
+    },
+    "macronutrients": {
+      "calories": { "min": { "value": 90, "unit": "kcal" }, "max": { "value": 90, "unit": "kcal" } },
+      "protein": { "value": 2.01, "unit": "g" },
+      "fat": { "value": 0.15, "unit": "g" },
+      "omega3ALA": { "value": 0, "unit": "g" },
+      "carbs": { "min": { "value": 20.71, "unit": "g" }, "max": { "value": 20.71, "unit": "g" } },
+      "fiber": { "min": { "value": 3.3, "unit": "g" }, "max": { "value": 3.3, "unit": "g" } },
+      "water": { "value": 75.78, "unit": "ml" }
+    }
+  },
+  {
+    "id": "hp009",
+    "name": "Black Beans Cooked",
+    "category": "Legumes",
+    "essentialAminoAcids": {
+      "lysine": { "value": 608, "unit": "mg" },
+      "methionine": { "value": 117, "unit": "mg" },
+      "tryptophan": { "value": 90, "unit": "mg" },
+      "leucine": { "value": 765, "unit": "mg" },
+      "isoleucine": { "value": 412, "unit": "mg" },
+      "valine": { "value": 488, "unit": "mg" },
+      "threonine": { "value": 365, "unit": "mg" },
+      "phenylalanine": { "value": 519, "unit": "mg" },
+      "histidine": { "value": 256, "unit": "mg" }
+    },
+    "vitamins": {
+      "vitaminA": { "value": 6, "unit": "mcg" },
+      "vitaminC": { "value": 0, "unit": "mg" },
+      "vitaminD": { "value": 0, "unit": "mcg" },
+      "vitaminE": { "value": 0.87, "unit": "mg" },
+      "vitaminB1": { "value": 0.244, "unit": "mg" },
+      "vitaminB2": { "value": 0.059, "unit": "mg" },
+      "vitaminB6": { "value": 0.069, "unit": "mg" },
+      "vitaminB9": { "value": 256, "unit": "mcg" },
+      "vitaminB12": { "value": 0, "unit": "mcg" }
+    },
+    "minerals": {
+      "zinc": { "value": 1.93, "unit": "mg" },
+      "magnesium": { "value": 70, "unit": "mg" },
+      "iodine": { "value": 0, "unit": "mcg" },
+      "iron": { "value": 2.1, "unit": "mg" },
+      "calcium": { "value": 27, "unit": "mg" }
+    },
+    "macronutrients": {
+      "calories": { "min": { "value": 132, "unit": "kcal" }, "max": { "value": 132, "unit": "kcal" } },
+      "protein": { "value": 8.86, "unit": "g" },
+      "fat": { "value": 0.54, "unit": "g" },
+      "omega3ALA": { "value": 0.01, "unit": "g" },
+      "carbs": { "min": { "value": 23.71, "unit": "g" }, "max": { "value": 23.71, "unit": "g" } },
+      "fiber": { "min": { "value": 8.7, "unit": "g" }, "max": { "value": 8.7, "unit": "g" } },
+      "water": { "value": 65.74, "unit": "ml" }
+    }
+  },
+  {
+    "id": "hp010",
+    "name": "Oats Dry",
+    "category": "Grains",
+    "essentialAminoAcids": {
+      "lysine": { "value": 701, "unit": "mg" },
+      "methionine": { "value": 234, "unit": "mg" },
+      "tryptophan": { "value": 234, "unit": "mg" },
+      "leucine": { "value": 1380, "unit": "mg" },
+      "isoleucine": { "value": 694, "unit": "mg" },
+      "valine": { "value": 937, "unit": "mg" },
+      "threonine": { "value": 575, "unit": "mg" },
+      "phenylalanine": { "value": 895, "unit": "mg" },
+      "histidine": { "value": 405, "unit": "mg" }
+    },
+    "vitamins": {
+      "vitaminA": { "value": 0, "unit": "mcg" },
+      "vitaminC": { "value": 0, "unit": "mg" },
+      "vitaminD": { "value": 0, "unit": "mcg" },
+      "vitaminE": { "value": 0.7, "unit": "mg" },
+      "vitaminB1": { "value": 0.763, "unit": "mg" },
+      "vitaminB2": { "value": 0.139, "unit": "mg" },
+      "vitaminB6": { "value": 0.119, "unit": "mg" },
+      "vitaminB9": { "value": 56, "unit": "mcg" },
+      "vitaminB12": { "value": 0, "unit": "mcg" }
+    },
+    "minerals": {
+      "zinc": { "value": 3.97, "unit": "mg" },
+      "magnesium": { "value": 177, "unit": "mg" },
+      "iodine": { "value": 0, "unit": "mcg" },
+      "iron": { "value": 4.72, "unit": "mg" },
+      "calcium": { "value": 54, "unit": "mg" }
+    },
+    "macronutrients": {
+      "calories": { "min": { "value": 389, "unit": "kcal" }, "max": { "value": 389, "unit": "kcal" } },
+      "protein": { "value": 16.89, "unit": "g" },
+      "fat": { "value": 6.9, "unit": "g" },
+      "omega3ALA": { "value": 0.11, "unit": "g" },
+      "carbs": { "min": { "value": 66.27, "unit": "g" }, "max": { "value": 66.27, "unit": "g" } },
+      "fiber": { "min": { "value": 10.6, "unit": "g" }, "max": { "value": 10.6, "unit": "g" } },
+      "water": { "value": 8.22, "unit": "ml" }
+    }
+  }
+]
+

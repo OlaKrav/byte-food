@@ -40,11 +40,11 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 let foodsData: Food[] = [];
 try {
-  const foodsPath = join(__dirname, 'foods.json');
+  const foodsPath = join(__dirname, 'healthyProducts.json');
   const foodsContent = readFileSync(foodsPath, 'utf-8');
   foodsData = JSON.parse(foodsContent);
 } catch {
-  throw new Error('FAILED_TO_LOAD_FOODS_DATA: Check if foods.json exists');
+  throw new Error('FAILED_TO_LOAD_FOODS_DATA: Check if healthyProducts.json exists');
 }
 
 export const resolvers = {

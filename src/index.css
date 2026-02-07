@@ -488,39 +488,90 @@ button {
   box-shadow: var(--shadow);
 }
 
+.food-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-2xl);
+  padding-bottom: var(--spacing-xl);
+  border-bottom: 1px solid var(--border);
+  gap: var(--spacing-lg);
+}
+
 .food-details-title {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
   color: var(--text-primary);
+  line-height: 1.2;
 }
 
 .food-details-category {
   font-size: 0.875rem;
   color: var(--text-secondary);
-  margin-bottom: var(--spacing-xl);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.grams-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  min-width: 140px;
+}
+
+.grams-input-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-.amino-acids-grid {
-  margin-top: var(--spacing-lg);
+.grams-input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+  font-weight: 600;
 }
 
-.amino-acids-title {
+.grams-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+/* Nutrition Sections */
+.nutrition-section {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.nutrition-section:last-child {
+  margin-bottom: 0;
+}
+
+.section-title {
   font-size: 1.125rem;
   font-weight: 600;
   margin-bottom: var(--spacing-md);
   color: var(--text-primary);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 2px solid var(--border);
 }
 
-.amino-acids-list {
+.nutrition-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: var(--spacing-sm);
 }
 
-.amino-acid-item {
+.nutrition-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -528,18 +579,25 @@ button {
   background-color: var(--bg-secondary);
   border-radius: var(--radius);
   border: 1px solid var(--border);
+  transition: all 0.2s ease;
 }
 
-.amino-acid-name {
+.nutrition-item:hover {
+  background-color: var(--bg-primary);
+  border-color: var(--border-hover);
+}
+
+.nutrition-label {
   font-weight: 500;
   color: var(--text-primary);
   font-size: 0.875rem;
 }
 
-.amino-acid-value {
+.nutrition-value {
   font-weight: 600;
   color: var(--primary);
   font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
 }
 
 @media (max-width: 480px) {
@@ -559,11 +617,21 @@ button {
     font-size: 1.5rem;
   }
 
-  .amino-acids-list {
-    grid-template-columns: 1fr;
-  }
-
   .food-details {
     padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .food-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .grams-input-container {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .nutrition-grid {
+    grid-template-columns: 1fr;
   }
 }
