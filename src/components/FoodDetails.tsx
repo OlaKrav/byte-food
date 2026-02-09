@@ -257,3 +257,4 @@ export const FoodDetails = ({ food }: FoodDetailsProps) => {
   );
 };
 
+

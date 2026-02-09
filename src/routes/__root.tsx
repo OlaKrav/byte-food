@@ -12,3 +12,4 @@ export const Route = createRootRoute({
     </ApolloProvider>
   ),
 });
+

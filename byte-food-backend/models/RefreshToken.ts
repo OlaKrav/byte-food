@@ -14,3 +14,4 @@ const refreshTokenSchema = new Schema(
 refreshTokenSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 export const RefreshToken = model('RefreshToken', refreshTokenSchema);
+

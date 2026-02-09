@@ -22,8 +22,8 @@ function Home() {
 
         <main>
           <div className="welcome-section">
-            <h1>Amino Acid Database</h1>
-            <p>Track and analyze food composition efficiently.</p>
+            <h1>Byte Food</h1>
+            <p>Track and analyze food composition efficiently</p>
           </div>
 
           {!selectedFood ? (
