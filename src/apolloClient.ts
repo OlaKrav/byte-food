@@ -17,9 +17,30 @@ interface QueuedRequest {
   reject: (error: Error) => void;
 }
 
-export const refreshState = {
+interface GraphQLError {
+  message: string;
+  extensions?: {
+    code?: string;
+    [key: string]: unknown;
+  };
+}
+
+interface ErrorLinkArgs {
+  graphQLErrors?: ReadonlyArray<GraphQLError>;
+  networkError?: Error & { statusCode?: number };
+  operation: Operation;
+  forward: (op: Operation) => Observable<FetchResult>;
+}
+
+interface RefreshState {
+  isRefreshing: boolean;
+  failedQueue: QueuedRequest[];
+  processQueue: (error: Error | null, token?: string | null) => void;
+}
+
+export const refreshState: RefreshState = {
   isRefreshing: false,
-  failedQueue: [] as QueuedRequest[],
+  failedQueue: [],
 
   processQueue(error: Error | null, token: string | null = null) {
     this.failedQueue.forEach((prom) =>
@@ -93,12 +114,27 @@ export const authActions = {
         });
     });
   },
-  errorLinkHandler({ graphQLErrors, networkError, operation, forward }: any) {
-    const isUnauthenticated = graphQLErrors?.some(
-      (err: any) =>
-        err.extensions?.code === 'UNAUTHENTICATED' ||
-        err.message.includes('Unauthorized')
-    );
+  errorLinkHandler({
+    graphQLErrors,
+    networkError,
+    operation,
+    forward,
+  }: ErrorLinkArgs) {
+    const isUnauthenticated = graphQLErrors?.some((err: unknown) => {
+      const isObject = (val: unknown): val is Record<string, unknown> =>
+        typeof val === 'object' && val !== null;
+
+      if (isObject(err)) {
+        const extensions = isObject(err.extensions) ? err.extensions : null;
+        const message = typeof err.message === 'string' ? err.message : '';
+
+        return (
+          extensions?.code === 'UNAUTHENTICATED' ||
+          message.includes('Unauthorized')
+        );
+      }
+      return false;
+    });
 
     const isNetwork401 =
       networkError &&

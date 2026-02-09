@@ -7,7 +7,6 @@ export interface ConsumedFood {
 }
 
 export interface DailyNutrients {
-  // Essential Amino Acids (9)
   essentialAminoAcids: {
     lysine: number;
     methionine: number;
@@ -20,7 +19,6 @@ export interface DailyNutrients {
     histidine: number;
   };
 
-  // Vitamins (9)
   vitamins: {
     vitaminA: number;
     vitaminC: number;
@@ -33,7 +31,6 @@ export interface DailyNutrients {
     vitaminB12: number;
   };
 
-  // Minerals (5)
   minerals: {
     zinc: number;
     magnesium: number;
@@ -42,7 +39,6 @@ export interface DailyNutrients {
     calcium: number;
   };
 
-  // Macronutrients (7)
   macronutrients: {
     calories: number;
     protein: number;
@@ -98,7 +94,11 @@ const initialDailyNutrients: DailyNutrients = {
 interface FoodState {
   foods: ConsumedFood[];
   dailyNutrients: DailyNutrients;
-  addFood: (foodName: string, weight: number, nutrients: DailyNutrients) => void;
+  addFood: (
+    foodName: string,
+    weight: number,
+    nutrients: DailyNutrients
+  ) => void;
   resetDailyNutrients: () => void;
 }
 
@@ -116,42 +116,96 @@ export const useFoodStore = create<FoodState>((set) => ({
 
       const updatedNutrients: DailyNutrients = {
         essentialAminoAcids: {
-          lysine: state.dailyNutrients.essentialAminoAcids.lysine + nutrients.essentialAminoAcids.lysine,
-          methionine: state.dailyNutrients.essentialAminoAcids.methionine + nutrients.essentialAminoAcids.methionine,
-          tryptophan: state.dailyNutrients.essentialAminoAcids.tryptophan + nutrients.essentialAminoAcids.tryptophan,
-          leucine: state.dailyNutrients.essentialAminoAcids.leucine + nutrients.essentialAminoAcids.leucine,
-          isoleucine: state.dailyNutrients.essentialAminoAcids.isoleucine + nutrients.essentialAminoAcids.isoleucine,
-          valine: state.dailyNutrients.essentialAminoAcids.valine + nutrients.essentialAminoAcids.valine,
-          threonine: state.dailyNutrients.essentialAminoAcids.threonine + nutrients.essentialAminoAcids.threonine,
-          phenylalanine: state.dailyNutrients.essentialAminoAcids.phenylalanine + nutrients.essentialAminoAcids.phenylalanine,
-          histidine: state.dailyNutrients.essentialAminoAcids.histidine + nutrients.essentialAminoAcids.histidine,
+          lysine:
+            state.dailyNutrients.essentialAminoAcids.lysine +
+            nutrients.essentialAminoAcids.lysine,
+          methionine:
+            state.dailyNutrients.essentialAminoAcids.methionine +
+            nutrients.essentialAminoAcids.methionine,
+          tryptophan:
+            state.dailyNutrients.essentialAminoAcids.tryptophan +
+            nutrients.essentialAminoAcids.tryptophan,
+          leucine:
+            state.dailyNutrients.essentialAminoAcids.leucine +
+            nutrients.essentialAminoAcids.leucine,
+          isoleucine:
+            state.dailyNutrients.essentialAminoAcids.isoleucine +
+            nutrients.essentialAminoAcids.isoleucine,
+          valine:
+            state.dailyNutrients.essentialAminoAcids.valine +
+            nutrients.essentialAminoAcids.valine,
+          threonine:
+            state.dailyNutrients.essentialAminoAcids.threonine +
+            nutrients.essentialAminoAcids.threonine,
+          phenylalanine:
+            state.dailyNutrients.essentialAminoAcids.phenylalanine +
+            nutrients.essentialAminoAcids.phenylalanine,
+          histidine:
+            state.dailyNutrients.essentialAminoAcids.histidine +
+            nutrients.essentialAminoAcids.histidine,
         },
         vitamins: {
-          vitaminA: state.dailyNutrients.vitamins.vitaminA + nutrients.vitamins.vitaminA,
-          vitaminC: state.dailyNutrients.vitamins.vitaminC + nutrients.vitamins.vitaminC,
-          vitaminD: state.dailyNutrients.vitamins.vitaminD + nutrients.vitamins.vitaminD,
-          vitaminE: state.dailyNutrients.vitamins.vitaminE + nutrients.vitamins.vitaminE,
-          vitaminB1: state.dailyNutrients.vitamins.vitaminB1 + nutrients.vitamins.vitaminB1,
-          vitaminB2: state.dailyNutrients.vitamins.vitaminB2 + nutrients.vitamins.vitaminB2,
-          vitaminB6: state.dailyNutrients.vitamins.vitaminB6 + nutrients.vitamins.vitaminB6,
-          vitaminB9: state.dailyNutrients.vitamins.vitaminB9 + nutrients.vitamins.vitaminB9,
-          vitaminB12: state.dailyNutrients.vitamins.vitaminB12 + nutrients.vitamins.vitaminB12,
+          vitaminA:
+            state.dailyNutrients.vitamins.vitaminA +
+            nutrients.vitamins.vitaminA,
+          vitaminC:
+            state.dailyNutrients.vitamins.vitaminC +
+            nutrients.vitamins.vitaminC,
+          vitaminD:
+            state.dailyNutrients.vitamins.vitaminD +
+            nutrients.vitamins.vitaminD,
+          vitaminE:
+            state.dailyNutrients.vitamins.vitaminE +
+            nutrients.vitamins.vitaminE,
+          vitaminB1:
+            state.dailyNutrients.vitamins.vitaminB1 +
+            nutrients.vitamins.vitaminB1,
+          vitaminB2:
+            state.dailyNutrients.vitamins.vitaminB2 +
+            nutrients.vitamins.vitaminB2,
+          vitaminB6:
+            state.dailyNutrients.vitamins.vitaminB6 +
+            nutrients.vitamins.vitaminB6,
+          vitaminB9:
+            state.dailyNutrients.vitamins.vitaminB9 +
+            nutrients.vitamins.vitaminB9,
+          vitaminB12:
+            state.dailyNutrients.vitamins.vitaminB12 +
+            nutrients.vitamins.vitaminB12,
         },
         minerals: {
           zinc: state.dailyNutrients.minerals.zinc + nutrients.minerals.zinc,
-          magnesium: state.dailyNutrients.minerals.magnesium + nutrients.minerals.magnesium,
-          iodine: state.dailyNutrients.minerals.iodine + nutrients.minerals.iodine,
+          magnesium:
+            state.dailyNutrients.minerals.magnesium +
+            nutrients.minerals.magnesium,
+          iodine:
+            state.dailyNutrients.minerals.iodine + nutrients.minerals.iodine,
           iron: state.dailyNutrients.minerals.iron + nutrients.minerals.iron,
-          calcium: state.dailyNutrients.minerals.calcium + nutrients.minerals.calcium,
+          calcium:
+            state.dailyNutrients.minerals.calcium + nutrients.minerals.calcium,
         },
         macronutrients: {
-          calories: state.dailyNutrients.macronutrients.calories + nutrients.macronutrients.calories,
-          protein: state.dailyNutrients.macronutrients.protein + nutrients.macronutrients.protein,
-          fat: state.dailyNutrients.macronutrients.fat + nutrients.macronutrients.fat,
-          omega3ALA: state.dailyNutrients.macronutrients.omega3ALA + nutrients.macronutrients.omega3ALA,
-          carbs: state.dailyNutrients.macronutrients.carbs + nutrients.macronutrients.carbs,
-          fiber: state.dailyNutrients.macronutrients.fiber + nutrients.macronutrients.fiber,
-          water: state.dailyNutrients.macronutrients.water + nutrients.macronutrients.water,
+          calories:
+            state.dailyNutrients.macronutrients.calories +
+            nutrients.macronutrients.calories,
+          protein:
+            state.dailyNutrients.macronutrients.protein +
+            nutrients.macronutrients.protein,
+          fat:
+            state.dailyNutrients.macronutrients.fat +
+            nutrients.macronutrients.fat,
+          omega3ALA:
+            state.dailyNutrients.macronutrients.omega3ALA +
+            nutrients.macronutrients.omega3ALA,
+          carbs:
+            state.dailyNutrients.macronutrients.carbs +
+            nutrients.macronutrients.carbs,
+          fiber:
+            state.dailyNutrients.macronutrients.fiber +
+            nutrients.macronutrients.fiber,
+          water:
+            state.dailyNutrients.macronutrients.water +
+            nutrients.macronutrients.water,
         },
       };
 
@@ -167,4 +221,3 @@ export const useFoodStore = create<FoodState>((set) => ({
       dailyNutrients: initialDailyNutrients,
     })),
 }));
-

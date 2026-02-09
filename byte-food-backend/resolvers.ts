@@ -44,7 +44,9 @@ try {
   const foodsContent = readFileSync(foodsPath, 'utf-8');
   foodsData = JSON.parse(foodsContent);
 } catch {
-  throw new Error('FAILED_TO_LOAD_FOODS_DATA: Check if healthyProducts.json exists');
+  throw new Error(
+    'FAILED_TO_LOAD_FOODS_DATA: Check if healthyProducts.json exists'
+  );
 }
 
 export const resolvers = {

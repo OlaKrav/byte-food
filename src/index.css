@@ -67,8 +67,6 @@ body {
   font-size: 0.875rem;
 }
 
-/* Custom Scrollbar Styles */
-/* Webkit browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -88,7 +86,6 @@ body {
   background: rgba(0, 0, 0, 0.2);
 }
 
-/* Dark mode scrollbar */
 @media (prefers-color-scheme: dark) {
   ::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.1);
@@ -99,7 +96,6 @@ body {
   }
 }
 
-/* Firefox */
 * {
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
@@ -111,7 +107,6 @@ body {
   }
 }
 
-/* Custom scrollbar for scrollable containers */
 .food-section::-webkit-scrollbar,
 .food-selector-sidebar::-webkit-scrollbar,
 .daily-nutrients-main::-webkit-scrollbar {
@@ -161,13 +156,11 @@ body {
   }
 }
 
-/* App Container */
 .app-container {
   min-height: 100vh;
   background-color: var(--bg-primary);
 }
 
-/* Loader */
 .loader {
   display: flex;
   align-items: center;
@@ -195,7 +188,6 @@ body {
   }
 }
 
-/* Dashboard */
 .dashboard {
   width: 100%;
   margin: 0 auto;
@@ -278,7 +270,6 @@ body {
   line-height: 1.5;
 }
 
-/* Buttons */
 button {
   font-family: inherit;
   font-size: 0.875rem;
@@ -336,7 +327,6 @@ button {
   color: var(--primary-hover);
 }
 
-/* Auth Container */
 .auth-container {
   display: flex;
   align-items: center;
@@ -373,7 +363,6 @@ button {
   letter-spacing: 0.05em;
 }
 
-/* Form */
 .email-form {
   display: flex;
   flex-direction: column;
@@ -431,7 +420,6 @@ button {
   opacity: 1;
 }
 
-/* Error Message */
 .error {
   padding: var(--spacing-md);
   background-color: var(--error-bg);
@@ -442,7 +430,6 @@ button {
   border: 1px solid var(--error);
 }
 
-/* Toggle Auth */
 .toggle-auth {
   text-align: center;
   color: var(--text-secondary);
@@ -450,7 +437,6 @@ button {
   margin-bottom: var(--spacing-lg);
 }
 
-/* Divider */
 .divider {
   position: relative;
   text-align: center;
@@ -475,7 +461,6 @@ button {
   padding: 0 var(--spacing-md);
 }
 
-/* Google Login */
 .google-login-container {
   width: 100%;
 }
@@ -492,7 +477,6 @@ button {
   margin-top: var(--spacing-md);
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .dashboard {
     padding: var(--spacing-md) var(--spacing-sm);
@@ -529,13 +513,11 @@ button {
   }
 }
 
-/* Welcome Section */
 .welcome-section {
   flex-shrink: 0;
   margin-bottom: var(--spacing-md);
 }
 
-/* Food Selector */
 .food-selector {
   width: 100%;
 }
@@ -637,7 +619,6 @@ button {
   margin-top: var(--spacing-md);
 }
 
-/* Food Details */
 .food-details {
   margin-top: var(--spacing-md);
   padding: var(--spacing-md);
@@ -729,7 +710,6 @@ button {
   cursor: not-allowed;
 }
 
-/* Nutrition Sections */
 .nutrition-section {
   margin-bottom: var(--spacing-md);
 }
@@ -782,7 +762,6 @@ button {
   font-variant-numeric: tabular-nums;
 }
 
-/* Nutrient Blocks */
 .nutrition-blocks {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));

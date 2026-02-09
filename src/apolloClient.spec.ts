@@ -104,14 +104,26 @@ describe('Apollo Client Setup & Auth Logic', () => {
     it('should trigger the refresh logic on 401', () => {
       const refreshSpy = vi
         .spyOn(authActions, 'handleTokenRefresh')
-        .mockImplementation(() => ({}) as any);
+        .mockImplementation(() => {
+          return new Observable((observer) => {
+            observer.next({});
+            observer.complete();
+          });
+        });
 
       const mockForward = vi.fn();
-      const mockOp = { setContext: vi.fn(), getContext: () => ({}) } as any;
+
+      const mockOp: Partial<Operation> = {
+        setContext: vi.fn(),
+        getContext: vi.fn(() => ({})),
+      };
+
+      const networkError = new Error('Unauthorized');
+      Object.assign(networkError, { statusCode: 401 });
 
       authActions.errorLinkHandler({
-        networkError: { statusCode: 401 },
-        operation: mockOp,
+        networkError,
+        operation: mockOp as Operation,
         forward: mockForward,
       });
 
