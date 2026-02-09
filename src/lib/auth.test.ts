@@ -130,7 +130,7 @@ describe('Auth Utils (requireAuth)', () => {
 
     try {
       await requireAuth();
-    } catch (err) {
+    } catch {
       expect(redirect).toHaveBeenCalledWith({ to: '/auth' });
     }
   });
@@ -142,7 +142,7 @@ describe('Auth Utils (requireAuth)', () => {
 
     try {
       await requireAuth();
-    } catch (err) {
+    } catch {
       expect(redirect).toHaveBeenCalledWith({ to: '/auth' });
     }
   });
@@ -172,7 +172,7 @@ describe('Auth Utils (requireAuth)', () => {
 
     try {
       await requireAuth();
-    } catch (err) {
+    } catch {
       expect(redirect).toHaveBeenCalledWith({ to: '/auth' });
     }
   });
@@ -196,7 +196,7 @@ describe('Auth Utils (redirectIfAuthenticated)', () => {
 
     try {
       await redirectIfAuthenticated();
-    } catch (err) {
+    } catch {
       expect(redirect).toHaveBeenCalledWith({ to: '/' });
     }
   });
@@ -220,7 +220,7 @@ describe('Auth Utils (redirectIfAuthenticated)', () => {
 
     try {
       await redirectIfAuthenticated();
-    } catch (err) {
+    } catch {
       expect(redirect).toHaveBeenCalledWith({ to: '/' });
       expect(useAuthStore.getState().accessToken).toBe('new-token');
     }
@@ -252,7 +252,7 @@ describe('Auth Utils (redirectIfAuthenticated)', () => {
 
     try {
       await requireAuth();
-    } catch (err) {
+    } catch {
       expect(redirect).toHaveBeenCalledWith({ to: '/auth' });
     }
 

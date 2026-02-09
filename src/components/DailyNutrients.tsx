@@ -1,5 +1,8 @@
 import { useFoodStore } from '../store/foodStore';
-import { NUTRITIONAL_REQUIREMENTS_70KG } from '../constants/nutritionalRequirements';
+import {
+  isValidKey,
+  NUTRITIONAL_REQUIREMENTS_70KG,
+} from '../constants/nutritionalRequirements';
 
 const ESSENTIAL_AMINO_ACIDS = [
   { key: 'lysine', label: 'Lysine', unit: 'mg' },
@@ -13,6 +16,8 @@ const ESSENTIAL_AMINO_ACIDS = [
   { key: 'histidine', label: 'Histidine', unit: 'mg' },
 ] as const;
 
+type AminoAcidItem = (typeof ESSENTIAL_AMINO_ACIDS)[number];
+
 const VITAMINS = [
   { key: 'vitaminA', label: 'Vitamin A', unit: 'mcg' },
   { key: 'vitaminC', label: 'Vitamin C', unit: 'mg' },
@@ -25,6 +30,8 @@ const VITAMINS = [
   { key: 'vitaminB12', label: 'Vitamin B12', unit: 'mcg' },
 ] as const;
 
+type VitaminItem = (typeof VITAMINS)[number];
+
 const MINERALS = [
   { key: 'zinc', label: 'Zinc', unit: 'mg' },
   { key: 'magnesium', label: 'Magnesium', unit: 'mg' },
@@ -32,6 +39,8 @@ const MINERALS = [
   { key: 'iron', label: 'Iron', unit: 'mg' },
   { key: 'calcium', label: 'Calcium', unit: 'mg' },
 ] as const;
+
+type MineralItem = (typeof MINERALS)[number];
 
 export const DailyNutrients = () => {
   const dailyNutrients = useFoodStore((state) => state.dailyNutrients);
@@ -41,19 +50,22 @@ export const DailyNutrients = () => {
   };
 
   const getRequirement = (category: string, key: string): number => {
-    if (category === 'essentialAminoAcids') {
-      return NUTRITIONAL_REQUIREMENTS_70KG.essentialAminoAcids[key as keyof typeof NUTRITIONAL_REQUIREMENTS_70KG.essentialAminoAcids]?.value || 0;
+    if (
+      category === 'essentialAminoAcids' &&
+      isValidKey('essentialAminoAcids', key)
+    ) {
+      return NUTRITIONAL_REQUIREMENTS_70KG.essentialAminoAcids[key]?.value || 0;
     }
-    if (category === 'vitamins') {
-      return NUTRITIONAL_REQUIREMENTS_70KG.vitamins[key as keyof typeof NUTRITIONAL_REQUIREMENTS_70KG.vitamins]?.value || 0;
+    if (category === 'vitamins' && isValidKey('vitamins', key)) {
+      return NUTRITIONAL_REQUIREMENTS_70KG.vitamins[key]?.value || 0;
     }
-    if (category === 'minerals') {
-      return NUTRITIONAL_REQUIREMENTS_70KG.minerals[key as keyof typeof NUTRITIONAL_REQUIREMENTS_70KG.minerals]?.value || 0;
+    if (category === 'minerals' && isValidKey('minerals', key)) {
+      return NUTRITIONAL_REQUIREMENTS_70KG.minerals[key]?.value || 0;
     }
-    if (category === 'macronutrients') {
-      const macro = NUTRITIONAL_REQUIREMENTS_70KG.macronutrients[key as keyof typeof NUTRITIONAL_REQUIREMENTS_70KG.macronutrients];
+    if (category === 'macronutrients' && isValidKey('macronutrients', key)) {
+      const macro = NUTRITIONAL_REQUIREMENTS_70KG.macronutrients[key];
       if ('min' in macro && 'max' in macro) {
-        return macro.min.value; // Use min for ranges
+        return macro.min.value;
       }
       return macro?.value || 0;
     }
@@ -75,18 +87,59 @@ export const DailyNutrients = () => {
     <div className="daily-nutrients">
       <h3 className="daily-nutrients-title">Daily Nutrients</h3>
 
-      {/* Macronutrients */}
       <section className="nutrition-section">
         <h4 className="section-title">Macronutrients</h4>
         <div className="nutrition-blocks">
           {[
-            { key: 'calories', label: 'Calories', value: dailyNutrients.macronutrients.calories, unit: 'kcal', decimals: 1 },
-            { key: 'protein', label: 'Protein', value: dailyNutrients.macronutrients.protein, unit: 'g', decimals: 2 },
-            { key: 'fat', label: 'Fat', value: dailyNutrients.macronutrients.fat, unit: 'g', decimals: 2 },
-            { key: 'carbs', label: 'Carbs', value: dailyNutrients.macronutrients.carbs, unit: 'g', decimals: 2 },
-            { key: 'fiber', label: 'Fiber', value: dailyNutrients.macronutrients.fiber, unit: 'g', decimals: 2 },
-            { key: 'omega3ALA', label: 'Omega-3 ALA', value: dailyNutrients.macronutrients.omega3ALA, unit: 'g', decimals: 3 },
-            { key: 'water', label: 'Water', value: dailyNutrients.macronutrients.water, unit: 'ml', decimals: 1 },
+            {
+              key: 'calories',
+              label: 'Calories',
+              value: dailyNutrients.macronutrients.calories,
+              unit: 'kcal',
+              decimals: 1,
+            },
+            {
+              key: 'protein',
+              label: 'Protein',
+              value: dailyNutrients.macronutrients.protein,
+              unit: 'g',
+              decimals: 2,
+            },
+            {
+              key: 'fat',
+              label: 'Fat',
+              value: dailyNutrients.macronutrients.fat,
+              unit: 'g',
+              decimals: 2,
+            },
+            {
+              key: 'carbs',
+              label: 'Carbs',
+              value: dailyNutrients.macronutrients.carbs,
+              unit: 'g',
+              decimals: 2,
+            },
+            {
+              key: 'fiber',
+              label: 'Fiber',
+              value: dailyNutrients.macronutrients.fiber,
+              unit: 'g',
+              decimals: 2,
+            },
+            {
+              key: 'omega3ALA',
+              label: 'Omega-3 ALA',
+              value: dailyNutrients.macronutrients.omega3ALA,
+              unit: 'g',
+              decimals: 3,
+            },
+            {
+              key: 'water',
+              label: 'Water',
+              value: dailyNutrients.macronutrients.water,
+              unit: 'ml',
+              decimals: 1,
+            },
           ].map((macro) => {
             const required = getRequirement('macronutrients', macro.key);
             const percentage = getPercentage(macro.value, required);
@@ -95,7 +148,8 @@ export const DailyNutrients = () => {
               <div key={macro.key} className={`nutrient-block ${colorClass}`}>
                 <div className="nutrient-block-label">{macro.label}</div>
                 <div className="nutrient-block-value">
-                  {formatValue(macro.value, macro.decimals)} / {formatValue(required, macro.decimals)} {macro.unit}
+                  {formatValue(macro.value, macro.decimals)} /{' '}
+                  {formatValue(required, macro.decimals)} {macro.unit}
                 </div>
               </div>
             );
@@ -103,20 +157,26 @@ export const DailyNutrients = () => {
         </div>
       </section>
 
-      {/* Essential Amino Acids */}
       <section className="nutrition-section">
         <h4 className="section-title">Essential Amino Acids</h4>
         <div className="nutrition-blocks">
-          {ESSENTIAL_AMINO_ACIDS.map((aminoAcid) => {
-            const value = dailyNutrients.essentialAminoAcids[aminoAcid.key as keyof typeof dailyNutrients.essentialAminoAcids];
-            const required = getRequirement('essentialAminoAcids', aminoAcid.key);
+          {ESSENTIAL_AMINO_ACIDS.map((aminoAcid: AminoAcidItem) => {
+            const value = dailyNutrients.essentialAminoAcids[aminoAcid.key];
+            const required = getRequirement(
+              'essentialAminoAcids',
+              aminoAcid.key
+            );
             const percentage = getPercentage(value, required);
             const colorClass = getColorClass(percentage);
             return (
-              <div key={aminoAcid.key} className={`nutrient-block ${colorClass}`}>
+              <div
+                key={aminoAcid.key}
+                className={`nutrient-block ${colorClass}`}
+              >
                 <div className="nutrient-block-label">{aminoAcid.label}</div>
                 <div className="nutrient-block-value">
-                  {formatValue(value, 2)} / {formatValue(required, 2)} {aminoAcid.unit}
+                  {formatValue(value, 2)} / {formatValue(required, 2)}{' '}
+                  {aminoAcid.unit}
                 </div>
               </div>
             );
@@ -124,12 +184,11 @@ export const DailyNutrients = () => {
         </div>
       </section>
 
-      {/* Vitamins */}
       <section className="nutrition-section">
         <h4 className="section-title">Vitamins</h4>
         <div className="nutrition-blocks">
-          {VITAMINS.map((vitamin) => {
-            const value = dailyNutrients.vitamins[vitamin.key as keyof typeof dailyNutrients.vitamins];
+          {VITAMINS.map((vitamin: VitaminItem) => {
+            const value = dailyNutrients.vitamins[vitamin.key];
             const required = getRequirement('vitamins', vitamin.key);
             const percentage = getPercentage(value, required);
             const colorClass = getColorClass(percentage);
@@ -137,7 +196,8 @@ export const DailyNutrients = () => {
               <div key={vitamin.key} className={`nutrient-block ${colorClass}`}>
                 <div className="nutrient-block-label">{vitamin.label}</div>
                 <div className="nutrient-block-value">
-                  {formatValue(value, 3)} / {formatValue(required, 3)} {vitamin.unit}
+                  {formatValue(value, 3)} / {formatValue(required, 3)}{' '}
+                  {vitamin.unit}
                 </div>
               </div>
             );
@@ -145,12 +205,11 @@ export const DailyNutrients = () => {
         </div>
       </section>
 
-      {/* Minerals */}
       <section className="nutrition-section">
         <h4 className="section-title">Minerals</h4>
         <div className="nutrition-blocks">
-          {MINERALS.map((mineral) => {
-            const value = dailyNutrients.minerals[mineral.key as keyof typeof dailyNutrients.minerals];
+          {MINERALS.map((mineral: MineralItem) => {
+            const value = dailyNutrients.minerals[mineral.key];
             const required = getRequirement('minerals', mineral.key);
             const percentage = getPercentage(value, required);
             const colorClass = getColorClass(percentage);
@@ -158,7 +217,8 @@ export const DailyNutrients = () => {
               <div key={mineral.key} className={`nutrient-block ${colorClass}`}>
                 <div className="nutrient-block-label">{mineral.label}</div>
                 <div className="nutrient-block-value">
-                  {formatValue(value, 2)} / {formatValue(required, 2)} {mineral.unit}
+                  {formatValue(value, 2)} / {formatValue(required, 2)}{' '}
+                  {mineral.unit}
                 </div>
               </div>
             );
@@ -168,4 +228,3 @@ export const DailyNutrients = () => {
     </div>
   );
 };
-

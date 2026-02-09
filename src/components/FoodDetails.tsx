@@ -14,6 +14,8 @@ const ESSENTIAL_AMINO_ACIDS = [
   { key: 'histidine', label: 'Histidine' },
 ] as const;
 
+type AminoAcidItem = (typeof ESSENTIAL_AMINO_ACIDS)[number];
+
 const VITAMINS = [
   { key: 'vitaminA', label: 'Vitamin A' },
   { key: 'vitaminC', label: 'Vitamin C' },
@@ -26,6 +28,8 @@ const VITAMINS = [
   { key: 'vitaminB12', label: 'Vitamin B12' },
 ] as const;
 
+type VitaminItem = (typeof VITAMINS)[number];
+
 const MINERALS = [
   { key: 'zinc', label: 'Zinc' },
   { key: 'magnesium', label: 'Magnesium' },
@@ -33,6 +37,8 @@ const MINERALS = [
   { key: 'iron', label: 'Iron' },
   { key: 'calcium', label: 'Calcium' },
 ] as const;
+
+type MineralItem = (typeof MINERALS)[number];
 
 const calculateValue = (nutrient: NutrientValue, grams: number): number => {
   return (nutrient.value * grams) / 100;
@@ -52,10 +58,11 @@ export const FoodDetails = ({ food }: FoodDetailsProps) => {
     const value = e.target.value;
     const numericValue = value.replace(/[^0-9.]/g, '');
     const parts = numericValue.split('.');
-    const filteredValue = parts.length > 2 
-      ? parts[0] + '.' + parts.slice(1).join('')
-      : numericValue;
-    
+    const filteredValue =
+      parts.length > 2
+        ? parts[0] + '.' + parts.slice(1).join('')
+        : numericValue;
+
     setConsumedGramsInput(filteredValue);
   };
 
@@ -67,14 +74,35 @@ export const FoodDetails = ({ food }: FoodDetailsProps) => {
     return {
       essentialAminoAcids: {
         lysine: calculateValue(food.essentialAminoAcids.lysine, consumedGrams),
-        methionine: calculateValue(food.essentialAminoAcids.methionine, consumedGrams),
-        tryptophan: calculateValue(food.essentialAminoAcids.tryptophan, consumedGrams),
-        leucine: calculateValue(food.essentialAminoAcids.leucine, consumedGrams),
-        isoleucine: calculateValue(food.essentialAminoAcids.isoleucine, consumedGrams),
+        methionine: calculateValue(
+          food.essentialAminoAcids.methionine,
+          consumedGrams
+        ),
+        tryptophan: calculateValue(
+          food.essentialAminoAcids.tryptophan,
+          consumedGrams
+        ),
+        leucine: calculateValue(
+          food.essentialAminoAcids.leucine,
+          consumedGrams
+        ),
+        isoleucine: calculateValue(
+          food.essentialAminoAcids.isoleucine,
+          consumedGrams
+        ),
         valine: calculateValue(food.essentialAminoAcids.valine, consumedGrams),
-        threonine: calculateValue(food.essentialAminoAcids.threonine, consumedGrams),
-        phenylalanine: calculateValue(food.essentialAminoAcids.phenylalanine, consumedGrams),
-        histidine: calculateValue(food.essentialAminoAcids.histidine, consumedGrams),
+        threonine: calculateValue(
+          food.essentialAminoAcids.threonine,
+          consumedGrams
+        ),
+        phenylalanine: calculateValue(
+          food.essentialAminoAcids.phenylalanine,
+          consumedGrams
+        ),
+        histidine: calculateValue(
+          food.essentialAminoAcids.histidine,
+          consumedGrams
+        ),
       },
       vitamins: {
         vitaminA: calculateValue(food.vitamins.vitaminA, consumedGrams),
@@ -148,61 +176,83 @@ export const FoodDetails = ({ food }: FoodDetailsProps) => {
         </div>
       </div>
 
-      {/* Macronutrients */}
       <section className="nutrition-section">
         <h4 className="section-title">Macronutrients</h4>
         <div className="nutrition-grid">
           <div className="nutrition-item">
             <span className="nutrition-label">Calories</span>
             <span className="nutrition-value">
-              {calculateValue(food.macronutrients.calories, consumedGrams).toFixed(1)} {food.macronutrients.calories.unit}
+              {calculateValue(
+                food.macronutrients.calories,
+                consumedGrams
+              ).toFixed(1)}{' '}
+              {food.macronutrients.calories.unit}
             </span>
           </div>
           <div className="nutrition-item">
             <span className="nutrition-label">Protein</span>
             <span className="nutrition-value">
-              {calculateValue(food.macronutrients.protein, consumedGrams).toFixed(2)} {food.macronutrients.protein.unit}
+              {calculateValue(
+                food.macronutrients.protein,
+                consumedGrams
+              ).toFixed(2)}{' '}
+              {food.macronutrients.protein.unit}
             </span>
           </div>
           <div className="nutrition-item">
             <span className="nutrition-label">Fat</span>
             <span className="nutrition-value">
-              {calculateValue(food.macronutrients.fat, consumedGrams).toFixed(2)} {food.macronutrients.fat.unit}
+              {calculateValue(food.macronutrients.fat, consumedGrams).toFixed(
+                2
+              )}{' '}
+              {food.macronutrients.fat.unit}
             </span>
           </div>
           <div className="nutrition-item">
             <span className="nutrition-label">Carbs</span>
             <span className="nutrition-value">
-              {calculateValue(food.macronutrients.carbs, consumedGrams).toFixed(2)} {food.macronutrients.carbs.unit}
+              {calculateValue(food.macronutrients.carbs, consumedGrams).toFixed(
+                2
+              )}{' '}
+              {food.macronutrients.carbs.unit}
             </span>
           </div>
           <div className="nutrition-item">
             <span className="nutrition-label">Fiber</span>
             <span className="nutrition-value">
-              {calculateValue(food.macronutrients.fiber, consumedGrams).toFixed(2)} {food.macronutrients.fiber.unit}
+              {calculateValue(food.macronutrients.fiber, consumedGrams).toFixed(
+                2
+              )}{' '}
+              {food.macronutrients.fiber.unit}
             </span>
           </div>
           <div className="nutrition-item">
             <span className="nutrition-label">Omega-3 ALA</span>
             <span className="nutrition-value">
-              {calculateValue(food.macronutrients.omega3ALA, consumedGrams).toFixed(3)} {food.macronutrients.omega3ALA.unit}
+              {calculateValue(
+                food.macronutrients.omega3ALA,
+                consumedGrams
+              ).toFixed(3)}{' '}
+              {food.macronutrients.omega3ALA.unit}
             </span>
           </div>
           <div className="nutrition-item">
             <span className="nutrition-label">Water</span>
             <span className="nutrition-value">
-              {calculateValue(food.macronutrients.water, consumedGrams).toFixed(1)} {food.macronutrients.water.unit}
+              {calculateValue(food.macronutrients.water, consumedGrams).toFixed(
+                1
+              )}{' '}
+              {food.macronutrients.water.unit}
             </span>
           </div>
         </div>
       </section>
 
-      {/* Essential Amino Acids */}
       <section className="nutrition-section">
         <h4 className="section-title">Essential Amino Acids</h4>
         <div className="nutrition-grid">
-          {ESSENTIAL_AMINO_ACIDS.map((aminoAcid) => {
-            const nutrient = food.essentialAminoAcids[aminoAcid.key as keyof typeof food.essentialAminoAcids];
+          {ESSENTIAL_AMINO_ACIDS.map((aminoAcid: AminoAcidItem) => {
+            const nutrient = food.essentialAminoAcids[aminoAcid.key];
             const calculatedValue = calculateValue(nutrient, consumedGrams);
             return (
               <div key={aminoAcid.key} className="nutrition-item">
@@ -216,12 +266,11 @@ export const FoodDetails = ({ food }: FoodDetailsProps) => {
         </div>
       </section>
 
-      {/* Vitamins */}
       <section className="nutrition-section">
         <h4 className="section-title">Vitamins</h4>
         <div className="nutrition-grid">
-          {VITAMINS.map((vitamin) => {
-            const nutrient = food.vitamins[vitamin.key as keyof typeof food.vitamins];
+          {VITAMINS.map((vitamin: VitaminItem) => {
+            const nutrient = food.vitamins[vitamin.key];
             const calculatedValue = calculateValue(nutrient, consumedGrams);
             return (
               <div key={vitamin.key} className="nutrition-item">
@@ -235,12 +284,11 @@ export const FoodDetails = ({ food }: FoodDetailsProps) => {
         </div>
       </section>
 
-      {/* Minerals */}
       <section className="nutrition-section">
         <h4 className="section-title">Minerals</h4>
         <div className="nutrition-grid">
-          {MINERALS.map((mineral) => {
-            const nutrient = food.minerals[mineral.key as keyof typeof food.minerals];
+          {MINERALS.map((mineral: MineralItem) => {
+            const nutrient = food.minerals[mineral.key];
             const calculatedValue = calculateValue(nutrient, consumedGrams);
             return (
               <div key={mineral.key} className="nutrition-item">
@@ -256,5 +304,3 @@ export const FoodDetails = ({ food }: FoodDetailsProps) => {
     </div>
   );
 };
-
-

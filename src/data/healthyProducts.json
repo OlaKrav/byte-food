@@ -33,12 +33,21 @@
       "calcium": { "value": 17, "unit": "mg" }
     },
     "macronutrients": {
-      "calories": { "min": { "value": 120, "unit": "kcal" }, "max": { "value": 120, "unit": "kcal" } },
+      "calories": {
+        "min": { "value": 120, "unit": "kcal" },
+        "max": { "value": 120, "unit": "kcal" }
+      },
       "protein": { "value": 4.4, "unit": "g" },
       "fat": { "value": 1.92, "unit": "g" },
       "omega3ALA": { "value": 0.08, "unit": "g" },
-      "carbs": { "min": { "value": 21.3, "unit": "g" }, "max": { "value": 21.3, "unit": "g" } },
-      "fiber": { "min": { "value": 2.8, "unit": "g" }, "max": { "value": 2.8, "unit": "g" } },
+      "carbs": {
+        "min": { "value": 21.3, "unit": "g" },
+        "max": { "value": 21.3, "unit": "g" }
+      },
+      "fiber": {
+        "min": { "value": 2.8, "unit": "g" },
+        "max": { "value": 2.8, "unit": "g" }
+      },
       "water": { "value": 71.6, "unit": "ml" }
     }
   },
@@ -76,12 +85,21 @@
       "calcium": { "value": 49, "unit": "mg" }
     },
     "macronutrients": {
-      "calories": { "min": { "value": 164, "unit": "kcal" }, "max": { "value": 164, "unit": "kcal" } },
+      "calories": {
+        "min": { "value": 164, "unit": "kcal" },
+        "max": { "value": 164, "unit": "kcal" }
+      },
       "protein": { "value": 8.86, "unit": "g" },
       "fat": { "value": 2.59, "unit": "g" },
       "omega3ALA": { "value": 0.04, "unit": "g" },
-      "carbs": { "min": { "value": 27.42, "unit": "g" }, "max": { "value": 27.42, "unit": "g" } },
-      "fiber": { "min": { "value": 7.6, "unit": "g" }, "max": { "value": 7.6, "unit": "g" } },
+      "carbs": {
+        "min": { "value": 27.42, "unit": "g" },
+        "max": { "value": 27.42, "unit": "g" }
+      },
+      "fiber": {
+        "min": { "value": 7.6, "unit": "g" },
+        "max": { "value": 7.6, "unit": "g" }
+      },
       "water": { "value": 60.21, "unit": "ml" }
     }
   },
@@ -119,12 +137,21 @@
       "calcium": { "value": 99, "unit": "mg" }
     },
     "macronutrients": {
-      "calories": { "min": { "value": 23, "unit": "kcal" }, "max": { "value": 23, "unit": "kcal" } },
+      "calories": {
+        "min": { "value": 23, "unit": "kcal" },
+        "max": { "value": 23, "unit": "kcal" }
+      },
       "protein": { "value": 2.86, "unit": "g" },
       "fat": { "value": 0.39, "unit": "g" },
       "omega3ALA": { "value": 0.14, "unit": "g" },
-      "carbs": { "min": { "value": 3.63, "unit": "g" }, "max": { "value": 3.63, "unit": "g" } },
-      "fiber": { "min": { "value": 2.2, "unit": "g" }, "max": { "value": 2.2, "unit": "g" } },
+      "carbs": {
+        "min": { "value": 3.63, "unit": "g" },
+        "max": { "value": 3.63, "unit": "g" }
+      },
+      "fiber": {
+        "min": { "value": 2.2, "unit": "g" },
+        "max": { "value": 2.2, "unit": "g" }
+      },
       "water": { "value": 91.4, "unit": "ml" }
     }
   },
@@ -162,12 +189,21 @@
       "calcium": { "value": 631, "unit": "mg" }
     },
     "macronutrients": {
-      "calories": { "min": { "value": 486, "unit": "kcal" }, "max": { "value": 486, "unit": "kcal" } },
+      "calories": {
+        "min": { "value": 486, "unit": "kcal" },
+        "max": { "value": 486, "unit": "kcal" }
+      },
       "protein": { "value": 16.54, "unit": "g" },
       "fat": { "value": 30.74, "unit": "g" },
       "omega3ALA": { "value": 17.83, "unit": "g" },
-      "carbs": { "min": { "value": 42.12, "unit": "g" }, "max": { "value": 42.12, "unit": "g" } },
-      "fiber": { "min": { "value": 34.4, "unit": "g" }, "max": { "value": 34.4, "unit": "g" } },
+      "carbs": {
+        "min": { "value": 42.12, "unit": "g" },
+        "max": { "value": 42.12, "unit": "g" }
+      },
+      "fiber": {
+        "min": { "value": 34.4, "unit": "g" },
+        "max": { "value": 34.4, "unit": "g" }
+      },
       "water": { "value": 5.8, "unit": "ml" }
     }
   },
@@ -205,12 +241,21 @@
       "calcium": { "value": 47, "unit": "mg" }
     },
     "macronutrients": {
-      "calories": { "min": { "value": 34, "unit": "kcal" }, "max": { "value": 34, "unit": "kcal" } },
+      "calories": {
+        "min": { "value": 34, "unit": "kcal" },
+        "max": { "value": 34, "unit": "kcal" }
+      },
       "protein": { "value": 2.82, "unit": "g" },
       "fat": { "value": 0.37, "unit": "g" },
       "omega3ALA": { "value": 0.02, "unit": "g" },
-      "carbs": { "min": { "value": 6.64, "unit": "g" }, "max": { "value": 6.64, "unit": "g" } },
-      "fiber": { "min": { "value": 2.6, "unit": "g" }, "max": { "value": 2.6, "unit": "g" } },
+      "carbs": {
+        "min": { "value": 6.64, "unit": "g" },
+        "max": { "value": 6.64, "unit": "g" }
+      },
+      "fiber": {
+        "min": { "value": 2.6, "unit": "g" },
+        "max": { "value": 2.6, "unit": "g" }
+      },
       "water": { "value": 89.3, "unit": "ml" }
     }
   },
@@ -248,12 +293,21 @@
       "calcium": { "value": 19, "unit": "mg" }
     },
     "macronutrients": {
-      "calories": { "min": { "value": 116, "unit": "kcal" }, "max": { "value": 116, "unit": "kcal" } },
+      "calories": {
+        "min": { "value": 116, "unit": "kcal" },
+        "max": { "value": 116, "unit": "kcal" }
+      },
       "protein": { "value": 9.02, "unit": "g" },
       "fat": { "value": 0.38, "unit": "g" },
       "omega3ALA": { "value": 0.01, "unit": "g" },
-      "carbs": { "min": { "value": 20.13, "unit": "g" }, "max": { "value": 20.13, "unit": "g" } },
-      "fiber": { "min": { "value": 7.9, "unit": "g" }, "max": { "value": 7.9, "unit": "g" } },
+      "carbs": {
+        "min": { "value": 20.13, "unit": "g" },
+        "max": { "value": 20.13, "unit": "g" }
+      },
+      "fiber": {
+        "min": { "value": 7.9, "unit": "g" },
+        "max": { "value": 7.9, "unit": "g" }
+      },
       "water": { "value": 69.64, "unit": "ml" }
     }
   },
@@ -291,12 +345,21 @@
       "calcium": { "value": 269, "unit": "mg" }
     },
     "macronutrients": {
-      "calories": { "min": { "value": 579, "unit": "kcal" }, "max": { "value": 579, "unit": "kcal" } },
+      "calories": {
+        "min": { "value": 579, "unit": "kcal" },
+        "max": { "value": 579, "unit": "kcal" }
+      },
       "protein": { "value": 21.15, "unit": "g" },
       "fat": { "value": 49.93, "unit": "g" },
       "omega3ALA": { "value": 0.003, "unit": "g" },
-      "carbs": { "min": { "value": 21.55, "unit": "g" }, "max": { "value": 21.55, "unit": "g" } },
-      "fiber": { "min": { "value": 12.5, "unit": "g" }, "max": { "value": 12.5, "unit": "g" } },
+      "carbs": {
+        "min": { "value": 21.55, "unit": "g" },
+        "max": { "value": 21.55, "unit": "g" }
+      },
+      "fiber": {
+        "min": { "value": 12.5, "unit": "g" },
+        "max": { "value": 12.5, "unit": "g" }
+      },
       "water": { "value": 4.41, "unit": "ml" }
     }
   },
@@ -334,12 +397,21 @@
       "calcium": { "value": 38, "unit": "mg" }
     },
     "macronutrients": {
-      "calories": { "min": { "value": 90, "unit": "kcal" }, "max": { "value": 90, "unit": "kcal" } },
+      "calories": {
+        "min": { "value": 90, "unit": "kcal" },
+        "max": { "value": 90, "unit": "kcal" }
+      },
       "protein": { "value": 2.01, "unit": "g" },
       "fat": { "value": 0.15, "unit": "g" },
       "omega3ALA": { "value": 0, "unit": "g" },
-      "carbs": { "min": { "value": 20.71, "unit": "g" }, "max": { "value": 20.71, "unit": "g" } },
-      "fiber": { "min": { "value": 3.3, "unit": "g" }, "max": { "value": 3.3, "unit": "g" } },
+      "carbs": {
+        "min": { "value": 20.71, "unit": "g" },
+        "max": { "value": 20.71, "unit": "g" }
+      },
+      "fiber": {
+        "min": { "value": 3.3, "unit": "g" },
+        "max": { "value": 3.3, "unit": "g" }
+      },
       "water": { "value": 75.78, "unit": "ml" }
     }
   },
@@ -377,12 +449,21 @@
       "calcium": { "value": 27, "unit": "mg" }
     },
     "macronutrients": {
-      "calories": { "min": { "value": 132, "unit": "kcal" }, "max": { "value": 132, "unit": "kcal" } },
+      "calories": {
+        "min": { "value": 132, "unit": "kcal" },
+        "max": { "value": 132, "unit": "kcal" }
+      },
       "protein": { "value": 8.86, "unit": "g" },
       "fat": { "value": 0.54, "unit": "g" },
       "omega3ALA": { "value": 0.01, "unit": "g" },
-      "carbs": { "min": { "value": 23.71, "unit": "g" }, "max": { "value": 23.71, "unit": "g" } },
-      "fiber": { "min": { "value": 8.7, "unit": "g" }, "max": { "value": 8.7, "unit": "g" } },
+      "carbs": {
+        "min": { "value": 23.71, "unit": "g" },
+        "max": { "value": 23.71, "unit": "g" }
+      },
+      "fiber": {
+        "min": { "value": 8.7, "unit": "g" },
+        "max": { "value": 8.7, "unit": "g" }
+      },
       "water": { "value": 65.74, "unit": "ml" }
     }
   },
@@ -420,14 +501,22 @@
       "calcium": { "value": 54, "unit": "mg" }
     },
     "macronutrients": {
-      "calories": { "min": { "value": 389, "unit": "kcal" }, "max": { "value": 389, "unit": "kcal" } },
+      "calories": {
+        "min": { "value": 389, "unit": "kcal" },
+        "max": { "value": 389, "unit": "kcal" }
+      },
       "protein": { "value": 16.89, "unit": "g" },
       "fat": { "value": 6.9, "unit": "g" },
       "omega3ALA": { "value": 0.11, "unit": "g" },
-      "carbs": { "min": { "value": 66.27, "unit": "g" }, "max": { "value": 66.27, "unit": "g" } },
-      "fiber": { "min": { "value": 10.6, "unit": "g" }, "max": { "value": 10.6, "unit": "g" } },
+      "carbs": {
+        "min": { "value": 66.27, "unit": "g" },
+        "max": { "value": 66.27, "unit": "g" }
+      },
+      "fiber": {
+        "min": { "value": 10.6, "unit": "g" },
+        "max": { "value": 10.6, "unit": "g" }
+      },
       "water": { "value": 8.22, "unit": "ml" }
     }
   }
 ]
-

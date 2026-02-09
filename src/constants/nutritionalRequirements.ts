@@ -104,3 +104,10 @@ export const NUTRITIONAL_REQUIREMENTS_70KG: NutritionalRequirements = {
     water: { value: 2100, unit: 'ml' },
   },
 };
+
+export function isValidKey<C extends keyof NutritionalRequirements>(
+  category: C,
+  key: string
+): key is keyof NutritionalRequirements[C] & string {
+  return key in NUTRITIONAL_REQUIREMENTS_70KG[category];
+}
