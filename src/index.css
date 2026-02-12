@@ -578,7 +578,6 @@ button {
   border-bottom: 1px solid var(--border);
 }
 
-
 .daily-consumed-foods-row {
   display: grid;
   grid-template-columns: 1fr auto;

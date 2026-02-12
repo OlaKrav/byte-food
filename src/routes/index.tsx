@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 import { FoodSelector } from '../components/FoodSelector';
-import { UserHeader } from '../components/UserHeader';
 import { DailyConsumedFoods } from '../components/DailyConsumedFoods';
 import { DailyNutrients } from '../components/DailyNutrients';
 import { requireAuth } from '../lib/auth';
 import { useFoodStore } from '../store/foodStore';
+import { UserHeader } from '../components/auth/UserHeader';
 
 export const Route = createFileRoute('/')({
   loader: () => requireAuth(),
@@ -29,12 +29,20 @@ function Home() {
             <p>Track and analyze food composition efficiently</p>
           </div>
 
-          <div className={selectedFood ? "food-selector-layout" : "daily-nutrients-main"}>
-            <div className={selectedFood ? "food-section" : ""}>
+          <div
+            className={
+              selectedFood ? 'food-selector-layout' : 'daily-nutrients-main'
+            }
+          >
+            <div className={selectedFood ? 'food-section' : ''}>
               <FoodSelector onFoodSelect={setSelectedFood} />
             </div>
-            
-            <aside className={selectedFood ? "food-selector-sidebar" : "daily-nutrients-aside"}>
+
+            <aside
+              className={
+                selectedFood ? 'food-selector-sidebar' : 'daily-nutrients-aside'
+              }
+            >
               {foods.length ? <DailyConsumedFoods foods={foods} /> : null}
               <DailyNutrients />
             </aside>

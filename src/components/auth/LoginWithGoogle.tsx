@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { useMutation } from '@apollo/client/react';
 import { GoogleLogin, type CredentialResponse } from '@react-oauth/google';
-import { GOOGLE_AUTH_MUTATION } from '../graphql/auth';
-import type { GoogleAuthResponse } from '../types';
-import { useAuthStore } from '../store/authStore';
+import { GOOGLE_AUTH_MUTATION } from '../../graphql/auth';
+import type { GoogleAuthResponse } from '../../types';
+import { useAuthStore } from '../../store/authStore';
 
 export function LoginWithGoogle() {
   const navigate = useNavigate();

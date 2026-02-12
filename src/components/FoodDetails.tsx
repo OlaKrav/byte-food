@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Food, NutrientValue } from '../types';
-import { useFoodStore, type DailyNutrients } from '../store/foodStore';
+import { useFoodStore, type IDailyNutrients } from '../store/foodStore';
 
 const ESSENTIAL_AMINO_ACIDS = [
   { key: 'lysine', label: 'Lysine' },
@@ -44,7 +44,7 @@ const calculateValue = (nutrient: NutrientValue, grams: number): number => {
   return (nutrient.value * grams) / 100;
 };
 
-interface FoodDetailsProps {
+export interface FoodDetailsProps {
   food: Food;
 }
 
@@ -66,7 +66,7 @@ export const FoodDetails = ({ food }: FoodDetailsProps) => {
     setConsumedGramsInput(filteredValue);
   };
 
-  const calculateAllNutrients = (): DailyNutrients | null => {
+  const calculateAllNutrients = (): IDailyNutrients | null => {
     if (consumedGrams <= 0) {
       return null;
     }

@@ -3,16 +3,16 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@apollo/client/react';
 import { useNavigate } from '@tanstack/react-router';
-import { LOGIN_MUTATION, REGISTER_MUTATION } from '../graphql/auth';
-import type { LoginResponse, RegisterResponse } from '../types';
+import { LOGIN_MUTATION, REGISTER_MUTATION } from '../../graphql/auth';
+import type { LoginResponse, RegisterResponse } from '../../types';
 import { LoginWithGoogle } from './LoginWithGoogle';
 import {
   loginSchema,
   registerSchema,
   type LoginFormData,
   type RegisterFormData,
-} from '../lib/validation';
-import { useAuthStore } from '../store/authStore';
+} from '../../lib/validation';
+import { useAuthStore } from '../../store/authStore';
 
 export const AuthForm = () => {
   const navigate = useNavigate();

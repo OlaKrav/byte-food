@@ -1,8 +1,8 @@
 import { useNavigate } from '@tanstack/react-router';
 import { useApolloClient, useMutation } from '@apollo/client/react';
-import type { GetMeData, LogoutResponse } from '../types';
-import { useAuthStore } from '../store/authStore';
-import { LOGOUT_MUTATION } from '../graphql/auth';
+import type { GetMeData, LogoutResponse } from '../../types';
+import { useAuthStore } from '../../store/authStore';
+import { LOGOUT_MUTATION } from '../../graphql/auth';
 
 interface UserHeaderProps {
   user: NonNullable<GetMeData['me']>;
