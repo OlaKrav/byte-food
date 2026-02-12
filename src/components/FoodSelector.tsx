@@ -54,7 +54,7 @@ export const FoodSelector = ({ onFoodSelect }: FoodSelectorProps) => {
         onChange={handleFoodChange}
         className="food-selector-select"
       >
-        <option value="">-- Choose a food --</option>
+        <option value="">Choose a food</option>
         {foodsData?.allFoods.map((food) => (
           <option key={food.id} value={food.name}>
             {food.name}

@@ -560,6 +560,64 @@ button {
   overflow-x: hidden;
 }
 
+.daily-consumed-foods {
+  padding: var(--spacing-md);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  margin-bottom: var(--spacing-sm);
+}
+
+.daily-consumed-foods-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-primary);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--border);
+}
+
+
+.daily-consumed-foods-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) 0;
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.daily-consumed-foods-row:last-child {
+  border-bottom: none;
+}
+
+.daily-consumed-foods-header {
+  font-weight: 600;
+  color: var(--text-secondary);
+  position: sticky;
+  top: 0;
+  background-color: var(--bg-card);
+}
+
+.daily-consumed-foods-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.daily-consumed-foods-weight {
+  flex-shrink: 0;
+  color: var(--text-secondary);
+}
+
+.daily-consumed-foods-empty {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  padding: var(--spacing-sm) 0;
+}
+
 .daily-nutrients {
   padding: var(--spacing-md);
   background-color: var(--bg-card);
