@@ -102,33 +102,6 @@ export interface FoodState {
   resetDailyNutrients: () => void;
 }
 
-const scaleObject = <T extends Record<string, number>>(
-  obj: T,
-  ratio: number
-): T => {
-  const entries = Object.entries(obj).map(([key, value]) => [
-    key,
-    value * ratio,
-  ]);
-
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-  return Object.fromEntries(entries) as T;
-};
-
-const scaleNutrients = (
-  nutrients: IDailyNutrients,
-  weight: number
-): IDailyNutrients => {
-  const ratio = weight / 100;
-
-  return {
-    essentialAminoAcids: scaleObject(nutrients.essentialAminoAcids, ratio),
-    vitamins: scaleObject(nutrients.vitamins, ratio),
-    minerals: scaleObject(nutrients.minerals, ratio),
-    macronutrients: scaleObject(nutrients.macronutrients, ratio),
-  };
-};
-
 export const useFoodStore = create<FoodState>((set) => ({
   foods: [],
   dailyNutrients: initialDailyNutrients,
@@ -141,104 +114,98 @@ export const useFoodStore = create<FoodState>((set) => ({
         weight,
       };
 
-      const scaledIncoming = scaleNutrients(nutrients, weight);
-
       const updatedNutrients: IDailyNutrients = {
         essentialAminoAcids: {
           lysine:
             state.dailyNutrients.essentialAminoAcids.lysine +
-            scaledIncoming.essentialAminoAcids.lysine,
+            nutrients.essentialAminoAcids.lysine,
           methionine:
             state.dailyNutrients.essentialAminoAcids.methionine +
-            scaledIncoming.essentialAminoAcids.methionine,
+            nutrients.essentialAminoAcids.methionine,
           tryptophan:
             state.dailyNutrients.essentialAminoAcids.tryptophan +
-            scaledIncoming.essentialAminoAcids.tryptophan,
+            nutrients.essentialAminoAcids.tryptophan,
           leucine:
             state.dailyNutrients.essentialAminoAcids.leucine +
-            scaledIncoming.essentialAminoAcids.leucine,
+            nutrients.essentialAminoAcids.leucine,
           isoleucine:
             state.dailyNutrients.essentialAminoAcids.isoleucine +
-            scaledIncoming.essentialAminoAcids.isoleucine,
+            nutrients.essentialAminoAcids.isoleucine,
           valine:
             state.dailyNutrients.essentialAminoAcids.valine +
-            scaledIncoming.essentialAminoAcids.valine,
+            nutrients.essentialAminoAcids.valine,
           threonine:
             state.dailyNutrients.essentialAminoAcids.threonine +
-            scaledIncoming.essentialAminoAcids.threonine,
+            nutrients.essentialAminoAcids.threonine,
           phenylalanine:
             state.dailyNutrients.essentialAminoAcids.phenylalanine +
-            scaledIncoming.essentialAminoAcids.phenylalanine,
+            nutrients.essentialAminoAcids.phenylalanine,
           histidine:
             state.dailyNutrients.essentialAminoAcids.histidine +
-            scaledIncoming.essentialAminoAcids.histidine,
+            nutrients.essentialAminoAcids.histidine,
         },
         vitamins: {
           vitaminA:
             state.dailyNutrients.vitamins.vitaminA +
-            scaledIncoming.vitamins.vitaminA,
+            nutrients.vitamins.vitaminA,
           vitaminC:
             state.dailyNutrients.vitamins.vitaminC +
-            scaledIncoming.vitamins.vitaminC,
+            nutrients.vitamins.vitaminC,
           vitaminD:
             state.dailyNutrients.vitamins.vitaminD +
-            scaledIncoming.vitamins.vitaminD,
+            nutrients.vitamins.vitaminD,
           vitaminE:
             state.dailyNutrients.vitamins.vitaminE +
-            scaledIncoming.vitamins.vitaminE,
+            nutrients.vitamins.vitaminE,
           vitaminB1:
             state.dailyNutrients.vitamins.vitaminB1 +
-            scaledIncoming.vitamins.vitaminB1,
+            nutrients.vitamins.vitaminB1,
           vitaminB2:
             state.dailyNutrients.vitamins.vitaminB2 +
-            scaledIncoming.vitamins.vitaminB2,
+            nutrients.vitamins.vitaminB2,
           vitaminB6:
             state.dailyNutrients.vitamins.vitaminB6 +
-            scaledIncoming.vitamins.vitaminB6,
+            nutrients.vitamins.vitaminB6,
           vitaminB9:
             state.dailyNutrients.vitamins.vitaminB9 +
-            scaledIncoming.vitamins.vitaminB9,
+            nutrients.vitamins.vitaminB9,
           vitaminB12:
             state.dailyNutrients.vitamins.vitaminB12 +
-            scaledIncoming.vitamins.vitaminB12,
+            nutrients.vitamins.vitaminB12,
         },
         minerals: {
-          zinc:
-            state.dailyNutrients.minerals.zinc + scaledIncoming.minerals.zinc,
+          zinc: state.dailyNutrients.minerals.zinc + nutrients.minerals.zinc,
           magnesium:
             state.dailyNutrients.minerals.magnesium +
-            scaledIncoming.minerals.magnesium,
+            nutrients.minerals.magnesium,
           iodine:
-            state.dailyNutrients.minerals.iodine +
-            scaledIncoming.minerals.iodine,
-          iron:
-            state.dailyNutrients.minerals.iron + scaledIncoming.minerals.iron,
+            state.dailyNutrients.minerals.iodine + nutrients.minerals.iodine,
+          iron: state.dailyNutrients.minerals.iron + nutrients.minerals.iron,
           calcium:
-            state.dailyNutrients.minerals.calcium +
-            scaledIncoming.minerals.calcium,
+            state.dailyNutrients.minerals.calcium + nutrients.minerals.calcium,
         },
         macronutrients: {
           calories:
             state.dailyNutrients.macronutrients.calories +
-            scaledIncoming.macronutrients.calories,
+            nutrients.macronutrients.calories,
           protein:
             state.dailyNutrients.macronutrients.protein +
-            scaledIncoming.macronutrients.protein,
+            nutrients.macronutrients.protein,
           fat:
             state.dailyNutrients.macronutrients.fat +
-            scaledIncoming.macronutrients.fat,
+            nutrients.macronutrients.fat,
           omega3ALA:
             state.dailyNutrients.macronutrients.omega3ALA +
-            scaledIncoming.macronutrients.omega3ALA,
+            nutrients.macronutrients.omega3ALA,
           carbs:
             state.dailyNutrients.macronutrients.carbs +
-            scaledIncoming.macronutrients.carbs,
+            nutrients.macronutrients.carbs,
           fiber:
             state.dailyNutrients.macronutrients.fiber +
-            scaledIncoming.macronutrients.fiber,
+            nutrients.macronutrients.fiber,
           water:
             state.dailyNutrients.macronutrients.water +
-            scaledIncoming.macronutrients.water,
+            nutrients.macronutrients.water,
         },
       };
 

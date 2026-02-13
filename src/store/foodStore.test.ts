@@ -57,14 +57,14 @@ describe('useFoodStore', () => {
     let state = useFoodStore.getState();
     expect(state.foods).toHaveLength(1);
     expect(state.foods[0].name).toBe('Apple');
-    expect(state.dailyNutrients.macronutrients.calories).toBe(750);
+    expect(state.dailyNutrients.macronutrients.calories).toBe(500);
 
     useFoodStore.getState().addFood('Banana', 100, testNutrients);
 
     state = useFoodStore.getState();
     expect(state.foods).toHaveLength(2);
-    expect(state.dailyNutrients.macronutrients.calories).toBe(1250);
-    expect(state.dailyNutrients.macronutrients.protein).toBe(50);
+    expect(state.dailyNutrients.macronutrients.calories).toBe(1000);
+    expect(state.dailyNutrients.macronutrients.protein).toBe(40);
   });
 
   it('should reset state correctly', () => {
@@ -90,6 +90,6 @@ describe('useFoodStore', () => {
     useFoodStore.getState().addFood('Lemon', 200, secondPortion);
 
     const state = useFoodStore.getState();
-    expect(state.dailyNutrients.vitamins.vitaminC).toBe(60);
+    expect(state.dailyNutrients.vitamins.vitaminC).toBe(35);
   });
 });

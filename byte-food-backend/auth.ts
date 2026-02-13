@@ -26,7 +26,7 @@ export const getUser = async (token: string): Promise<IUser | null> => {
 };
 
 export const generateAccessToken = (userId: string): string => {
-  return jwt.sign({ userId }, SECRET_KEY, { expiresIn: '3m' });
+  return jwt.sign({ userId }, SECRET_KEY, { expiresIn: '15m' });
 };
 
 export const generateRefreshToken = (): string => {
