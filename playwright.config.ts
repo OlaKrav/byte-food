@@ -1,5 +1,15 @@
 import { defineConfig, devices } from '@playwright/test';
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config({ 
+  path: path.resolve(__dirname, '.env.e2e'),
+  quiet: true
+});
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -62,10 +72,24 @@ export default defineConfig({
     // },
   ],
 
-  /* Run your local dev server before starting the tests */
-  webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:5173',
-    reuseExistingServer: !process.env.CI,
-  },
+  /* Start backend then frontend before running tests */
+  webServer: [
+    {
+      command: 'npm run dev',
+      cwd: path.join(__dirname, 'byte-food-backend'),
+      url: 'http://127.0.0.1:5000/graphql',
+      reuseExistingServer: !process.env.CI,
+      timeout: 60_000,
+      stdout: 'pipe',
+      stderr: 'pipe',
+    },
+    {
+      command: 'npm run dev',
+      url: 'http://localhost:5173',
+      reuseExistingServer: !process.env.CI,
+      timeout: 60_000,
+      stdout: 'pipe',
+      stderr: 'pipe',
+    },
+  ],
 });

@@ -46,7 +46,7 @@ export function UserHeader({ user }: UserHeaderProps) {
         </div>
       </div>
 
-      <button onClick={handleLogout} className="btn-logout">
+      <button onClick={handleLogout} className="btn-logout" data-testid="sign-out-btn">
         Sign Out
       </button>
     </header>

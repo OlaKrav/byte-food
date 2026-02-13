@@ -120,6 +120,7 @@ export const AuthForm = () => {
                 {...registerRegister('name')}
                 disabled={isLoading}
                 className={registerErrors.name ? 'input-error' : ''}
+                data-testid="name-input"
               />
               <span className="field-error">
                 {registerErrors.name?.message || ''}
@@ -136,6 +137,7 @@ export const AuthForm = () => {
                 : registerLogin('email'))}
               disabled={isLoading}
               className={currentErrors.email ? 'input-error' : ''}
+              data-testid="email-input"
             />
             <span className="field-error">
               {currentErrors.email?.message || ''}
@@ -151,6 +153,7 @@ export const AuthForm = () => {
                 : registerLogin('password'))}
               disabled={isLoading}
               className={currentErrors.password ? 'input-error' : ''}
+              data-testid="password-input"
             />
             <span className="field-error">
               {currentErrors.password?.message || ''}
@@ -168,7 +171,7 @@ export const AuthForm = () => {
 
         <p className="toggle-auth">
           {isRegister ? 'Already have an account? ' : "Don't have an account? "}
-          <button onClick={handleToggleMode} className="btn-link" type="button">
+          <button onClick={handleToggleMode} className="btn-link" type="button" data-testid="login-submit">
             {isRegister ? 'Sign in' : 'Sign up'}
           </button>
         </p>

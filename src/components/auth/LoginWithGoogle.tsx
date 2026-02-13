@@ -56,7 +56,7 @@ export function LoginWithGoogle() {
         </p>
       )}
 
-      <div className="google-btn-wrapper">
+      <div className="google-btn-wrapper" data-testid="google-login-container">
         <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
       </div>
 

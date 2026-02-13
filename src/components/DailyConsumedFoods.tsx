@@ -6,7 +6,7 @@ export interface DailyConsumedFoodsProps {
 
 export const DailyConsumedFoods = ({ foods }: DailyConsumedFoodsProps) => {
   return (
-    <div className="daily-consumed-foods">
+    <div className="daily-consumed-foods" data-testid="daily-consumed-foods">
       <div className="daily-consumed-foods-list">
         <div className="daily-consumed-foods-row daily-consumed-foods-header">
           <span className="daily-consumed-foods-name">Name</span>
