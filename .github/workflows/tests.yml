@@ -45,8 +45,8 @@ jobs:
 
       - name: Install dependencies (Root & Backend)
         run: |
-          npm ci
-          cd byte-food-backend && npm ci
+          npm install
+          cd byte-food-backend && npm install
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
