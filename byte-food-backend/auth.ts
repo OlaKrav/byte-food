@@ -8,7 +8,7 @@ import { RefreshToken } from './models/RefreshToken';
 export const getUser = async (token: string): Promise<IUser | null> => {
   try {
     if (!token) return null;
-    const decoded = jwt.verify(token, SECRET_KEY);
+    const decoded = jwt.verify(token, SECRET_KEY as string);
 
     if (typeof decoded !== 'string' && isJwtPayload(decoded)) {
       const user = await User.findById(decoded.userId).lean();
@@ -26,7 +26,7 @@ export const getUser = async (token: string): Promise<IUser | null> => {
 };
 
 export const generateAccessToken = (userId: string): string => {
-  return jwt.sign({ userId }, SECRET_KEY, { expiresIn: '15m' });
+  return jwt.sign({ userId }, SECRET_KEY as string, { expiresIn: '15m' });
 };
 
 export const generateRefreshToken = (): string => {

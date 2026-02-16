@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
     "dev": "npx ts-node server.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
