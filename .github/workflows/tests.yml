@@ -56,6 +56,11 @@ jobs:
           MONGO_URI: ${{ secrets.MONGO_URI }}
           E2E_TEST_EMAIL: ${{ secrets.E2E_TEST_EMAIL }}
           E2E_TEST_PASSWORD: ${{ secrets.E2E_TEST_PASSWORD }}
+          PORT: ${{ secrets.PORT }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+          FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
+          API_URL: ${{ secrets.API_URL }}
           CI: true
         run: npx playwright test
 
