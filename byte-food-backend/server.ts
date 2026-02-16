@@ -53,17 +53,26 @@ async function init() {
     introspection: isDevelopment,
   });
 
+  const allowedOrigins = [
+    'http://localhost:5173',
+    'https://studio.apollographql.com',
+    process.env.FRONTEND_URL
+  ].filter(Boolean) as string[];
+
+  const corsOptions = {
+    origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+  };
+
   await server.start();
 
-  app.use(
-    cors({
-      origin: [
-        process.env.FRONTEND_URL || 'http://localhost:5173',
-        // sandbox 'https://studio.apollographql.com'
-      ],
-      credentials: true,
-    })
-  );
+  app.use(cors(corsOptions));
   app.use(cookieParser());
   app.use(express.json());
 
