@@ -62,6 +62,7 @@ jobs:
           FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
           API_URL: ${{ secrets.API_URL }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
           CI: true
         run: npx playwright test
 

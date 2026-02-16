@@ -30,5 +30,5 @@ export async function login(
   await page.goto('/auth');
   await page.getByPlaceholder(UI.emailPlaceholder).fill(email);
   await page.getByPlaceholder(UI.passPlaceholder).fill(password);
-  await page.getByRole('button', { name: UI.signInBtn }).click();
+  await page.getByRole('button', { name: UI.signInBtn, exact: true }).click();
 }
