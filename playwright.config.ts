@@ -79,7 +79,7 @@ export default defineConfig({
       cwd: path.join(__dirname, 'byte-food-backend'),
       url: 'http://127.0.0.1:5000/graphql',
       reuseExistingServer: !process.env.CI,
-      timeout: 60_000,
+      timeout: 120_000,
       stdout: 'pipe',
       stderr: 'pipe',
     },
