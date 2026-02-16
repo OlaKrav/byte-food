@@ -61,6 +61,7 @@ jobs:
           NODE_ENV: ${{ secrets.NODE_ENV }}
           FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
           API_URL: ${{ secrets.API_URL }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           CI: true
         run: npx playwright test
 
