@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useQuery } from '@apollo/client/react';
-import { GET_ALL_FOODS, GET_FOOD_BY_NAME } from '../graphql/food';
-import type { AllFoodsData, FoodData, FoodVariables } from '../types';
-import { FoodDetails } from './FoodDetails';
+import { GET_ALL_FOODS, GET_FOOD_BY_NAME } from '../../../graphql/food';
+import type { AllFoodsData, FoodData, FoodVariables } from '../../../types';
+import { FoodDetails } from '../FoodDetails';
+import styles from './FoodSelector.module.css';
 
 export interface FoodSelectorProps {
   onFoodSelect?: (foodName: string | null) => void;
@@ -32,27 +33,27 @@ export const FoodSelector = ({ onFoodSelect }: FoodSelectorProps) => {
   };
 
   if (foodsLoading) {
-    return <div className="food-selector-loading">Loading foods...</div>;
+    return <div className={styles.loading}>Loading foods...</div>;
   }
 
   if (foodsError) {
     return (
-      <div className="food-selector-error">
-        <p className="error">Failed to load foods: {foodsError.message}</p>
+      <div className={styles.errorWrap}>
+        <p className={styles.error}>Failed to load foods: {foodsError.message}</p>
       </div>
     );
   }
 
   return (
-    <div className="food-selector">
-      <label htmlFor="food-select" className="food-selector-label">
+    <div className={styles.root}>
+      <label htmlFor="food-select" className={styles.label}>
         Select a food:
       </label>
       <select
         id="food-select"
         value={selectedFood}
         onChange={handleFoodChange}
-        className="food-selector-select"
+        className={styles.select}
         data-testid="food-select"
       >
         <option value="">Choose a food</option>
@@ -64,12 +65,12 @@ export const FoodSelector = ({ onFoodSelect }: FoodSelectorProps) => {
       </select>
 
       {foodLoading && selectedFood && (
-        <div className="food-selector-loading">Loading food data...</div>
+        <div className={styles.loading}>Loading food data...</div>
       )}
 
       {foodError && selectedFood && (
-        <div className="food-selector-error">
-          <p className="error">Failed to load food data: {foodError.message}</p>
+        <div className={styles.errorWrap}>
+          <p className={styles.error}>Failed to load food data: {foodError.message}</p>
         </div>
       )}
 

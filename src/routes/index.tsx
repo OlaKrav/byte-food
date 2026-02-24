@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { FoodSelector } from '../components/FoodSelector';
-import { DailyConsumedFoods } from '../components/DailyConsumedFoods';
-import { DailyNutrients } from '../components/DailyNutrients';
+import { FoodSelector, UserHeader, DailyConsumedFoods, DailyNutrients } from '../components';
 import { requireAuth } from '../lib/auth';
 import { useFoodStore } from '../store/foodStore';
-import { UserHeader } from '../components/auth/UserHeader';
+import styles from './Home.module.css';
 
 export const Route = createFileRoute('/')({
   loader: () => requireAuth(),
@@ -19,30 +17,28 @@ function Home() {
   const foods = useFoodStore((state) => state.foods);
 
   return (
-    <div className="app-container">
-      <div className="dashboard">
-        <UserHeader user={user} />
+    <div className={styles.appContainer}>
+      <div className={styles.dashboard}>
+        <div className={styles.header}>
+          <UserHeader user={user} />
+        </div>
 
-        <main>
-          <div className="welcome-section">
-            <h1>Byte Food</h1>
-            <p>Track and analyze food composition efficiently</p>
+        <main className={styles.main}>
+          <div className={styles.welcomeSection}>
+            <h1 className={styles.pageTitle}>Byte Food</h1>
+            <p className={styles.pageSubtitle}>Track and analyze food composition efficiently</p>
           </div>
 
           <div
             className={
-              selectedFood ? 'food-selector-layout' : 'daily-nutrients-main'
+              selectedFood ? styles.contentGrid : styles.contentFull
             }
           >
-            <div className={selectedFood ? 'food-section' : ''}>
+            <div className={selectedFood ? styles.leftCol : ''}>
               <FoodSelector onFoodSelect={setSelectedFood} />
             </div>
 
-            <aside
-              className={
-                selectedFood ? 'food-selector-sidebar' : 'daily-nutrients-aside'
-              }
-            >
+            <aside className={styles.rightCol}>
               {foods.length ? <DailyConsumedFoods foods={foods} /> : null}
               <DailyNutrients />
             </aside>

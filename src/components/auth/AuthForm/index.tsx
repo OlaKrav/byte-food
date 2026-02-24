@@ -3,16 +3,17 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@apollo/client/react';
 import { useNavigate } from '@tanstack/react-router';
-import { LOGIN_MUTATION, REGISTER_MUTATION } from '../../graphql/auth';
-import type { LoginResponse, RegisterResponse } from '../../types';
-import { LoginWithGoogle } from './LoginWithGoogle';
+import { LOGIN_MUTATION, REGISTER_MUTATION } from '../../../graphql/auth';
+import type { LoginResponse, RegisterResponse } from '../../../types';
+import { LoginWithGoogle } from '../LoginWithGoogle';
 import {
   loginSchema,
   registerSchema,
   type LoginFormData,
   type RegisterFormData,
-} from '../../lib/validation';
-import { useAuthStore } from '../../store/authStore';
+} from '../../../lib/validation';
+import { useAuthStore } from '../../../store/authStore';
+import styles from './AuthForm.module.css';
 
 export const AuthForm = () => {
   const navigate = useNavigate();
@@ -105,30 +106,30 @@ export const AuthForm = () => {
     : handleSubmitLogin(onLogin);
 
   return (
-    <div className="auth-container">
-      <div>
-        <h2>{isRegister ? 'Create Account' : 'Welcome to ByteFood'}</h2>
+    <div className={styles.container}>
+      <div className={styles.inner}>
+        <h2 className={styles.title}>{isRegister ? 'Create Account' : 'Welcome to ByteFood'}</h2>
 
-        {apiError && <p className="error">{apiError.message}</p>}
+        {apiError && <p className={styles.error}>{apiError.message}</p>}
 
-        <form onSubmit={onSubmit} className="email-form">
+        <form onSubmit={onSubmit} className={styles.form}>
           {isRegister && (
-            <div className="form-field">
+            <div className={styles.formField}>
               <input
                 type="text"
                 placeholder="Full Name"
                 {...registerRegister('name')}
                 disabled={isLoading}
-                className={registerErrors.name ? 'input-error' : ''}
+                className={registerErrors.name ? styles.inputError : ''}
                 data-testid="name-input"
               />
-              <span className="field-error">
+              <span className={styles.fieldError}>
                 {registerErrors.name?.message || ''}
               </span>
             </div>
           )}
 
-          <div className="form-field">
+          <div className={styles.formField}>
             <input
               type="email"
               placeholder="Email"
@@ -136,15 +137,15 @@ export const AuthForm = () => {
                 ? registerRegister('email')
                 : registerLogin('email'))}
               disabled={isLoading}
-              className={currentErrors.email ? 'input-error' : ''}
+              className={currentErrors.email ? styles.inputError : ''}
               data-testid="email-input"
             />
-            <span className="field-error">
+            <span className={styles.fieldError}>
               {currentErrors.email?.message || ''}
             </span>
           </div>
 
-          <div className="form-field">
+          <div className={styles.formField}>
             <input
               type="password"
               placeholder="Password"
@@ -152,10 +153,10 @@ export const AuthForm = () => {
                 ? registerRegister('password')
                 : registerLogin('password'))}
               disabled={isLoading}
-              className={currentErrors.password ? 'input-error' : ''}
+              className={currentErrors.password ? styles.inputError : ''}
               data-testid="password-input"
             />
-            <span className="field-error">
+            <span className={styles.fieldError}>
               {currentErrors.password?.message || ''}
             </span>
           </div>
@@ -163,21 +164,21 @@ export const AuthForm = () => {
           <button
             type="submit"
             disabled={isLoading || isInvalid}
-            className={`btn-primary ${isInvalid ? 'btn-disabled' : ''}`}
+            className={styles.submitBtn}
           >
             {isLoading ? 'Processing...' : isRegister ? 'Sign Up' : 'Sign In'}
           </button>
         </form>
 
-        <p className="toggle-auth">
+        <p className={styles.toggleAuth}>
           {isRegister ? 'Already have an account? ' : "Don't have an account? "}
-          <button onClick={handleToggleMode} className="btn-link" type="button" data-testid="login-submit">
+          <button onClick={handleToggleMode} className={styles.btnLink} type="button" data-testid="login-submit">
             {isRegister ? 'Sign in' : 'Sign up'}
           </button>
         </p>
 
-        <div className="divider">
-          <span>OR</span>
+        <div className={styles.divider}>
+          <span className={styles.dividerSpan}>OR</span>
         </div>
 
         <LoginWithGoogle />

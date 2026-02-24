@@ -1,0 +1,147 @@
+.appContainer {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+}
+
+.dashboard {
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--spacing-md);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  border-bottom: 1px solid var(--border);
+}
+
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 120px);
+  overflow: hidden;
+}
+
+.welcomeSection {
+  flex-shrink: 0;
+  margin-bottom: var(--spacing-md);
+}
+
+.pageTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.pageSubtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--spacing-md);
+  width: 100%;
+  height: 100%;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.contentFull {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.leftCol {
+  min-width: 0;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.leftCol::-webkit-scrollbar,
+.rightCol::-webkit-scrollbar {
+  width: 5px;
+}
+
+.leftCol::-webkit-scrollbar-thumb,
+.rightCol::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 2.5px;
+  transition: background 0.2s ease;
+}
+
+.leftCol::-webkit-scrollbar-thumb:hover,
+.rightCol::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.rightCol {
+  min-width: 0;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+@media (prefers-color-scheme: dark) {
+  .leftCol::-webkit-scrollbar-thumb,
+  .rightCol::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .leftCol::-webkit-scrollbar-thumb:hover,
+  .rightCol::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+
+  .pageTitle {
+    font-size: 1.75rem;
+  }
+
+  .pageSubtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard {
+    padding: var(--spacing-md) var(--spacing-xs);
+  }
+
+  .pageTitle {
+    font-size: 1.5rem;
+  }
+
+  .contentGrid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .rightCol {
+    position: static;
+    max-height: none;
+  }
+}

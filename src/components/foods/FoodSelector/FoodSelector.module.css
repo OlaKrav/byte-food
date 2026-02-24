@@ -1,0 +1,54 @@
+.root {
+  width: 100%;
+}
+
+.label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.select {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: var(--spacing-md);
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.select:hover {
+  border-color: var(--border-hover);
+}
+
+.loading {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: var(--spacing-md);
+  font-size: 0.875rem;
+}
+
+.errorWrap {
+  margin-top: var(--spacing-md);
+}
+
+.error {
+  padding: var(--spacing-md);
+  background-color: var(--error-bg);
+  color: var(--error);
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  border: 1px solid var(--error);
+}

@@ -4,13 +4,13 @@ import { useApolloClient, useMutation } from '@apollo/client/react';
 import { useNavigate } from '@tanstack/react-router';
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { UserHeader } from './UserHeader';
-import { useAuthStore } from '../../store/authStore';
-import type { GetMeData } from '../../types';
+import { UserHeader } from '.';
+import { useAuthStore } from '../../../store/authStore';
+import type { GetMeData } from '../../../types';
 
 vi.mock('@apollo/client/react');
 vi.mock('@tanstack/react-router');
-vi.mock('../../store/authStore');
+vi.mock('../../../store/authStore');
 
 const mockedUseNavigate = useNavigate as Mock;
 const mockedUseMutation = useMutation as unknown as Mock;

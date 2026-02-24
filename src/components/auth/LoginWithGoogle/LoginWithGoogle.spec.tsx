@@ -1,14 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { useAuthStore } from '../../store/authStore';
+import { useAuthStore } from '../../../store/authStore';
 import { useMutation } from '@apollo/client/react';
 import { useNavigate } from '@tanstack/react-router';
 import type { Mock } from 'vitest';
-import { LoginWithGoogle } from './LoginWithGoogle';
+import { LoginWithGoogle } from '.';
 
 vi.mock('@apollo/client/react');
 vi.mock('@tanstack/react-router');
-vi.mock('../../store/authStore');
+vi.mock('../../../store/authStore');
 vi.mock('@react-oauth/google', () => ({
   GoogleLogin: vi.fn(({ onSuccess, onError }) => (
     <div data-testid="google-login-mock">

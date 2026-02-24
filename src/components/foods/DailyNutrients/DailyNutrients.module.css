@@ -1,0 +1,101 @@
+.root {
+  padding: var(--spacing-md);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 2px solid var(--border);
+}
+
+.section {
+  margin-bottom: var(--spacing-md);
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-primary);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 2px solid var(--border);
+}
+
+.blocks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius);
+  border: 2px solid;
+  transition: all 0.2s ease;
+  min-height: 70px;
+  text-align: center;
+}
+
+.blockLabel {
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.blockValue {
+  font-weight: 700;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.red {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: rgb(220, 38, 38);
+}
+
+.red .blockLabel,
+.red .blockValue {
+  color: rgb(220, 38, 38);
+}
+
+.yellow {
+  background-color: rgba(234, 179, 8, 0.1);
+  border-color: rgba(234, 179, 8, 0.3);
+  color: rgb(202, 138, 4);
+}
+
+.yellow .blockLabel,
+.yellow .blockValue {
+  color: rgb(202, 138, 4);
+}
+
+.green {
+  background-color: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.3);
+  color: rgb(22, 163, 74);
+}
+
+.green .blockLabel,
+.green .blockValue {
+  color: rgb(22, 163, 74);
+}
+
+@media (max-width: 480px) {
+  .blocks {
+    grid-template-columns: 1fr;
+  }
+}

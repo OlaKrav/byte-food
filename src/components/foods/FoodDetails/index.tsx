@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import type { Food, NutrientValue } from '../types';
-import { useFoodStore, type IDailyNutrients } from '../store/foodStore';
+import type { Food, NutrientValue } from '../../../types';
+import { useFoodStore, type IDailyNutrients } from '../../../store/foodStore';
+import styles from './FoodDetails.module.css';
 
 const ESSENTIAL_AMINO_ACIDS = [
   { key: 'lysine', label: 'Lysine' },
@@ -146,14 +147,14 @@ export const FoodDetails = ({ food }: FoodDetailsProps) => {
   };
 
   return (
-    <div className="food-details">
-      <div className="food-header">
+    <div className={styles.root}>
+      <div className={styles.header}>
         <div>
-          <h3 className="food-details-title">{food.name}</h3>
-          <div className="food-details-category">{food.category}</div>
+          <h3 className={styles.title}>{food.name}</h3>
+          <div className={styles.category}>{food.category}</div>
         </div>
-        <div className="grams-input-container">
-          <label htmlFor="grams-input" className="grams-input-label">
+        <div className={styles.gramsWrap}>
+          <label htmlFor="grams-input" className={styles.gramsLabel}>
             Consumed (g)
           </label>
           <input
@@ -162,13 +163,13 @@ export const FoodDetails = ({ food }: FoodDetailsProps) => {
             inputMode="decimal"
             value={consumedGramsInput}
             onChange={handleGramsChange}
-            className="grams-input"
+            className={styles.gramsInput}
             placeholder="100"
           />
           <button
             type="button"
             onClick={handleAddFood}
-            className="add-food-button"
+            className={styles.addBtn}
             disabled={consumedGrams <= 0}
           >
             Add
@@ -176,12 +177,12 @@ export const FoodDetails = ({ food }: FoodDetailsProps) => {
         </div>
       </div>
 
-      <section className="nutrition-section">
-        <h4 className="section-title">Macronutrients</h4>
-        <div className="nutrition-grid">
-          <div className="nutrition-item">
-            <span className="nutrition-label">Calories</span>
-            <span className="nutrition-value">
+      <section className={styles.section}>
+        <h4 className={styles.sectionTitle}>Macronutrients</h4>
+        <div className={styles.grid}>
+          <div className={styles.item}>
+            <span className={styles.itemLabel}>Calories</span>
+            <span className={styles.itemValue}>
               {calculateValue(
                 food.macronutrients.calories,
                 consumedGrams
@@ -189,9 +190,9 @@ export const FoodDetails = ({ food }: FoodDetailsProps) => {
               {food.macronutrients.calories.unit}
             </span>
           </div>
-          <div className="nutrition-item">
-            <span className="nutrition-label">Protein</span>
-            <span className="nutrition-value">
+          <div className={styles.item}>
+            <span className={styles.itemLabel}>Protein</span>
+            <span className={styles.itemValue}>
               {calculateValue(
                 food.macronutrients.protein,
                 consumedGrams
@@ -199,36 +200,36 @@ export const FoodDetails = ({ food }: FoodDetailsProps) => {
               {food.macronutrients.protein.unit}
             </span>
           </div>
-          <div className="nutrition-item">
-            <span className="nutrition-label">Fat</span>
-            <span className="nutrition-value">
+          <div className={styles.item}>
+            <span className={styles.itemLabel}>Fat</span>
+            <span className={styles.itemValue}>
               {calculateValue(food.macronutrients.fat, consumedGrams).toFixed(
                 2
               )}{' '}
               {food.macronutrients.fat.unit}
             </span>
           </div>
-          <div className="nutrition-item">
-            <span className="nutrition-label">Carbs</span>
-            <span className="nutrition-value">
+          <div className={styles.item}>
+            <span className={styles.itemLabel}>Carbs</span>
+            <span className={styles.itemValue}>
               {calculateValue(food.macronutrients.carbs, consumedGrams).toFixed(
                 2
               )}{' '}
               {food.macronutrients.carbs.unit}
             </span>
           </div>
-          <div className="nutrition-item">
-            <span className="nutrition-label">Fiber</span>
-            <span className="nutrition-value">
+          <div className={styles.item}>
+            <span className={styles.itemLabel}>Fiber</span>
+            <span className={styles.itemValue}>
               {calculateValue(food.macronutrients.fiber, consumedGrams).toFixed(
                 2
               )}{' '}
               {food.macronutrients.fiber.unit}
             </span>
           </div>
-          <div className="nutrition-item">
-            <span className="nutrition-label">Omega-3 ALA</span>
-            <span className="nutrition-value">
+          <div className={styles.item}>
+            <span className={styles.itemLabel}>Omega-3 ALA</span>
+            <span className={styles.itemValue}>
               {calculateValue(
                 food.macronutrients.omega3ALA,
                 consumedGrams
@@ -236,9 +237,9 @@ export const FoodDetails = ({ food }: FoodDetailsProps) => {
               {food.macronutrients.omega3ALA.unit}
             </span>
           </div>
-          <div className="nutrition-item">
-            <span className="nutrition-label">Water</span>
-            <span className="nutrition-value">
+          <div className={styles.item}>
+            <span className={styles.itemLabel}>Water</span>
+            <span className={styles.itemValue}>
               {calculateValue(food.macronutrients.water, consumedGrams).toFixed(
                 1
               )}{' '}
@@ -248,16 +249,16 @@ export const FoodDetails = ({ food }: FoodDetailsProps) => {
         </div>
       </section>
 
-      <section className="nutrition-section">
-        <h4 className="section-title">Essential Amino Acids</h4>
-        <div className="nutrition-grid">
+      <section className={styles.section}>
+        <h4 className={styles.sectionTitle}>Essential Amino Acids</h4>
+        <div className={styles.grid}>
           {ESSENTIAL_AMINO_ACIDS.map((aminoAcid: AminoAcidItem) => {
             const nutrient = food.essentialAminoAcids[aminoAcid.key];
             const calculatedValue = calculateValue(nutrient, consumedGrams);
             return (
-              <div key={aminoAcid.key} className="nutrition-item">
-                <span className="nutrition-label">{aminoAcid.label}</span>
-                <span className="nutrition-value">
+              <div key={aminoAcid.key} className={styles.item}>
+                <span className={styles.itemLabel}>{aminoAcid.label}</span>
+                <span className={styles.itemValue}>
                   {calculatedValue.toFixed(2)} {nutrient.unit}
                 </span>
               </div>
@@ -266,16 +267,16 @@ export const FoodDetails = ({ food }: FoodDetailsProps) => {
         </div>
       </section>
 
-      <section className="nutrition-section">
-        <h4 className="section-title">Vitamins</h4>
-        <div className="nutrition-grid">
+      <section className={styles.section}>
+        <h4 className={styles.sectionTitle}>Vitamins</h4>
+        <div className={styles.grid}>
           {VITAMINS.map((vitamin: VitaminItem) => {
             const nutrient = food.vitamins[vitamin.key];
             const calculatedValue = calculateValue(nutrient, consumedGrams);
             return (
-              <div key={vitamin.key} className="nutrition-item">
-                <span className="nutrition-label">{vitamin.label}</span>
-                <span className="nutrition-value">
+              <div key={vitamin.key} className={styles.item}>
+                <span className={styles.itemLabel}>{vitamin.label}</span>
+                <span className={styles.itemValue}>
                   {calculatedValue.toFixed(3)} {nutrient.unit}
                 </span>
               </div>
@@ -284,16 +285,16 @@ export const FoodDetails = ({ food }: FoodDetailsProps) => {
         </div>
       </section>
 
-      <section className="nutrition-section">
-        <h4 className="section-title">Minerals</h4>
-        <div className="nutrition-grid">
+      <section className={styles.section}>
+        <h4 className={styles.sectionTitle}>Minerals</h4>
+        <div className={styles.grid}>
           {MINERALS.map((mineral: MineralItem) => {
             const nutrient = food.minerals[mineral.key];
             const calculatedValue = calculateValue(nutrient, consumedGrams);
             return (
-              <div key={mineral.key} className="nutrition-item">
-                <span className="nutrition-label">{mineral.label}</span>
-                <span className="nutrition-value">
+              <div key={mineral.key} className={styles.item}>
+                <span className={styles.itemLabel}>{mineral.label}</span>
+                <span className={styles.itemValue}>
                   {calculatedValue.toFixed(2)} {nutrient.unit}
                 </span>
               </div>

@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { AuthForm } from '../components/auth/AuthForm';
+import { AuthForm } from '../components/auth';
 import { redirectIfAuthenticated } from '../lib/auth';
 
 export const Route = createFileRoute('/auth')({

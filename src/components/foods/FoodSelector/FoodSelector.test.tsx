@@ -1,14 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { FoodSelector } from './FoodSelector';
+import { FoodSelector } from '.';
 import { useQuery } from '@apollo/client/react';
-import { GET_ALL_FOODS, GET_FOOD_BY_NAME } from '../graphql/food';
+import { GET_ALL_FOODS, GET_FOOD_BY_NAME } from '../../../graphql/food';
 import type { Mock } from 'vitest';
-import type { FoodDetailsProps } from './FoodDetails';
+import type { FoodDetailsProps } from '../FoodDetails';
 
 vi.mock('@apollo/client/react');
 
-vi.mock('./FoodDetails', () => ({
+vi.mock('../FoodDetails', () => ({
   FoodDetails: ({ food }: FoodDetailsProps) => (
     <div data-testid="food-details-mock">{food.name} Details</div>
   ),

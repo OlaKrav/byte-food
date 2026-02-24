@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { useMutation } from '@apollo/client/react';
 import { GoogleLogin, type CredentialResponse } from '@react-oauth/google';
-import { GOOGLE_AUTH_MUTATION } from '../../graphql/auth';
-import type { GoogleAuthResponse } from '../../types';
-import { useAuthStore } from '../../store/authStore';
+import { GOOGLE_AUTH_MUTATION } from '../../../graphql/auth';
+import type { GoogleAuthResponse } from '../../../types';
+import { useAuthStore } from '../../../store/authStore';
+import styles from './LoginWithGoogle.module.css';
 
 export function LoginWithGoogle() {
   const navigate = useNavigate();
@@ -47,20 +48,20 @@ export function LoginWithGoogle() {
   };
 
   return (
-    <div className="google-login-container">
-      <h3>Sign in with Google</h3>
+    <div className={styles.container}>
+      <h3 className={styles.title}>Sign in with Google</h3>
 
       {errorMessage && (
-        <p className="error" role="alert">
+        <p className={styles.error} role="alert">
           {errorMessage}
         </p>
       )}
 
-      <div className="google-btn-wrapper" data-testid="google-login-container">
+      <div className={styles.btnWrapper} data-testid="google-login-container">
         <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
       </div>
 
-      {loading && <p className="google-loading">Verifying account...</p>}
+      {loading && <p className={styles.loading}>Verifying account...</p>}
     </div>
   );
 }

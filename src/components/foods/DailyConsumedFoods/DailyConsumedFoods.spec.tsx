@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { DailyConsumedFoods } from './DailyConsumedFoods';
-import type { ConsumedFood } from '../store/foodStore';
+import { DailyConsumedFoods } from '.';
+import type { ConsumedFood } from '../../../store/foodStore';
 
 describe('DailyConsumedFoods', () => {
   it('should render empty state when no foods are provided', () => {
@@ -31,9 +31,12 @@ describe('DailyConsumedFoods', () => {
       { id: '123', name: 'Banana', weight: 100 },
     ];
 
-    const { container } = render(<DailyConsumedFoods foods={mockFoods} />);
+    render(<DailyConsumedFoods foods={mockFoods} />);
 
-    const rows = container.querySelectorAll('.daily-consumed-foods-row');
-    expect(rows.length).toBe(2);
+    expect(screen.getByTestId('consumed-foods-header')).toBeInTheDocument();
+    const foodRows = screen.getAllByTestId('consumed-food-row');
+    expect(foodRows).toHaveLength(1);
+    expect(foodRows[0]).toHaveTextContent('Banana');
+    expect(foodRows[0]).toHaveTextContent('100 g');
   });
 });

@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, type Mock, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { FoodDetails } from './FoodDetails';
-import { useFoodStore } from '../store/foodStore';
-import type { Food } from '../types';
+import { useFoodStore } from '../../../store/foodStore';
+import type { Food } from '../../../types';
+import { FoodDetails } from '.';
 
-vi.mock('../store/foodStore', () => ({
+vi.mock('../../../store/foodStore', () => ({
   useFoodStore: vi.fn(),
 }));
 

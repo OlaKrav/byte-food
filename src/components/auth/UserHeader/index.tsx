@@ -1,8 +1,9 @@
 import { useNavigate } from '@tanstack/react-router';
 import { useApolloClient, useMutation } from '@apollo/client/react';
-import type { GetMeData, LogoutResponse } from '../../types';
-import { useAuthStore } from '../../store/authStore';
-import { LOGOUT_MUTATION } from '../../graphql/auth';
+import type { GetMeData, LogoutResponse } from '../../../types';
+import { useAuthStore } from '../../../store/authStore';
+import { LOGOUT_MUTATION } from '../../../graphql/auth';
+import styles from './UserHeader.module.css';
 
 interface UserHeaderProps {
   user: NonNullable<GetMeData['me']>;
@@ -27,26 +28,26 @@ export function UserHeader({ user }: UserHeaderProps) {
   };
 
   return (
-    <header>
-      <div className="user-info">
+    <header className={styles.root}>
+      <div className={styles.userInfo}>
         {user.avatar ? (
           <img
             src={user.avatar}
             alt={user.name ?? 'user'}
-            className="user-avatar"
+            className={styles.avatar}
           />
         ) : (
-          <div className="user-avatar-fallback">
+          <div className={styles.avatarFallback}>
             {user.name?.charAt(0).toUpperCase() ?? 'U'}
           </div>
         )}
-        <div className="user-info-text">
-          <span className="user-info-label">Signed in as:</span>
-          <span className="user-info-name">{user.name}</span>
+        <div className={styles.infoText}>
+          <span className={styles.infoLabel}>Signed in as:</span>
+          <span className={styles.userName}>{user.name}</span>
         </div>
       </div>
 
-      <button onClick={handleLogout} className="btn-logout" data-testid="sign-out-btn">
+      <button onClick={handleLogout} className={styles.logoutBtn} data-testid="sign-out-btn">
         Sign Out
       </button>
     </header>

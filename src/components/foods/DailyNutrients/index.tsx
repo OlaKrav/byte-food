@@ -1,8 +1,9 @@
-import { useFoodStore } from '../store/foodStore';
+import { useFoodStore } from '../../../store/foodStore';
 import {
   isValidKey,
   NUTRITIONAL_REQUIREMENTS_70KG,
-} from '../constants/nutritionalRequirements';
+} from '../../../constants/nutritionalRequirements';
+import styles from './DailyNutrients.module.css';
 
 const ESSENTIAL_AMINO_ACIDS = [
   { key: 'lysine', label: 'Lysine', unit: 'mg' },
@@ -64,10 +65,10 @@ export const DailyNutrients = () => {
     }
     if (category === 'macronutrients' && isValidKey('macronutrients', key)) {
       const macro = NUTRITIONAL_REQUIREMENTS_70KG.macronutrients[key];
-      if ('min' in macro && 'max' in macro) {
+      if (macro && 'min' in macro && 'max' in macro) {
         return macro.min.value;
       }
-      return macro?.value || 0;
+      return (macro as { value?: number })?.value || 0;
     }
     return 0;
   };
@@ -78,18 +79,24 @@ export const DailyNutrients = () => {
   };
 
   const getColorClass = (percentage: number): string => {
-    if (percentage < 50) return 'nutrient-block-red';
-    if (percentage < 80) return 'nutrient-block-yellow';
-    return 'nutrient-block-green';
+    if (percentage < 50) return styles.red;
+    if (percentage < 80) return styles.yellow;
+    return styles.green;
+  };
+
+  const getVariant = (percentage: number): 'red' | 'yellow' | 'green' => {
+    if (percentage < 50) return 'red';
+    if (percentage < 80) return 'yellow';
+    return 'green';
   };
 
   return (
-    <div className="daily-nutrients">
-      <h3 className="daily-nutrients-title">Daily Nutrients</h3>
+    <div className={styles.root}>
+      <h3 className={styles.title}>Daily Nutrients</h3>
 
-      <section className="nutrition-section">
-        <h4 className="section-title">Macronutrients</h4>
-        <div className="nutrition-blocks">
+      <section className={styles.section}>
+        <h4 className={styles.sectionTitle}>Macronutrients</h4>
+        <div className={styles.blocks}>
           {[
             {
               key: 'calories',
@@ -145,9 +152,9 @@ export const DailyNutrients = () => {
             const percentage = getPercentage(macro.value, required);
             const colorClass = getColorClass(percentage);
             return (
-              <div key={macro.key} className={`nutrient-block ${colorClass}`}>
-                <div className="nutrient-block-label">{macro.label}</div>
-                <div className="nutrient-block-value">
+              <div key={macro.key} className={`${styles.block} ${colorClass}`} data-testid="nutrient-block" data-variant={getVariant(percentage)}>
+                <div className={styles.blockLabel}>{macro.label}</div>
+                <div className={styles.blockValue}>
                   {formatValue(macro.value, macro.decimals)} /{' '}
                   {formatValue(required, macro.decimals)} {macro.unit}
                 </div>
@@ -157,9 +164,9 @@ export const DailyNutrients = () => {
         </div>
       </section>
 
-      <section className="nutrition-section">
-        <h4 className="section-title">Essential Amino Acids</h4>
-        <div className="nutrition-blocks">
+      <section className={styles.section}>
+        <h4 className={styles.sectionTitle}>Essential Amino Acids</h4>
+        <div className={styles.blocks}>
           {ESSENTIAL_AMINO_ACIDS.map((aminoAcid: AminoAcidItem) => {
             const value = dailyNutrients.essentialAminoAcids[aminoAcid.key];
             const required = getRequirement(
@@ -171,10 +178,12 @@ export const DailyNutrients = () => {
             return (
               <div
                 key={aminoAcid.key}
-                className={`nutrient-block ${colorClass}`}
+                className={`${styles.block} ${colorClass}`}
+                data-testid="nutrient-block"
+                data-variant={getVariant(percentage)}
               >
-                <div className="nutrient-block-label">{aminoAcid.label}</div>
-                <div className="nutrient-block-value">
+                <div className={styles.blockLabel}>{aminoAcid.label}</div>
+                <div className={styles.blockValue}>
                   {formatValue(value, 2)} / {formatValue(required, 2)}{' '}
                   {aminoAcid.unit}
                 </div>
@@ -184,18 +193,18 @@ export const DailyNutrients = () => {
         </div>
       </section>
 
-      <section className="nutrition-section">
-        <h4 className="section-title">Vitamins</h4>
-        <div className="nutrition-blocks">
+      <section className={styles.section}>
+        <h4 className={styles.sectionTitle}>Vitamins</h4>
+        <div className={styles.blocks}>
           {VITAMINS.map((vitamin: VitaminItem) => {
             const value = dailyNutrients.vitamins[vitamin.key];
             const required = getRequirement('vitamins', vitamin.key);
             const percentage = getPercentage(value, required);
             const colorClass = getColorClass(percentage);
             return (
-              <div key={vitamin.key} className={`nutrient-block ${colorClass}`}>
-                <div className="nutrient-block-label">{vitamin.label}</div>
-                <div className="nutrient-block-value">
+              <div key={vitamin.key} className={`${styles.block} ${colorClass}`} data-testid="nutrient-block" data-variant={getVariant(percentage)}>
+                <div className={styles.blockLabel}>{vitamin.label}</div>
+                <div className={styles.blockValue}>
                   {formatValue(value, 3)} / {formatValue(required, 3)}{' '}
                   {vitamin.unit}
                 </div>
@@ -205,18 +214,18 @@ export const DailyNutrients = () => {
         </div>
       </section>
 
-      <section className="nutrition-section">
-        <h4 className="section-title">Minerals</h4>
-        <div className="nutrition-blocks">
+      <section className={styles.section}>
+        <h4 className={styles.sectionTitle}>Minerals</h4>
+        <div className={styles.blocks}>
           {MINERALS.map((mineral: MineralItem) => {
             const value = dailyNutrients.minerals[mineral.key];
             const required = getRequirement('minerals', mineral.key);
             const percentage = getPercentage(value, required);
             const colorClass = getColorClass(percentage);
             return (
-              <div key={mineral.key} className={`nutrient-block ${colorClass}`}>
-                <div className="nutrient-block-label">{mineral.label}</div>
-                <div className="nutrient-block-value">
+              <div key={mineral.key} className={`${styles.block} ${colorClass}`} data-testid="nutrient-block" data-variant={getVariant(percentage)}>
+                <div className={styles.blockLabel}>{mineral.label}</div>
+                <div className={styles.blockValue}>
                   {formatValue(value, 2)} / {formatValue(required, 2)}{' '}
                   {mineral.unit}
                 </div>

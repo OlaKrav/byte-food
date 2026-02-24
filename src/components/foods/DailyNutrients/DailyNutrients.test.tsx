@@ -1,13 +1,13 @@
 import { describe, it, expect, vi, type Mock } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { DailyNutrients } from './DailyNutrients';
+import { DailyNutrients } from '.';
 import {
   useFoodStore,
   type FoodState,
   type IDailyNutrients,
-} from '../store/foodStore';
+} from '../../../store/foodStore';
 
-vi.mock('../store/foodStore', () => ({
+vi.mock('../../../store/foodStore', () => ({
   useFoodStore: vi.fn(),
 }));
 
@@ -82,7 +82,7 @@ describe('DailyNutrients Component', () => {
     expect(screen.getByText(/1250.5/)).toBeInTheDocument();
   });
 
-  it('verifies color class for low nutrient intake', () => {
+  it('verifies low nutrient intake shows red variant', () => {
     setupMockStore({
       vitamins: {
         ...createEmptyDailyNutrients().vitamins,
@@ -92,7 +92,7 @@ describe('DailyNutrients Component', () => {
 
     render(<DailyNutrients />);
 
-    const block = screen.getByText('Vitamin C').closest('.nutrient-block');
-    expect(block).toHaveClass('nutrient-block-red');
+    const vitaminCBlock = screen.getByText('Vitamin C').closest('[data-testid="nutrient-block"]');
+    expect(vitaminCBlock).toHaveAttribute('data-variant', 'red');
   });
 });

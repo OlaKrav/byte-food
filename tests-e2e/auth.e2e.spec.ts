@@ -37,9 +37,8 @@ test.describe('Authentication Flow', () => {
   });
 
   test('shows Google auth option', async ({ page }) => {
-    const googleWrapper = page.locator('.google-btn-wrapper');
+    const googleWrapper = page.getByTestId('google-login-container');
     await expect(googleWrapper).toBeVisible();
-    
     await expect(googleWrapper).not.toBeEmpty();
   });
 
